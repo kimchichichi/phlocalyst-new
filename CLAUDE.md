@@ -56,12 +56,12 @@ Both roots are created in `mount.jsx` via `ReactDOM.createRoot()`.
 
 Themes are driven entirely by CSS custom properties on `<html>`:
 
-- **`data-theme`** attribute: `warm` (default) | `midnight` | `cream` | `acid`
+- **`data-theme`** attribute: `midnight` (default) | `warm` | `cream` | `acid`
 - **`data-display`** attribute: `boldonse` (default) | `bagel` | `bigshoulders`
 
-The initial values come from `window.TWEAK_DEFAULTS` in a `<script>` block near the top of `Phlocalyst v3.html`. These are applied synchronously before page paint (to prevent a flash), then the tweaks panel re-applies them reactively via `applyTweaks()` in `mount.jsx`. To change the site's default theme, edit the `TWEAK_DEFAULTS` block.
+The initial values come from `window.TWEAK_DEFAULTS` in a `<script>` block near the top of `Phlocalyst v3.html`. These are applied synchronously before page paint (to prevent a flash), then the tweaks panel re-applies them reactively via `applyTweaks()` in `mount.jsx`. To change the site's default theme, edit the `TWEAK_DEFAULTS` block. Note: the `<html>` element has a hardcoded `data-theme="warm"` attribute, but `applyDefaults()` immediately overwrites it with the `TWEAK_DEFAULTS` value before first paint.
 
-The secondary pages (`Bio.html`, `Contact.html`, `On The Road.html`) default to the `midnight` theme and do not include the tweaks panel.
+The secondary pages (`Bio.html`, `Contact.html`, `On The Road.html`) also default to the `midnight` theme and do not include the tweaks panel.
 
 ### Audio Engine (`tapedeck.jsx`)
 
@@ -73,11 +73,11 @@ The engine is **purely synthesised — no audio files**. Four tracks are hardcod
 
 The Tone.js node graph is created **lazily on first play** to comply with browser autoplay policy. The signal chain is: synths → `lofiFilter` → `tapeWobble` → `reverb` → `compressor` → `master` → `meter` → `Tone.Destination`. Vinyl crackle (pink noise + high-pass) feeds into the same `lofiFilter`.
 
-The audio engine is exposed as `window.tapedeckEngine`; `TRACKS` is exposed as `window.TRACKS`.
+`TapeDeck` (the React component) and `TRACKS` (the track data array) are exposed to `window` via `Object.assign(window, { TapeDeck, TRACKS })` at the bottom of the file.
 
 ### Tweaks Panel (`tweaks-panel.jsx`)
 
-`useTweaks(defaults)` is the core hook — it manages state and persists to `localStorage`. The panel communicates its availability by posting `__edit_mode_available` to `window` and listening for `__activate_edit_mode`.
+`useTweaks(defaults)` is the core hook — it manages React state and persists changes by posting `__edit_mode_set_keys` to `window.parent`, which tells the host to rewrite the `TWEAK_DEFAULTS` block on disk. No `localStorage` is used. The panel announces itself by posting `__edit_mode_available` to `window.parent` and opens/closes in response to `__activate_edit_mode` / `__deactivate_edit_mode` messages from the host.
 
 ## Key Conventions
 
