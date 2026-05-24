@@ -89,11 +89,14 @@ The Tone.js node graph is created **lazily on first play** to comply with browse
 
 ## Artist Facts (for Content Changes)
 
-- **Artist:** Phlocalyst = Michiel De Vleeschhouwer
-- **Base:** Munich, Germany
+- **Artist:** Phlocalyst = Michiel De Vleeschhouwer (Flemish; born Sevilla, raised in Flanders)
+- **Base:** Munich, Germany (since 2016)
+- **Day job:** Third trumpet in a professional Munich orchestra; started producing in 2017
+- **Streams:** 200M+ on Spotify (per Nettwerk biography)
 - **Label:** Nettwerk Music Group — full recorded catalogue since 2022; sync licensing contact: `sync@nettwerk.com`
 - **Contact emails:** `booking@phlocalyst.com` (booking — handled by Annika Lehmann), `collabs@phlocalyst.com` (collaborations — Michiel personally), `hi@phlocalyst.com` (general)
 - **Spotify:** `open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt`
 - **Instagram:** `@phlocalyst`
-- **Insights (2022)** tracklist: Blue Fraction, Daylight, Morning Stroll, Aries, One of Those Things, Zeal, Beautiful Second, Moodswing
-- The four tape deck tracks reference real releases: "Daylight", "Blue Fraction", "Zeal" (all from *Insights*, Nettwerk, 2022) and "Serendipity" (with LESKY, Melting Pot Music, 2020)
+- ***Insights* EP (Dec 16, 2022, Nettwerk)** — debut release on the label; 8 tracks: Blue Fraction, Daylight, Morning Stroll, Aries, One of Those Things, Zeal, Beautiful Second, Moodswing
+- ***Page Break* (Jun 30, 2023, Nettwerk)** — second album; 7 tracks
+- The four tape deck tracks reference real releases: "Daylight", "Blue Fraction", "Zeal" (all from *Insights*, Nettwerk, 2022) and "Serendipity" (with LESKY, S!X - Music, Jun 2018). Note: `tapedeck.jsx` shows `label: 'MELTING POT'` and `release: 'w/ LESKY · 2020'` for Serendipity — both are incorrect per Discogs and Bandcamp; the real label is S!X - Music and the release year is 2018.
