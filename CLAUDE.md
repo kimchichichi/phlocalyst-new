@@ -98,5 +98,6 @@ The Tone.js node graph is created **lazily on first play** to comply with browse
 - **Spotify:** `open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt`
 - **Instagram:** `@phlocalyst`
 - ***Insights* EP (Dec 16, 2022, Nettwerk)** — debut release on the label; 8 tracks: Blue Fraction, Daylight, Morning Stroll, Aries, One of Those Things, Zeal, Beautiful Second, Moodswing
-- ***Page Break* (Jun 30, 2023, Nettwerk)** — second album; 7 tracks
+- ***Page Break* (Jun 30, 2023, Nettwerk)** — second album; 7 tracks: Rising Morning, Sapphire Bounce, Zeal Pt. 2, Marbles, Again, Emmitouflé, Our Time
+- Full discography with tracklists: see `output/discography.md`
 - The four tape deck tracks reference real releases: "Daylight", "Blue Fraction", "Zeal" (all from *Insights*, Nettwerk, 2022) and "Serendipity" (with LESKY, S!X - Music, Jun 2018). Note: `tapedeck.jsx` shows `label: 'MELTING POT'` and `release: 'w/ LESKY · 2020'` for Serendipity — both are incorrect per Discogs and Bandcamp; the real label is S!X - Music and the release year is 2018.
