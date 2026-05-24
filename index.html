@@ -1,0 +1,467 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Phlocalyst — Lo-Fi Producer &amp; Trumpeter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&family=Geist+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --ink:#1a1815;
+    --paper:#efebe1;
+    --paper-warm:#e8e2d3;
+    --mute:#7a766c;
+    --rule:#1a181520;
+    --accent:#a23a1f;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--paper);color:var(--ink);}
+  body{
+    font-family:'Newsreader', Georgia, serif;
+    font-weight:400;
+    font-size:21px;
+    line-height:1.45;
+    letter-spacing:-0.005em;
+    font-optical-sizing:auto;
+    -webkit-font-smoothing:antialiased;
+    text-rendering:optimizeLegibility;
+    padding:36px 28px 80px;
+    background-image:
+      radial-gradient(circle at 18% 12%, #e3dccb 0, transparent 38%),
+      radial-gradient(circle at 88% 78%, #e9e1d0 0, transparent 42%);
+  }
+  .wrap{max-width:760px;margin:0 auto;}
+  .mono{font-family:'Geist Mono', ui-monospace, monospace;font-size:12px;letter-spacing:0.02em;text-transform:uppercase;font-weight:500;}
+  a{color:inherit;text-decoration:none;border-bottom:1px solid var(--ink);padding-bottom:1px;transition:opacity .15s;}
+  a:hover{opacity:.5}
+  .mono a{border-bottom:none;text-decoration:underline;text-underline-offset:3px;text-decoration-thickness:1px;}
+  em, i{font-style:italic;}
+
+  /* TOP NAV */
+  header.top{
+    display:flex;justify-content:space-between;align-items:flex-start;
+    gap:24px;margin-bottom:96px;
+  }
+  header.top .who{max-width:380px;}
+  header.top .meta{text-align:right;color:var(--mute);}
+  header.top .meta .dot{display:inline-block;width:7px;height:7px;border-radius:50%;background:#3a8a3a;margin-right:6px;vertical-align:1px;animation:pulse 2.4s ease-in-out infinite;}
+  @keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+
+  /* INTRO PARAGRAPH */
+  .intro{font-size:27px;line-height:1.34;letter-spacing:-0.012em;margin-bottom:120px;max-width:680px;}
+  .intro em{font-style:italic;color:var(--mute);}
+  .intro .marker{color:var(--accent);font-style:italic;}
+
+  /* SECTION LABEL */
+  .section-label{
+    color:var(--mute);
+    margin-bottom:48px;
+    padding-bottom:14px;
+    border-bottom:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;gap:24px;
+  }
+  .section-label .count{color:var(--ink);opacity:.5}
+
+  section.block{margin-bottom:104px;}
+
+  /* PROJECT / RELEASE ENTRIES (Danilo-style paragraph entries) */
+  .entry{
+    margin-bottom:44px;
+    display:grid;
+    grid-template-columns:64px 1fr;
+    gap:18px;
+    align-items:baseline;
+  }
+  .entry .idx{
+    font-family:'Geist Mono', monospace;
+    font-size:11px;
+    letter-spacing:0.05em;
+    color:var(--mute);
+    padding-top:8px;
+    font-weight:500;
+  }
+  .entry .body{font-size:22px;line-height:1.45;}
+  .entry .body em{color:var(--ink);}
+  .entry .credits{
+    display:block;
+    font-family:'Geist Mono', monospace;
+    font-size:11.5px;
+    letter-spacing:0.01em;
+    text-transform:uppercase;
+    color:var(--mute);
+    margin-top:10px;
+    line-height:1.7;
+  }
+  .entry .credits .sep{margin:0 8px;opacity:.5;}
+  .entry .credits b{font-weight:500;color:var(--ink);}
+
+  /* hover marker that pops a preview */
+  .peek{
+    display:inline-block;
+    position:relative;
+    margin-left:4px;
+    color:var(--accent);
+    cursor:pointer;
+    font-style:normal;
+    border-bottom:none;
+    transform:translateY(-1px);
+  }
+  .peek::after{
+    content:'';
+    position:absolute;
+    left:50%;
+    top:calc(100% + 14px);
+    transform:translateX(-50%) scale(.92);
+    width:240px;height:240px;
+    background:var(--cover, #2a2a2a);
+    background-size:cover;background-position:center;
+    border-radius:4px;
+    box-shadow:0 18px 40px rgba(0,0,0,.18), 0 2px 6px rgba(0,0,0,.08);
+    opacity:0;pointer-events:none;
+    transition:opacity .18s ease, transform .22s ease;
+    z-index:5;
+  }
+  .peek:hover::after{opacity:1;transform:translateX(-50%) scale(1);}
+
+  /* For the WORKS section: cover art as text-driven gradient placeholders */
+  [data-cover="insights"]{ --cover: radial-gradient(circle at 30% 30%, #f4b860, #c25f2b 60%, #3a1a12); }
+  [data-cover="daylight"]{ --cover: linear-gradient(150deg, #f9d27a, #e58438 70%, #7a3a1a); }
+  [data-cover="bluefraction"]{ --cover: linear-gradient(160deg, #2e4a6b, #1a2840 60%, #0c1320); }
+  [data-cover="zeal"]{ --cover: linear-gradient(135deg, #d8a878, #8a4d2a 70%, #2c1610); }
+  [data-cover="serendipity"]{ --cover: linear-gradient(140deg, #cfe0c8, #6a8a78 70%, #2a3a35); }
+  [data-cover="parapluie"]{ --cover: linear-gradient(150deg, #b8c2d8, #5b6c8e 60%, #232c45); }
+  [data-cover="slumber"]{ --cover: linear-gradient(155deg, #2a2f4a, #1a1d33 70%, #0a0b15); }
+  [data-cover="arise"]{ --cover: linear-gradient(135deg, #e5c89a, #b88346 60%, #5a3320); }
+  [data-cover="wednesday"]{ --cover: linear-gradient(140deg, #6e87a8, #3a4d6b 70%, #1c2435); }
+  [data-cover="lesky"]{ --cover: linear-gradient(150deg, #d6b3a4, #8a5840 60%, #3a201a); }
+  [data-cover="oatmello"]{ --cover: linear-gradient(145deg, #f0e0b5, #c89e58 70%, #5e3e1c); }
+  [data-cover="memories"]{ --cover: linear-gradient(135deg, #c8a890, #6e4a36 70%, #2a1810); }
+
+  /* SHELF — table-y list for selected appearances */
+  .shelf{display:grid;grid-template-columns:1fr 1fr;gap:0;border-top:1px solid var(--rule);}
+  .shelf .row{
+    display:contents;
+  }
+  .shelf .row > div{
+    padding:14px 0;
+    border-bottom:1px solid var(--rule);
+  }
+  .shelf .row .l{font-size:20px;}
+  .shelf .row .r{font-family:'Geist Mono',monospace;font-size:11.5px;letter-spacing:0.02em;text-transform:uppercase;color:var(--mute);text-align:right;align-self:center;}
+  .shelf .row .r b{color:var(--ink);font-weight:500;}
+
+  /* PRESS pull-quotes */
+  .quotes{display:grid;grid-template-columns:1fr 1fr;gap:32px;}
+  .quote{font-size:19px;line-height:1.45;font-style:italic;color:var(--ink);}
+  .quote .src{display:block;margin-top:14px;font-style:normal;font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;color:var(--mute);}
+
+  /* FOOTER */
+  footer{
+    margin-top:120px;padding-top:28px;border-top:1px solid var(--rule);
+    display:grid;grid-template-columns:1fr 1fr;gap:32px;align-items:start;
+  }
+  footer .col h4{font-family:'Geist Mono',monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;color:var(--mute);font-weight:500;margin-bottom:14px;}
+  footer .col p, footer .col li{font-size:19px;line-height:1.5;}
+  footer ul{list-style:none;}
+  footer .colophon{
+    grid-column:1 / -1;
+    margin-top:48px;padding-top:18px;border-top:1px solid var(--rule);
+    display:flex;justify-content:space-between;align-items:baseline;
+    font-family:'Geist Mono',monospace;font-size:10.5px;letter-spacing:0.04em;text-transform:uppercase;color:var(--mute);
+  }
+
+  /* utility */
+  .arrow{display:inline-block;transform:translateY(-1px);}
+  .alt{color:var(--accent);font-style:italic;}
+
+  @media (max-width:680px){
+    body{font-size:18px;padding:24px 18px 60px;}
+    header.top{flex-direction:column;gap:8px;margin-bottom:64px;}
+    header.top .meta{text-align:left;}
+    .intro{font-size:23px;margin-bottom:80px;}
+    .entry{grid-template-columns:1fr;gap:6px;}
+    .entry .idx{padding-top:0;}
+    .entry .body{font-size:20px;}
+    .shelf{grid-template-columns:1fr;}
+    .shelf .row .r{text-align:left;padding-top:0;border-bottom:1px solid var(--rule);}
+    .quotes{grid-template-columns:1fr;}
+    footer{grid-template-columns:1fr;}
+    .peek::after{width:180px;height:180px;}
+  }
+</style>
+</head>
+<body>
+<main class="wrap" data-screen-label="01 Phlocalyst Home">
+
+  <!-- TOP NAV -->
+  <header class="top">
+    <div class="who">
+      <div class="mono" style="margin-bottom:10px;">Phlocalyst <span style="opacity:.5">— Michiel De Vleeschhouwer</span></div>
+      <div style="font-size:22px;line-height:1.35;">
+        Lo-fi producer &amp; classical trumpet&nbsp;player, based in Munich by way of Flanders.
+      </div>
+    </div>
+    <div class="meta mono">
+      <div><span class="dot"></span>Available for features &amp; live&nbsp;sets</div>
+      <div style="margin-top:6px;opacity:.7;">May 2026 — Munich, DE</div>
+    </div>
+  </header>
+
+  <!-- INTRO -->
+  <p class="intro">
+    Phlocalyst makes <em>jazz-hop</em> — muted trumpet looped over warm, dust-flecked beats and phased Rhodes. By day he plays in a professional orchestra; by night he sketches with an iPad, an SP-404 and a horn he's held since he was five. <span class="alt">Two-hundred million streams later</span>, the music still sounds like a room you used to know.
+  </p>
+
+  <!-- WORKS / RELEASES -->
+  <section class="block" data-screen-label="02 Releases">
+    <div class="section-label mono">
+      <span>Selected Releases — 2019&nbsp;→&nbsp;2026</span>
+      <span class="count">012</span>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2022 / LP</div>
+      <div class="body">
+        <em>Insights</em> — a debut long-player conceived in February quarantine, eight tracks of muted trumpet and mystical beats slathered in funky melodies<span class="peek" data-cover="insights">︎</span>. A jazzy instrumental hip-hop collage about the people and life around the&nbsp;music.
+        <span class="credits">
+          Released on <b>Nettwerk Music Group</b>
+          <span class="sep">/</span> Cover art, <b>Giza</b>
+          <span class="sep">/</span> Mix, Phlocalyst
+          <span class="sep">·</span> 8 tracks, 26&nbsp;mins
+        </span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2022 / Single</div>
+      <div class="body">
+        <em>Daylight</em> — bouncy Rhodes chords, an antique-sounding trumpet that jumps in for the melody, a shaker loop tying it all together<span class="peek" data-cover="daylight">︎</span>. Lead single from <em>Insights</em>; placed at <span class="alt">#3 on Spotify's lofi&nbsp;beats</span> editorial (4.8M&nbsp;likes).
+        <span class="credits">
+          For <b>Nettwerk</b>
+          <span class="sep">/</span> Trumpet, Rhodes, drums — Phlocalyst
+          <span class="sep">·</span> First single from the debut&nbsp;LP
+        </span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2022 / Single</div>
+      <div class="body">
+        <em>Blue Fraction</em> — slower, bluer, a small trumpet improvisation suspended over a low-passed kit<span class="peek" data-cover="bluefraction">︎</span>. Added to Spotify's <em>lush lofi</em> on release (998K&nbsp;likes).
+        <span class="credits">
+          For <b>Nettwerk</b>
+          <span class="sep">/</span> All instruments, Phlocalyst
+          <span class="sep">·</span> Second single from <em>Insights</em>
+        </span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2022 / Single</div>
+      <div class="body">
+        <em>Zeal</em> — bright and uptempo for a Phlocalyst record, a small horn fanfare that doesn't outstay its welcome<span class="peek" data-cover="zeal">︎</span>. Picked up by Amazon Music's <em>Lo-Fi Hip Hop</em> across&nbsp;Europe.
+        <span class="credits">
+          For <b>Nettwerk</b>
+          <span class="sep">/</span> Third single from <em>Insights</em>
+          <span class="sep">·</span> Released Nov&nbsp;2022
+        </span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2020 / EP</div>
+      <div class="body">
+        <em>Serendipity</em> — a five-track collaborative EP with Cologne beatmaker LESKY, half-improvised across a long weekend<span class="peek" data-cover="serendipity">︎</span>. Released on Melting Pot Music; the two have orbited each other&nbsp;since.
+        <span class="credits">
+          With <b>LESKY</b>
+          <span class="sep">/</span> On <b>Melting Pot Music</b>
+          <span class="sep">·</span> Cologne&nbsp;↔&nbsp;Munich
+        </span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2021 / Single</div>
+      <div class="body">
+        <em>Parapluie</em> (feat. m e a d o w) — rain-soft vocals folded into trumpet phrases that feel half-remembered<span class="peek" data-cover="parapluie">︎</span>. A track that quietly tipped the catalogue past one&nbsp;hundred&nbsp;million&nbsp;streams.
+        <span class="credits">
+          With <b>m e a d o w</b>
+          <span class="sep">/</span> Vocals, lyrics, harmony
+          <span class="sep">·</span> Produced &amp; arranged, Phlocalyst
+        </span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2021 / Single</div>
+      <div class="body">
+        <em>Slumber</em> (feat. Flynn) — a four-AM record, mellow synths, brushed kit, the kind of trumpet line you only play when nobody's looking<span class="peek" data-cover="slumber">︎</span>. Released with an official video shot in a single take in a Munich loft.
+        <span class="credits">
+          With <b>Flynn</b>
+          <span class="sep">/</span> Video, dir. <b>Lukas Hauser</b>
+          <span class="sep">·</span> Filmed in Munich, DE
+        </span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2020 / LP</div>
+      <div class="body">
+        <em>Arise</em> — a Sunday-morning beat tape: orchestral fragments, sampled vinyl, the trumpet pushed close to the&nbsp;mic<span class="peek" data-cover="arise">︎</span>. The record that first put Phlocalyst on lofi&nbsp;girl rotations.
+        <span class="credits">
+          Self-released
+          <span class="sep">/</span> Mastered by <b>Marvin Horsch</b>
+          <span class="sep">·</span> 12 tracks
+        </span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2022 / Comp.</div>
+      <div class="body">
+        <em>Wednesday</em> — contribution to Hip Dozer's <em>Midnight Glow Vol.&nbsp;3</em>; mellow synthesizers and piano, hip-hop beat, a laidback midnight cruising&nbsp;vibe<span class="peek" data-cover="wednesday">︎</span>.
+        <span class="credits">
+          For <b>Hip Dozer Records</b>
+          <span class="sep">/</span> On <em>Midnight Glow Vol.&nbsp;3</em>
+          <span class="sep">·</span> May&nbsp;2022
+        </span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2020 / Single</div>
+      <div class="body">
+        <em>South Wes</em> (on LESKY's <em>Plata</em>) — a Wes Montgomery-leaning instrumental with The Breed on keys; trumpet bouncing off the chords in bright exchange<span class="peek" data-cover="lesky">︎</span>.
+        <span class="credits">
+          With <b>LESKY</b>, <b>The Breed</b>
+          <span class="sep">/</span> Co-prod. <b>Flynn</b>, <b>Cuebe</b>
+          <span class="sep">·</span> On Melting Pot Music
+        </span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2019 / EP</div>
+      <div class="body">
+        <em>Oatmello Sessions</em> — early collaborations with Oatmello and SCayos that quietly built the catalogue Nettwerk eventually came calling&nbsp;for<span class="peek" data-cover="oatmello">︎</span>.
+        <span class="credits">
+          With <b>Oatmello</b>, <b>SCayos</b>
+          <span class="sep">/</span> Self-released
+          <span class="sep">·</span> The pre-label years
+        </span>
+      </div>
+    </div>
+
+    <div class="entry">
+      <div class="idx">2023 / Single</div>
+      <div class="body">
+        <em>Memories</em> (with Mr.&nbsp;Käfer) — a slow burner: warm Wurlitzer, a single muted trumpet hook played four different ways across the runtime<span class="peek" data-cover="memories">︎</span>.
+        <span class="credits">
+          With <b>Mr. Käfer</b>
+          <span class="sep">/</span> On <b>Chillhop Music</b>
+          <span class="sep">·</span> Hover the marker — that's the artwork
+        </span>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE / APPEARANCES -->
+  <section class="block" data-screen-label="03 Live">
+    <div class="section-label mono">
+      <span>Live — DJ sets with live trumpet</span>
+      <span class="count">Selected</span>
+    </div>
+
+    <div class="shelf">
+      <div class="row">
+        <div class="l"><em>Lofi Girl</em> — Live Session, Paris</div>
+        <div class="r"><b>2024</b> · trumpet + sp-404</div>
+      </div>
+      <div class="row">
+        <div class="l"><em>Nettwerk Night</em> — Brussels Jazz Weekend</div>
+        <div class="r"><b>2023</b> · with Flynn, LESKY</div>
+      </div>
+      <div class="row">
+        <div class="l"><em>Boiler Room</em> — Munich, late set</div>
+        <div class="r"><b>2023</b> · solo, ~70&nbsp;min</div>
+      </div>
+      <div class="row">
+        <div class="l"><em>Sónar+D</em> — Barcelona</div>
+        <div class="r"><b>2023</b> · trumpet + beats</div>
+      </div>
+      <div class="row">
+        <div class="l"><em>Pukkelpop</em> — Kiewit, BE</div>
+        <div class="r"><b>2022</b> · castello stage</div>
+      </div>
+      <div class="row">
+        <div class="l"><em>Le&nbsp;Trianon</em> — Paris (w/ Oatmello)</div>
+        <div class="r"><b>2022</b> · co-headline</div>
+      </div>
+      <div class="row">
+        <div class="l"><em>Ancienne Belgique</em> — Brussels</div>
+        <div class="r"><b>2021</b> · solo</div>
+      </div>
+      <div class="row">
+        <div class="l"><em>Munich Philharmonie</em> — Day&nbsp;job</div>
+        <div class="r"><b>ongoing</b> · third trumpet</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PRESS -->
+  <section class="block" data-screen-label="04 Press">
+    <div class="section-label mono">
+      <span>Press</span>
+      <span class="count">004</span>
+    </div>
+
+    <div class="quotes">
+      <div class="quote">
+        "A voyage of muted trumpet and mystical beats slathered in funky melodies — musical positivity with a touch of nostalgia."
+        <span class="src">Nettwerk · on <em>Insights</em></span>
+      </div>
+      <div class="quote">
+        "A Flemish trumpet savant. Phlocalyst has been a pioneer of bringing lo-fi beyond the computer screen — DJ sets with live trumpet across Belgium, Spain, Germany, France."
+        <span class="src">Nettwerk Newsroom</span>
+      </div>
+      <div class="quote">
+        "Best music is usually created when he's feeling unwell, where he can embrace and express those overwhelming and raw emotions."
+        <span class="src">Self-portrait, written during <em>Insights</em></span>
+      </div>
+      <div class="quote">
+        "Lush, textured compositions that transport listeners into a world of serene soundscapes — the legacy of J Dilla and Robert Glasper, on a horn."
+        <span class="src">Vinyl Me, Please</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer data-screen-label="05 Contact">
+    <div class="col">
+      <h4>Get in touch</h4>
+      <ul>
+        <li>Booking, EU — <a href="mailto:booking@phlocalyst.com">booking@phlocalyst.com</a></li>
+        <li>Sync &amp; licensing — <a href="mailto:sync@nettwerk.com">sync@nettwerk.com</a></li>
+        <li>Everything else — <a href="mailto:hi@phlocalyst.com">hi@phlocalyst.com</a></li>
+      </ul>
+    </div>
+    <div class="col">
+      <h4>Elsewhere</h4>
+      <ul>
+        <li><a href="#">Spotify</a> <span style="color:var(--mute)">— 1.8M monthly</span></li>
+        <li><a href="#">Bandcamp</a> <span style="color:var(--mute)">— full back catalogue</span></li>
+        <li><a href="#">Instagram</a> <span style="color:var(--mute)">— @phlocalyst</span></li>
+        <li><a href="#">YouTube</a> <span style="color:var(--mute)">— live sessions</span></li>
+      </ul>
+    </div>
+    <div class="colophon">
+      <span>© Michiel De Vleeschhouwer / Phlocalyst — 2026</span>
+      <span>Set in Newsreader &amp; Geist Mono</span>
+    </div>
+  </footer>
+
+</main>
+</body>
+</html>

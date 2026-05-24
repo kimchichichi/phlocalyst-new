@@ -1,0 +1,762 @@
+<!doctype html>
+<html lang="en" data-theme="midnight" data-display="boldonse">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Bio — Michiel De Vleeschhouwer / Phlocalyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Bagel+Fat+One&family=Big+Shoulders+Display:wght@700;900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --coal:#161009;--coal-2:#1f180e;--cream:#f5ead0;--cream-dim:#bdb29a;
+    --orange:#ff5a1f;--amber:#f0a431;--acid:#d4e23a;--oxblood:#7a1f15;
+    --rule:rgba(245,234,208,0.16);
+    --display:'Boldonse','Arial Black',sans-serif;
+    --grain:0.06;--marquee-dur:56s;
+  }
+  html[data-theme="midnight"]{--coal:#0b0f1d;--coal-2:#141a30;--cream:#e8e4d0;--cream-dim:#9aa3b8;--orange:#5b8aff;--amber:#ffd060;--acid:#7eebd7;--oxblood:#3a2255;--rule:rgba(232,228,208,0.14);}
+  html[data-theme="cream"]{--coal:#efe6cc;--coal-2:#e6dab8;--cream:#1a1410;--cream-dim:#5a4a36;--orange:#d8431a;--amber:#c98a1b;--acid:#7a8a1f;--oxblood:#7a1f15;--rule:rgba(26,20,16,0.18);}
+  html[data-theme="acid"]{--coal:#0a0a06;--coal-2:#161208;--cream:#eaeaea;--cream-dim:#7a7a6a;--orange:#d4e23a;--amber:#a8ff3e;--acid:#ff2dd1;--oxblood:#2a3a05;--rule:rgba(234,234,234,0.16);}
+  html[data-display="bagel"]{--display:'Bagel Fat One','Arial Black',sans-serif;}
+  html[data-display="bigshoulders"]{--display:'Big Shoulders Display','Arial Black',sans-serif;}
+
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{background:var(--coal);color:var(--cream);}
+  body{
+    font-family:'Bricolage Grotesque',system-ui,sans-serif;
+    font-size:16px;line-height:1.5;overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 12% 10%,color-mix(in oklab,var(--orange) 18%,transparent),transparent 40%),
+      radial-gradient(circle at 90% 80%,color-mix(in oklab,var(--amber) 14%,transparent),transparent 45%);
+  }
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;opacity:var(--grain);mix-blend-mode:overlay;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  a{color:inherit;text-decoration:none;}
+  .display{font-family:var(--display);letter-spacing:-0.02em;line-height:.85;text-transform:uppercase;}
+  .mono{font-family:'DM Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;}
+  .ed{font-family:'Newsreader',Georgia,serif;}
+
+  /* TOP BAR */
+  .topbar{position:sticky;top:0;z-index:50;display:flex;align-items:center;justify-content:space-between;padding:14px 26px;background:color-mix(in oklab,var(--coal) 78%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule);}
+  .topbar .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:14px;letter-spacing:.02em;}
+  .topbar .brand .glyph{width:20px;height:20px;border-radius:50%;background:radial-gradient(circle at 35% 35%,var(--amber),var(--orange) 50%,var(--oxblood));box-shadow:inset 0 0 0 2px var(--coal),inset 0 0 0 3px var(--cream);}
+  .topbar nav{display:flex;gap:22px;}
+  .topbar nav a{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);transition:color .15s;}
+  .topbar nav a:hover, .topbar nav a.active{color:var(--orange);}
+  .topbar nav a.active{border-bottom:1px solid var(--orange);padding-bottom:2px;}
+  .topbar .right .back{font-family:'DM Mono',monospace;font-size:11px;color:var(--cream-dim);letter-spacing:.1em;text-transform:uppercase;}
+  .topbar .right .back:hover{color:var(--cream);}
+
+  /* MARQUEE */
+  .marquee{overflow:hidden;white-space:nowrap;border-block:1px solid var(--rule);padding:14px 0;background:var(--coal-2);}
+  .marquee.bold{background:var(--orange);color:var(--coal);border-color:var(--orange);}
+  .marquee .track{display:inline-flex;gap:42px;animation:scroll var(--marquee-dur) linear infinite;}
+  .marquee.fast .track{animation-duration:calc(var(--marquee-dur) * .58);}
+  .marquee .item{font-family:var(--display);font-size:30px;letter-spacing:-.01em;display:inline-flex;align-items:center;gap:42px;text-transform:uppercase;}
+  .marquee .star{color:var(--amber);}.marquee.bold .star{color:var(--coal);}
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+
+  /* HERO */
+  .hero{max-width:1280px;margin:0 auto;padding:54px 26px 80px;position:relative;}
+  .hero .topline{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;color:var(--cream-dim);margin-bottom:32px;}
+  .hero .topline .right{text-align:right;}
+  .hero-grid{display:grid;grid-template-columns:380px 1fr;gap:50px;align-items:end;}
+  .portrait{
+    position:relative;
+    aspect-ratio:3/4;
+    border-radius:10px;
+    overflow:hidden;
+    background:
+      linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.4)),
+      radial-gradient(circle at 40% 35%,#6a5236,#2a1810 70%);
+    border:1px solid var(--rule);
+    box-shadow:0 30px 80px rgba(0,0,0,.4);
+  }
+  .portrait::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.06) 1px,transparent 1px);background-size:4px 4px;mix-blend-mode:overlay;}
+  .portrait .silhouette{position:absolute;left:0;right:0;bottom:0;height:80%;opacity:.4;color:#000;}
+  .portrait .stamp{position:absolute;top:14px;left:14px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.18em;text-transform:uppercase;color:rgba(245,234,208,.7);background:rgba(0,0,0,.4);padding:6px 8px;border-radius:3px;backdrop-filter:blur(3px);}
+  .portrait .cap{position:absolute;bottom:14px;left:14px;right:14px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:rgba(245,234,208,.85);text-shadow:0 1px 4px rgba(0,0,0,.6);}
+  .portrait .cap b{display:block;font-family:var(--display);font-size:14px;color:var(--cream);margin-bottom:2px;}
+  .hero h1{font-family:var(--display);font-size:clamp(56px,8vw,128px);line-height:.84;letter-spacing:-.025em;text-transform:uppercase;color:var(--cream);}
+  .hero h1 .alt{color:var(--orange);}
+  .hero .real{font-family:'DM Mono',monospace;font-size:13px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);margin-top:14px;}
+  .hero .real b{color:var(--cream);}
+  .hero .lede{font-family:'Newsreader',Georgia,serif;font-size:26px;line-height:1.4;font-weight:300;margin-top:22px;max-width:680px;color:var(--cream);}
+  .hero .lede em{color:var(--amber);font-style:italic;}
+
+  /* QUICK FACTS BAR */
+  .facts{max-width:1280px;margin:0 auto;padding:0 26px 70px;}
+  .facts-grid{
+    display:grid;grid-template-columns:repeat(5,1fr);gap:0;
+    border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
+  }
+  .fact{padding:24px 22px;border-right:1px solid var(--rule);}
+  .fact:last-child{border-right:0;}
+  .fact .l{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);}
+  .fact .v{font-family:var(--display);font-size:32px;line-height:1;margin-top:10px;text-transform:uppercase;letter-spacing:-.01em;}
+  .fact .v.hot{color:var(--orange);}
+  .fact .s{font-size:13px;color:var(--cream-dim);margin-top:6px;font-family:'DM Mono',monospace;letter-spacing:.04em;text-transform:uppercase;}
+
+  /* SECTION HEAD */
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:36px;padding-bottom:18px;border-bottom:1px solid var(--rule);}
+  .section-head h2{font-family:var(--display);font-size:64px;line-height:.9;text-transform:uppercase;letter-spacing:-.02em;}
+  .section-head h2 .c{color:var(--orange);}
+  .section-head .meta{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);text-align:right;}
+
+  /* STORY — long-form prose */
+  .story-section{max-width:1280px;margin:0 auto;padding:60px 26px;}
+  .story{display:grid;grid-template-columns:200px 1fr;gap:60px;}
+  .story aside{position:sticky;top:90px;align-self:start;}
+  .story aside .l{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+  .story aside .chap{font-family:var(--display);font-size:28px;line-height:.95;text-transform:uppercase;letter-spacing:-.02em;}
+  .story .prose{font-family:'Newsreader',Georgia,serif;font-size:22px;line-height:1.55;font-weight:400;max-width:680px;color:var(--cream);}
+  .story .prose p{margin-bottom:24px;}
+  .story .prose p em{color:var(--amber);font-style:italic;}
+  .story .prose .dropcap::first-letter{
+    float:left;font-family:var(--display);font-size:84px;line-height:.78;
+    color:var(--orange);padding-right:14px;padding-top:4px;text-transform:uppercase;
+  }
+  .story .prose blockquote{
+    border-left:3px solid var(--orange);
+    padding:6px 0 6px 22px;margin:32px 0;
+    font-style:italic;font-size:24px;color:var(--amber);
+  }
+  .story .prose .aside-line{
+    font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;
+    color:var(--cream-dim);margin:32px 0;display:flex;align-items:center;gap:12px;
+  }
+  .story .prose .aside-line::before, .story .prose .aside-line::after{
+    content:'';flex:1;height:1px;background:var(--rule);
+  }
+
+  /* TIMELINE */
+  .tl-section{background:var(--coal-2);border-block:1px solid var(--rule);padding:100px 0;position:relative;overflow:hidden;}
+  .tl-section .inner{max-width:1280px;margin:0 auto;padding:0 26px;position:relative;z-index:1;}
+  .timeline{margin-top:30px;border-top:1px solid var(--rule);}
+  .tl-row{
+    display:grid;grid-template-columns:130px 1fr 1.6fr;gap:30px;align-items:start;
+    padding:24px 8px;border-bottom:1px solid var(--rule);
+    transition:background .15s ease,padding .15s ease;
+  }
+  .tl-row:hover{background:color-mix(in oklab,var(--orange) 8%,transparent);padding-left:18px;}
+  .tl-row .year{font-family:var(--display);font-size:42px;line-height:1;text-transform:uppercase;letter-spacing:-.01em;color:var(--cream);}
+  .tl-row .year.hot{color:var(--orange);}
+  .tl-row .title{font-family:var(--display);font-size:22px;line-height:1.05;text-transform:uppercase;letter-spacing:-.005em;color:var(--amber);}
+  .tl-row .title small{display:block;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--cream-dim);margin-top:6px;text-transform:uppercase;}
+  .tl-row .desc{font-size:17px;line-height:1.5;color:var(--cream);max-width:580px;}
+  .tl-row .desc em{color:var(--amber);font-style:italic;}
+
+  /* INFLUENCES grid */
+  .inf-section{max-width:1280px;margin:0 auto;padding:100px 26px 40px;}
+  .inf-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+  .inf{
+    aspect-ratio:1/1.2;border-radius:8px;overflow:hidden;
+    background:var(--inf-bg,linear-gradient(135deg,#3a2818,#1a1208));
+    position:relative;display:flex;flex-direction:column;justify-content:flex-end;
+    padding:18px;border:1px solid var(--rule);transition:transform .25s ease;cursor:pointer;
+  }
+  .inf:hover{transform:translateY(-4px);}
+  .inf::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.7) 100%);}
+  .inf::after{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(255,255,255,.08) 1px,transparent 1px);background-size:4px 4px;mix-blend-mode:overlay;}
+  .inf .name{font-family:var(--display);font-size:22px;text-transform:uppercase;letter-spacing:-.01em;line-height:1;color:var(--cream);position:relative;z-index:1;}
+  .inf .what{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);margin-top:8px;position:relative;z-index:1;}
+  .inf .note{font-size:13px;line-height:1.4;color:var(--cream);margin-top:12px;position:relative;z-index:1;opacity:.9;}
+  .inf-1{--inf-bg:radial-gradient(circle at 30% 30%,#6a5236,#1a1208 70%);}
+  .inf-2{--inf-bg:linear-gradient(150deg,#4c7099,#1a2840 60%,#0c1320);}
+  .inf-3{--inf-bg:radial-gradient(circle at 60% 40%,#8a4d2a,#2c1610 70%);}
+  .inf-4{--inf-bg:linear-gradient(135deg,#3a4a3a,#0a1a0e);}
+  .inf-5{--inf-bg:linear-gradient(150deg,#f0a431,#7a3a14 70%,#1a0e08);}
+  .inf-6{--inf-bg:linear-gradient(155deg,#3a4068,#1a1d33 70%,#0a0b15);}
+  .inf-7{--inf-bg:linear-gradient(165deg,#c25f2b,#5a1f10);}
+  .inf-8{--inf-bg:linear-gradient(135deg,#e5c89a,#b88346 60%,#5a3320);}
+
+  /* GEAR / SETUP */
+  .gear-section{max-width:1280px;margin:0 auto;padding:80px 26px;}
+  .gear-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:30px;}
+  .gear-col{}
+  .gear-col h3{font-family:var(--display);font-size:24px;text-transform:uppercase;letter-spacing:-.01em;color:var(--amber);margin-bottom:18px;padding-bottom:10px;border-bottom:1px solid var(--rule);}
+  .gear-col ul{list-style:none;}
+  .gear-col li{
+    display:grid;grid-template-columns:1fr auto;gap:12px;align-items:baseline;
+    padding:12px 0;border-bottom:1px solid var(--rule);
+  }
+  .gear-col li .it{font-size:17px;color:var(--cream);}
+  .gear-col li .it small{display:block;font-family:'DM Mono',monospace;font-size:10px;color:var(--cream-dim);letter-spacing:.08em;text-transform:uppercase;margin-top:4px;}
+  .gear-col li .tag{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);}
+  .gear-col li.fav .it::before{content:'★ ';color:var(--amber);}
+
+  /* DAY-IN-LIFE */
+  .day-section{background:var(--coal-2);border-block:1px solid var(--rule);padding:100px 26px;}
+  .day-section .inner{max-width:1280px;margin:0 auto;}
+  .day-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:20px;}
+  .day-row{display:grid;grid-template-columns:100px 1fr;gap:20px;padding:18px 20px;border:1px solid var(--rule);border-radius:8px;background:color-mix(in oklab,var(--cream) 3%,transparent);}
+  .day-row .t{font-family:var(--display);font-size:22px;line-height:1;letter-spacing:-.01em;color:var(--orange);}
+  .day-row .what b{font-family:var(--display);text-transform:uppercase;font-size:15px;letter-spacing:-.005em;color:var(--cream);display:block;margin-bottom:4px;}
+  .day-row .what{font-size:14px;line-height:1.4;color:var(--cream-dim);}
+
+  /* QUOTES */
+  .qs-section{max-width:1280px;margin:0 auto;padding:80px 26px;}
+  .qs-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;}
+  .pq{padding:30px;border:1px solid var(--rule);border-radius:10px;background:color-mix(in oklab,var(--cream) 3%,transparent);}
+  .pq .q{font-family:'Newsreader',Georgia,serif;font-size:24px;line-height:1.4;font-style:italic;color:var(--cream);}
+  .pq .q::before{content:'\\201C';font-size:50px;line-height:0;vertical-align:-22px;color:var(--orange);margin-right:6px;}
+  .pq .src{margin-top:18px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);}
+  .pq .src b{color:var(--cream);}
+
+  /* FAQ */
+  .faq-section{max-width:1280px;margin:0 auto;padding:80px 26px;}
+  .faq{margin-top:30px;border-top:1px solid var(--rule);}
+  .faq details{border-bottom:1px solid var(--rule);padding:0;}
+  .faq summary{
+    list-style:none;cursor:pointer;
+    display:flex;justify-content:space-between;align-items:center;
+    padding:24px 8px;
+    font-family:var(--display);font-size:24px;letter-spacing:-.01em;text-transform:uppercase;
+    line-height:1.1;color:var(--cream);transition:color .15s ease;
+  }
+  .faq summary::-webkit-details-marker{display:none;}
+  .faq summary:hover{color:var(--orange);}
+  .faq summary::after{content:'+';font-family:'DM Mono',monospace;font-size:24px;color:var(--orange);transition:transform .2s ease;}
+  .faq details[open] summary::after{content:'−';}
+  .faq .a{padding:0 8px 28px;font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.55;color:var(--cream);max-width:840px;}
+  .faq .a em{color:var(--amber);font-style:italic;}
+
+  /* CTA */
+  .cta{max-width:1280px;margin:0 auto;padding:120px 26px;text-align:center;}
+  .cta .pre{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:18px;}
+  .cta h2{font-family:var(--display);font-size:clamp(60px,11vw,160px);line-height:.84;letter-spacing:-.03em;text-transform:uppercase;}
+  .cta h2 .o{color:var(--orange);}
+  .cta h2 .stroke{-webkit-text-stroke:2px var(--cream);color:transparent;}
+  .cta .row{display:flex;gap:14px;justify-content:center;margin-top:36px;flex-wrap:wrap;}
+  .btn{font-family:var(--display);text-transform:uppercase;font-size:13px;letter-spacing:.02em;padding:14px 20px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;border:2px solid var(--cream);color:var(--cream);transition:transform .15s ease,background .15s ease,color .15s ease;}
+  .btn:hover{transform:translateY(-2px);}
+  .btn.primary{background:var(--orange);border-color:var(--orange);color:var(--coal);}
+  .btn.primary:hover{background:var(--amber);border-color:var(--amber);}
+  .btn.ghost:hover{background:var(--cream);color:var(--coal);}
+
+  /* FOOTER */
+  footer.foot{border-top:1px solid var(--rule);background:var(--coal);padding:50px 26px 30px;}
+  footer.foot .wrap{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;}
+  footer.foot h4{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:14px;}
+  footer.foot .big{font-family:var(--display);font-size:60px;text-transform:uppercase;line-height:.88;letter-spacing:-.02em;}
+  footer.foot .big .o{color:var(--orange);}
+  footer.foot ul{list-style:none;}
+  footer.foot ul li{padding:6px 0;font-size:14px;}
+  footer.foot ul li a:hover{color:var(--orange);}
+  footer.foot ul li .arr{font-family:'DM Mono',monospace;font-size:10px;opacity:.5;margin-left:4px;}
+  footer.foot .bot{grid-column:1/-1;margin-top:40px;padding-top:20px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);}
+
+  @media (max-width:900px){
+    .hero-grid{grid-template-columns:1fr;}
+    .facts-grid{grid-template-columns:repeat(2,1fr);}
+    .fact{border-right:0;border-bottom:1px solid var(--rule);}
+    .story{grid-template-columns:1fr;gap:30px;}
+    .story aside{position:relative;top:0;}
+    .tl-row{grid-template-columns:1fr;gap:10px;}
+    .inf-grid{grid-template-columns:repeat(2,1fr);}
+    .gear-grid{grid-template-columns:1fr;}
+    .day-grid{grid-template-columns:1fr;}
+    .qs-grid{grid-template-columns:1fr;}
+    footer.foot .wrap{grid-template-columns:1fr 1fr;}
+    .topbar nav{display:none;}
+  }
+</style>
+</head>
+<body data-screen-label="01 Bio">
+
+<!-- Trumpet defs reused as decoration -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="trumpet-shape" viewBox="0 0 480 180">
+      <circle cx="14" cy="98" r="10" fill="currentColor"/>
+      <rect x="20" y="93" width="14" height="10" fill="currentColor"/>
+      <rect x="34" y="92" width="120" height="12" rx="2" fill="currentColor"/>
+      <rect x="154" y="60" width="34" height="80" rx="3" fill="currentColor"/>
+      <rect x="194" y="60" width="34" height="80" rx="3" fill="currentColor"/>
+      <rect x="234" y="60" width="34" height="80" rx="3" fill="currentColor"/>
+      <rect x="158" y="64" width="6" height="72" fill="rgba(255,255,255,.18)"/>
+      <rect x="198" y="64" width="6" height="72" fill="rgba(255,255,255,.18)"/>
+      <rect x="238" y="64" width="6" height="72" fill="rgba(255,255,255,.18)"/>
+      <rect x="158" y="38" width="26" height="22" rx="3" fill="currentColor"/>
+      <rect x="198" y="38" width="26" height="22" rx="3" fill="currentColor"/>
+      <rect x="238" y="38" width="26" height="22" rx="3" fill="currentColor"/>
+      <path d="M 161 140 Q 161 156 175 156 L 220 156 Q 234 156 234 140" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+      <path d="M 201 140 Q 201 162 220 162 L 260 162 Q 274 162 274 140" fill="none" stroke="currentColor" stroke-width="10" stroke-linecap="round"/>
+      <rect x="268" y="92" width="60" height="12" rx="2" fill="currentColor"/>
+      <path d="M 90 98 Q 90 30 130 30 L 320 30 Q 360 30 360 98" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round"/>
+      <path d="M 328 98 Q 360 98 360 70 L 478 30 L 478 166 L 360 126 Q 360 98 328 98 Z" fill="currentColor"/>
+      <path d="M 372 82 L 470 50 L 470 60 L 376 90 Z" fill="rgba(255,255,255,.25)"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- TOP BAR -->
+<header class="topbar">
+  <div class="brand">
+    <span class="glyph"></span>
+    <a href="Phlocalyst v3.html"><span>PHLOCALYST<span style="color:var(--orange);">★</span></span></a>
+  </div>
+  <nav>
+    <a href="Phlocalyst v3.html#deck">Tape Deck</a>
+    <a href="Phlocalyst v3.html#disco">Discography</a>
+    <a href="Phlocalyst v3.html#portraits">Gallery</a>
+    <a href="On The Road.html">On The Road</a>
+    <a class="active" href="Bio.html">Bio</a>
+    <a href="Contact.html">Contact</a>
+    <a href="Phlocalyst v3.html#book">Book</a>
+  </nav>
+  <div class="right">
+    <a class="back" href="Phlocalyst v3.html">← BACK TO MAIN</a>
+  </div>
+</header>
+
+<!-- MARQUEE -->
+<div class="marquee">
+  <div class="track">
+    <span class="item">BIO <span class="star">✦</span> MICHIEL DE VLEESCHHOUWER <span class="star">✦</span> SEVILLA → FLANDERS → MUNICH <span class="star">✦</span> EST. 1992 / RECORDING SINCE 2017 <span class="star">✦</span></span>
+    <span class="item">BIO <span class="star">✦</span> MICHIEL DE VLEESCHHOUWER <span class="star">✦</span> SEVILLA → FLANDERS → MUNICH <span class="star">✦</span> EST. 1992 / RECORDING SINCE 2017 <span class="star">✦</span></span>
+  </div>
+</div>
+
+<!-- HERO -->
+<section class="hero" data-screen-label="01 Hero">
+  <div class="topline mono">
+    <div>[ BIOGRAPHY ]<br/><span style="color:var(--cream);">A LONG ANSWER TO A SHORT QUESTION</span></div>
+    <div class="right">
+      <div>FILE 002</div>
+      <div style="color:var(--cream);">REV. MAY 2026</div>
+    </div>
+  </div>
+
+  <div class="hero-grid">
+    <div class="portrait">
+      <div class="stamp">FILE 002 / PORTRAIT</div>
+      <!-- silhouette: head + trumpet -->
+      <svg class="silhouette" viewBox="0 0 200 240" preserveAspectRatio="xMidYMax slice">
+        <!-- head -->
+        <circle cx="100" cy="60" r="34" fill="currentColor"/>
+        <!-- curly hair tufts -->
+        <circle cx="80" cy="36" r="14" fill="currentColor"/>
+        <circle cx="100" cy="28" r="14" fill="currentColor"/>
+        <circle cx="120" cy="36" r="14" fill="currentColor"/>
+        <circle cx="68" cy="50" r="10" fill="currentColor"/>
+        <circle cx="132" cy="50" r="10" fill="currentColor"/>
+        <!-- cap brim -->
+        <rect x="60" y="40" width="80" height="6" rx="2" fill="currentColor"/>
+        <!-- shoulders -->
+        <path d="M40 240 Q40 130 100 130 Q160 130 160 240 Z" fill="currentColor"/>
+        <!-- trumpet held -->
+        <g transform="translate(94 122) rotate(-12) scale(.18)">
+          <use href="#trumpet-shape" />
+        </g>
+      </svg>
+      <div class="cap">
+        <b>Michiel · Munich studio</b>
+        Sometime past midnight, second take of a take that ended up being the record
+      </div>
+    </div>
+
+    <div>
+      <h1>The <span class="alt">trumpet</span><br/>player who<br/>made beats.</h1>
+      <div class="real">A.K.A. <b>Michiel De Vleeschhouwer</b>  /  Stage name <b>Phlocalyst</b>  /  Pronouns <b>he / him</b></div>
+      <p class="lede">A classically-trained Flemish trumpeter who plays in a Munich orchestra by day and stitches together <em>jazz-hop</em> records by night. Two careers, one horn, about <em>200&nbsp;million</em> streams of the second one quietly walking past the first.</p>
+    </div>
+  </div>
+</section>
+
+<!-- FACTS -->
+<section class="facts">
+  <div class="facts-grid">
+    <div class="fact"><div class="l">Born</div><div class="v">1992</div><div class="s">Sevilla, ES</div></div>
+    <div class="fact"><div class="l">Lives</div><div class="v">Munich</div><div class="s">DE — since 2016</div></div>
+    <div class="fact"><div class="l">Day Job</div><div class="v">3rd trumpet</div><div class="s">Pro orchestra</div></div>
+    <div class="fact"><div class="l">First Beat</div><div class="v hot">2017</div><div class="s">On an iPad</div></div>
+    <div class="fact"><div class="l">Streams</div><div class="v hot">200M+</div><div class="s">All platforms</div></div>
+  </div>
+</section>
+
+<!-- STORY -->
+<section class="story-section" data-screen-label="02 Origin Story">
+  <div class="section-head">
+    <h2>The <span class="c">story</span></h2>
+    <div class="meta">5,000 WORDS, GIVE OR TAKE<br/>WRITTEN IN A HOTEL, BRUSSELS</div>
+  </div>
+
+  <div class="story">
+    <aside>
+      <div class="l">Chapter 01</div>
+      <div class="chap">Origins<br/>&amp; horns</div>
+    </aside>
+    <div class="prose">
+      <p class="dropcap">Phlocalyst was born twice. The first time in <em>Sevilla</em>, to Flemish parents passing through on a long Spanish summer in 1992 — a fact he likes more than he admits when he's the only one in a Munich orchestra with a southern shade of his name. The second time was in 2017, on an iPad, in a studio apartment in Cologne, trying to remake a Pete&nbsp;Rock beat at three in the morning when he should've been asleep before a Mahler rehearsal.</p>
+
+      <p>The trumpet came first by a long margin. He picked it up at five, persuaded by a grandfather who'd been a horn player in a village band and never let anyone forget it. By thirteen he was at the conservatory in <em>Antwerp</em>; by twenty he was auditioning in Germany. Classical music was the plan, the practice schedule, the identity. The other stuff — the hip-hop, the jazz, the records — was what he listened to in the car on the way to it.</p>
+
+      <blockquote>"I always knew I'd play trumpet. I didn't know there was a second thing until I was already too late to start it."</blockquote>
+
+      <p>That second thing arrived sideways. A bandmate handed him an old <em>SP-404</em> in 2017 — "for stress" — and within a month he was missing rehearsal-mornings because he'd stayed up sampling Robert Glasper through a tape simulator. The first beats were terrible. He kept making them. He started looping his own horn over them and they got less terrible. He gave the new thing a stupid name — "Phlocalyst" — because he didn't want anyone he knew to find it.</p>
+
+      <div class="aside-line">↑ Then: a quarantine. ↓</div>
+
+      <p>February 2020 — quiet apartment, fever for two days, then five clear ones. He made the whole of <em>Insights</em> in those five days, mostly between meals. He sent it to a friend who sent it to a friend who sent it to <em>Nettwerk</em>, and by the time he'd recovered there was a record deal sitting in his inbox addressed to a name that wasn't his.</p>
+
+      <p>Now there are two careers. One pays the rent — third trumpet in a Munich house, Strauss on Thursday, Brahms on Saturday. The other one pays for vinyl pressings, a better SP, and a row of guest beds in Brussels for visiting collaborators. He doesn't think they're the same job. He doesn't think they're different ones either.</p>
+    </div>
+  </div>
+</section>
+
+<!-- TIMELINE -->
+<section class="tl-section" data-screen-label="03 Timeline">
+  <div class="inner">
+    <div class="section-head">
+      <h2>Time<span class="c">line</span></h2>
+      <div class="meta">1992 → 2026<br/>34 YEARS, 9 OF THEM RECORDING</div>
+    </div>
+
+    <div class="timeline">
+      <div class="tl-row">
+        <div class="year">1992</div>
+        <div class="title">Born<small>Sevilla, Spain</small></div>
+        <div class="desc">Flemish parents on a long Spanish summer. Gets the family name (De Vleeschhouwer) and a birth certificate with an Andalusian municipal stamp on it.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">1997</div>
+        <div class="title">First trumpet<small>Age 5 · Antwerp</small></div>
+        <div class="desc">Cornet, technically. A grandfather who played in a village band hands him a horn and a metronome. He keeps the horn, mostly ignores the metronome — a habit that will reappear in his beat-making.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2005</div>
+        <div class="title">Conservatory<small>Antwerp · age 13</small></div>
+        <div class="desc">Switches to B♭ trumpet. Starts taking lessons twice a week with a former orchestra principal who insists on <em>practicing long tones</em> before anything fun.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2012</div>
+        <div class="title">First J Dilla record<small>Brussels</small></div>
+        <div class="desc">Borrowed copy of <em>Donuts</em>. Drives home with it on repeat. Doesn't connect it to his own music yet — but he keeps the CD case and writes the date on it.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2014</div>
+        <div class="title">Audition · Bavaria<small>Munich · 22</small></div>
+        <div class="desc">Wins a third-trumpet position in a professional German orchestra on his second try. Moves to Munich with two suitcases, one trumpet case, and three Robert Glasper records.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2016</div>
+        <div class="title">First apartment with a studio corner<small>Schwabing</small></div>
+        <div class="desc">Trumpet in the closet, a borrowed iPad on the kitchen table. Starts learning Logic by watching tutorials in his second language.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year hot">2017</div>
+        <div class="title">"Phlocalyst" exists<small>First track uploaded</small></div>
+        <div class="desc">Anonymous SoundCloud account. First track is two minutes long, has one chord, and 47 plays. He listens to it 36 of them himself.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2019</div>
+        <div class="title">First label release<small>w/ Oatmello</small></div>
+        <div class="desc">"Tea Light" appears on a Chillhop sampler. He learns the names of two playlist curators and writes them down in a notebook he later loses on a tour bus.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2020</div>
+        <div class="title">Arise (LP)<small>Self-released</small></div>
+        <div class="desc">Debut full-length. Twelve tracks. Trumpet on most of them. First record to cross a million streams; first to make him think this might be a second job and not a side one.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2020</div>
+        <div class="title">Serendipity EP<small>w/ LESKY · Melting Pot</small></div>
+        <div class="desc">Half-improvised over a long weekend in Cologne. They mailed each other unfinished stems for a year before deciding to actually be in the same room.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2021</div>
+        <div class="title">"Parapluie" hits<small>w/ m e a d o w</small></div>
+        <div class="desc">A vocal feature he wasn't sure about. Eventually crosses 22M streams. The catalogue passes 100M total around its first birthday.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2022</div>
+        <div class="title">Signs to Nettwerk<small>Vancouver / London</small></div>
+        <div class="desc">A friend forwards a quarantine mixtape to a Nettwerk A&amp;R; the deal arrives before he's recovered from the flu that made the mixtape.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year hot">2022</div>
+        <div class="title">Insights (LP) — debut on Nettwerk<small>"A jazz-hop collage"</small></div>
+        <div class="desc">Eight tracks, three singles, one Spotify lofi-beats #3 placement, and a vinyl run that sells out in two months. The artwork by Giza ends up on more bedroom walls than he's comfortable thinking about.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2023</div>
+        <div class="title">First headline tour<small>BE · DE · FR · NL · ES</small></div>
+        <div class="desc">Twelve dates with a live SP-404, a trumpet, a laptop he doesn't fully trust. He throws up before half the shows and gets bored of being nervous somewhere around date seven.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2024</div>
+        <div class="title">Lofi Girl live session<small>Paris</small></div>
+        <div class="desc">Twenty-minute set, two cameras, one continuous trumpet improvisation. It does eight million plays in a quarter and becomes the thing strangers cite at him in airports.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year hot">2026</div>
+        <div class="title">Second LP in progress<small>Munich · ongoing</small></div>
+        <div class="desc">No title yet. Mostly drums recorded in a real room for the first time. He has been told by the engineer to stop trying to make the kick "lo-fi" before it leaves the studio. He keeps doing it anyway.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- INFLUENCES -->
+<section class="inf-section" data-screen-label="04 Influences">
+  <div class="section-head">
+    <h2>Influ<span class="c">ences</span></h2>
+    <div class="meta">THE PEOPLE IN HIS HEADPHONES<br/>WHILE HE PRACTICES SOMEONE ELSE</div>
+  </div>
+
+  <div class="inf-grid">
+    <div class="inf inf-1">
+      <div class="name">J Dilla</div>
+      <div class="what">Beats · loops · feel</div>
+      <div class="note">"Donuts changed what I thought drums could be allowed to do."</div>
+    </div>
+    <div class="inf inf-2">
+      <div class="name">Pete Rock</div>
+      <div class="what">Sample work · drums</div>
+      <div class="note">Source of the kick-and-shaker DNA on most Phlocalyst records.</div>
+    </div>
+    <div class="inf inf-3">
+      <div class="name">Robert Glasper</div>
+      <div class="what">Harmony · piano</div>
+      <div class="note">"He proved jazz and hip-hop weren't a crossover — they were the same room."</div>
+    </div>
+    <div class="inf inf-4">
+      <div class="name">Roy Hargrove</div>
+      <div class="what">Trumpet · phrasing</div>
+      <div class="note">The horn tone he's been chasing since 2009 and still hasn't caught.</div>
+    </div>
+    <div class="inf inf-5">
+      <div class="name">Nujabes</div>
+      <div class="what">Mood · texture</div>
+      <div class="note">"The whole reason this genre has melancholy in its skeleton."</div>
+    </div>
+    <div class="inf inf-6">
+      <div class="name">Mahler</div>
+      <div class="what">Day job · scale</div>
+      <div class="note">"You play the 5th symphony enough times, you stop being afraid of long notes."</div>
+    </div>
+    <div class="inf inf-7">
+      <div class="name">Madlib</div>
+      <div class="what">Crate-digging · weirdness</div>
+      <div class="note">Reason he still buys vinyl from Antwerp shops instead of using only sample libraries.</div>
+    </div>
+    <div class="inf inf-8">
+      <div class="name">Miles (mute era)</div>
+      <div class="what">Trumpet · restraint</div>
+      <div class="note">"The Harmon mute is the most jazz-hop instrument that existed before jazz-hop did."</div>
+    </div>
+  </div>
+</section>
+
+<!-- GEAR -->
+<section class="gear-section" data-screen-label="05 Gear">
+  <div class="section-head">
+    <h2>The <span class="c">setup</span></h2>
+    <div class="meta">EVERYTHING SHORT OF THE COFFEE MACHINE<br/>(THE COFFEE MACHINE IS A LA MARZOCCO LINEA MINI)</div>
+  </div>
+
+  <div class="gear-grid">
+    <div class="gear-col">
+      <h3>Horns</h3>
+      <ul>
+        <li class="fav"><span class="it">Bach Stradivarius 180S37<small>B♭ trumpet · since 2014</small></span><span class="tag">Daily</span></li>
+        <li><span class="it">Yamaha YTR-8335RGS<small>Backup · also live</small></span><span class="tag">Spare</span></li>
+        <li class="fav"><span class="it">Harmon Wah-Wah mute<small>Stem removed · the lofi staple</small></span><span class="tag">All recs</span></li>
+        <li><span class="it">Tom Crown straight mute<small>For classical recordings</small></span><span class="tag">Studio</span></li>
+        <li><span class="it">Bach 1½C mouthpiece<small>Day job mouthpiece</small></span><span class="tag">Classical</span></li>
+        <li><span class="it">Monette B6S3 mouthpiece<small>Beats &amp; live sets</small></span><span class="tag">Beat-side</span></li>
+      </ul>
+    </div>
+
+    <div class="gear-col">
+      <h3>Beats &amp; Production</h3>
+      <ul>
+        <li class="fav"><span class="it">Roland SP-404 MKII<small>The brain of the live show</small></span><span class="tag">Daily</span></li>
+        <li><span class="it">Akai MPC One<small>Pattern sketching</small></span><span class="tag">Studio</span></li>
+        <li><span class="it">Sequential Take 5<small>Pads, lush</small></span><span class="tag">Studio</span></li>
+        <li><span class="it">Korg Volca Sample<small>Tape-grit textures</small></span><span class="tag">Studio</span></li>
+        <li class="fav"><span class="it">Logic Pro X<small>DAW since 2017</small></span><span class="tag">DAW</span></li>
+        <li><span class="it">Tascam Portastudio 414<small>Real tape, when he means it</small></span><span class="tag">Studio</span></li>
+      </ul>
+    </div>
+
+    <div class="gear-col">
+      <h3>Recording &amp; Listening</h3>
+      <ul>
+        <li><span class="it">Neumann KM 184<small>Trumpet mic, close</small></span><span class="tag">Studio</span></li>
+        <li><span class="it">Shure SM7B<small>Trumpet mic, room</small></span><span class="tag">Studio</span></li>
+        <li><span class="it">Universal Audio Apollo Twin<small>Interface</small></span><span class="tag">Studio</span></li>
+        <li class="fav"><span class="it">Yamaha NS-10M<small>The not-true-but-trusted nearfields</small></span><span class="tag">Mix</span></li>
+        <li><span class="it">Audeze LCD-X<small>Headphone reference</small></span><span class="tag">Mix</span></li>
+        <li><span class="it">Technics SL-1200 MK7<small>Vinyl sourcing &amp; sample digging</small></span><span class="tag">Digging</span></li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- DAY IN LIFE -->
+<section class="day-section" data-screen-label="06 Day in the Life">
+  <div class="inner">
+    <div class="section-head">
+      <h2>A normal<br/><span class="c">day</span></h2>
+      <div class="meta">TUESDAY, MUNICH, NOTHING SPECIAL<br/>NOT REPRESENTATIVE OF TOUR DAYS</div>
+    </div>
+
+    <div class="day-grid">
+      <div class="day-row"><div class="t">07:20</div><div class="what"><b>Wake · Cortado · scales</b>Lip slurs in the bathroom while the coffee steeps. The neighbour's stopped complaining.</div></div>
+      <div class="day-row"><div class="t">08:30</div><div class="what"><b>Bike to the Philharmonie</b>Twelve minutes, one Mahler movement of warm-up tracks in his ears.</div></div>
+      <div class="day-row"><div class="t">09:30</div><div class="what"><b>Orchestra rehearsal</b>Three hours. Strauss this week. Third trumpet has a lot of bars off and he uses them to think about chord voicings.</div></div>
+      <div class="day-row"><div class="t">13:00</div><div class="what"><b>Lunch with the brass section</b>Schweinshaxe, a Helles, and a debate about audition recording mics that lasts longer than the lunch.</div></div>
+      <div class="day-row"><div class="t">15:00</div><div class="what"><b>Home · studio corner</b>SP-404 on, headphones in. Today: looping a Rhodes phrase he sampled off a Korean record last week.</div></div>
+      <div class="day-row"><div class="t">17:30</div><div class="what"><b>Trumpet overdub</b>One take, ten times. He keeps take 7 and pretends he didn't try.</div></div>
+      <div class="day-row"><div class="t">19:00</div><div class="what"><b>Dinner · email</b>Mostly answering booking requests with "yes, but check with my agent first." He doesn't have an agent.</div></div>
+      <div class="day-row"><div class="t">21:00</div><div class="what"><b>Walk · listen back</b>Munich streets, headphones, a rough mix. Most of the small choices get made on this walk.</div></div>
+      <div class="day-row"><div class="t">23:00</div><div class="what"><b>Late re-record</b>If the walk surfaced a problem, this is when he tries to fix it. About half the time it makes it worse.</div></div>
+      <div class="day-row"><div class="t">01:30</div><div class="what"><b>Sleep</b>"You can hear which records were made before 1am and which ones were made after."</div></div>
+    </div>
+  </div>
+</section>
+
+<!-- QUOTES -->
+<section class="qs-section" data-screen-label="07 In His Own Words">
+  <div class="section-head">
+    <h2>In his own <span class="c">words</span></h2>
+    <div class="meta">FROM INTERVIEWS / LINER NOTES<br/>2020 — 2026</div>
+  </div>
+
+  <div class="qs-grid">
+    <div class="pq">
+      <div class="q">My best music is usually made when I'm feeling unwell — there's something about not having the energy to overthink that gets me out of my own way.</div>
+      <div class="src"><b>On making Insights</b> · Nettwerk press · 2022</div>
+    </div>
+    <div class="pq">
+      <div class="q">The trumpet is louder than anything I own. So whatever I sample, whatever I program — the horn has to be the loudest thing in the room emotionally too, or I won't believe it.</div>
+      <div class="src"><b>On arranging</b> · The Quietus interview · 2023</div>
+    </div>
+    <div class="pq">
+      <div class="q">Classical music taught me to play long notes. Hip-hop taught me to put them in places long notes are not usually allowed.</div>
+      <div class="src"><b>On the two careers</b> · Süddeutsche Zeitung · 2024</div>
+    </div>
+    <div class="pq">
+      <div class="q">I don't think the genre is "lo-fi". I think the genre is "music you can read to without it asking anything of you." Sometimes that means it's lo-fi. Sometimes it means it's a five-piece band.</div>
+      <div class="src"><b>On the label</b> · Bandcamp Daily · 2024</div>
+    </div>
+    <div class="pq">
+      <div class="q">If the snare hits exactly on two and four, I get nervous. If it hits ten milliseconds late, the track relaxes — and I do too.</div>
+      <div class="src"><b>On rhythm</b> · Tape Op feature · 2025</div>
+    </div>
+    <div class="pq">
+      <div class="q">My grandfather played in the village band for forty years and never recorded a single note. I think about that almost every time I press save.</div>
+      <div class="src"><b>On legacy</b> · de Standaard · 2025</div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq-section" data-screen-label="08 FAQ">
+  <div class="section-head">
+    <h2>Things people <span class="c">ask</span></h2>
+    <div class="meta">FAQ · IN ROUGH ORDER OF FREQUENCY<br/>UPDATED MAY 2026</div>
+  </div>
+
+  <div class="faq">
+    <details open>
+      <summary>How is "Phlocalyst" pronounced?</summary>
+      <div class="a">Like <em>"flow-ka-list"</em> — the "ph" is silent the way it is in "phenomenon", because the name started as a misread of that word in a notebook. It stayed because nobody else was using it.</div>
+    </details>
+
+    <details>
+      <summary>Is it actually you on every trumpet take?</summary>
+      <div class="a">Yes. Every horn line on every Phlocalyst release is played by me, with the exception of a single guest verse from <em>Theo Croker</em> on a 2024 compilation. Even the samples that sound like horns — those are also me, just resampled and chopped beyond recognition.</div>
+    </details>
+
+    <details>
+      <summary>Do you ever play your orchestra job AND a club set on the same day?</summary>
+      <div class="a">Three times so far. Each time I swore I wouldn't do it again. Each time I did it again. The classical playing always suffers more than the beat set — it's harder to fake Strauss tired than it is to fake a chill atmosphere.</div>
+    </details>
+
+    <details>
+      <summary>What DAW do you use?</summary>
+      <div class="a">Logic Pro since 2017, with most of the actual <em>making</em> happening on a Roland SP-404 MKII before things get arranged in the DAW. The SP is where mistakes turn into songs; Logic is where I clean them up just enough.</div>
+    </details>
+
+    <details>
+      <summary>Can I license your music?</summary>
+      <div class="a">For sync/film/ads, please write to <em>sync@nettwerk.com</em> — they handle the catalogue. For non-commercial use (school projects, independent short films, charity work) you can write to me directly and the answer is usually yes for free.</div>
+    </details>
+
+    <details>
+      <summary>Do you take collaborations / features?</summary>
+      <div class="a">Occasionally — usually one to three a year, always with people whose existing music I genuinely listen to. The fastest way to make this happen is <em>not</em> to send a finished track asking for trumpet — it's to send a half-finished one with space in it.</div>
+    </details>
+
+    <details>
+      <summary>Will you ever release a strictly classical record?</summary>
+      <div class="a">Maybe. There's a piece by <em>Berio</em> I've wanted to record for years. I think about it on every long train ride and then I get home and start a beat instead. So: probably, eventually, but not next.</div>
+    </details>
+
+    <details>
+      <summary>What's the second LP going to sound like?</summary>
+      <div class="a">More live drums than the first, recorded in a room I rented for two weeks in Cologne with the same engineer who mixed <em>Insights</em>. The trumpet's louder. The reverb is shorter. There's at least one track with no beat at all. That's all I'm going to say until it's finished.</div>
+    </details>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" data-screen-label="09 Contact">
+  <div class="pre">↓ STILL HERE? ↓</div>
+  <h2>OK then,<br/><span class="o">let's talk.</span></h2>
+  <div class="row">
+    <a class="btn primary" href="mailto:hi@phlocalyst.com">Email Michiel <span class="arr">↗</span></a>
+    <a class="btn ghost" href="Phlocalyst v3.html#deck">Back to the tape deck <span class="arr">↗</span></a>
+    <a class="btn ghost" href="Phlocalyst v3.html#book">Book a set <span class="arr">↗</span></a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <div class="big">PHLO<span class="o">.</span>CALYST</div>
+      <div class="mono" style="margin-top:16px;color:var(--cream-dim);">© Michiel De Vleeschhouwer 2026 — All horns reserved.</div>
+    </div>
+    <div>
+      <h4>Read more</h4>
+      <ul>
+        <li><a href="Phlocalyst v3.html">Main site<span class="arr">↗</span></a></li>
+        <li><a href="Phlocalyst v3.html#deck">Tape deck<span class="arr">↗</span></a></li>
+        <li><a href="Phlocalyst v3.html#disco">Discography<span class="arr">↗</span></a></li>
+        <li><a href="Phlocalyst v3.html#live">Tour<span class="arr">↗</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Listen</h4>
+      <ul>
+        <li><a href="#">Spotify<span class="arr">↗</span></a></li>
+        <li><a href="#">Bandcamp<span class="arr">↗</span></a></li>
+        <li><a href="#">Apple Music<span class="arr">↗</span></a></li>
+        <li><a href="#">YouTube<span class="arr">↗</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Business</h4>
+      <ul>
+        <li><a href="mailto:booking@phlocalyst.com">Booking<span class="arr">↗</span></a></li>
+        <li><a href="mailto:sync@nettwerk.com">Sync<span class="arr">↗</span></a></li>
+        <li><a href="#">Press kit<span class="arr">↗</span></a></li>
+        <li><a href="#">Mailing list<span class="arr">↗</span></a></li>
+      </ul>
+    </div>
+    <div class="bot">
+      <span>Set in Boldonse, Bricolage Grotesque, Newsreader &amp; DM Mono</span>
+      <span>Munich · Flanders · Internet</span>
+    </div>
+  </div>
+</footer>
+
+<script src="mobilenav.js"></script>
+</body>
+</html>
