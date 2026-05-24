@@ -4,7 +4,7 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## What This Is
 
-A static artist portfolio website for **Phlocalyst** (Michiel De Vleeschhouwer — Flemish trumpet player and lo-fi producer based in Munich). There is **no build system, no package manager, and no test suite**. All dependencies are loaded via CDN; JSX is transpiled in-browser by Babel.
+A static artist portfolio website for **Phlocalyst** (Michiel De Vleeschhouwer — classical trumpet player and lo-fi / jazz-hop producer based in Munich). There is **no build system, no package manager, and no test suite**. All dependencies are loaded via CDN; JSX is transpiled in-browser by Babel.
 
 ## Running Locally
 
@@ -91,9 +91,9 @@ The Tone.js node graph is created **lazily on first play** to comply with browse
 
 - **Artist:** Phlocalyst = Michiel De Vleeschhouwer
 - **Base:** Munich, Germany
-- **Label (Insights LP):** Nettwerk Music Group — sync licensing contact: `sync@nettwerk.com`
-- **Contact emails:** `booking@phlocalyst.com` (booking), `hi@phlocalyst.com` (general)
+- **Label:** Nettwerk Music Group — full recorded catalogue since 2022; sync licensing contact: `sync@nettwerk.com`
+- **Contact emails:** `booking@phlocalyst.com` (booking — handled by Annika Lehmann), `collabs@phlocalyst.com` (collaborations — Michiel personally), `hi@phlocalyst.com` (general)
 - **Spotify:** `open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt`
 - **Instagram:** `@phlocalyst`
 - **Insights (2022)** tracklist: Blue Fraction, Daylight, Morning Stroll, Aries, One of Those Things, Zeal, Beautiful Second, Moodswing
-- The four tape deck tracks reference real releases: "Daylight", "Blue Fraction", "Zeal" (all from *Insights*, Nettwerk, 2022) and "Serendipity" (with LESKY, Melting Pot, 2020)
+- The four tape deck tracks reference real releases: "Daylight", "Blue Fraction", "Zeal" (all from *Insights*, Nettwerk, 2022) and "Serendipity" (with LESKY, Melting Pot Music, 2020)
