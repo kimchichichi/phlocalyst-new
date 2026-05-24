@@ -71,13 +71,17 @@
       radial-gradient(circle at 90% 80%, color-mix(in oklab, var(--amber) 14%, transparent), transparent 45%);
   }
   body::before{
-    content:'';position:fixed;inset:0;pointer-events:none;z-index:100;opacity:var(--grain);mix-blend-mode:overlay;
+    content:'';position:fixed;inset:0;pointer-events:none;z-index:100;opacity:var(--grain);mix-blend-mode:overlay;will-change:transform;contain:strict;
     background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
   a{color:inherit;text-decoration:none;}
   .display{font-family:var(--display);font-weight:400;letter-spacing:-0.02em;line-height:.85;text-transform:uppercase;}
   .mono{font-family:'DM Mono', ui-monospace, monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;}
+
+  /* SKIP LINK */
+  .skip-link{position:absolute;left:-9999px;top:6px;z-index:9999;padding:8px 16px;background:var(--orange);color:var(--coal);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;}
+  .skip-link:focus{left:6px;}
 
   /* TOP BAR */
   .topbar{
@@ -114,7 +118,7 @@
   .marquee .track{display:inline-flex;gap:42px;animation:scroll var(--marquee-dur) linear infinite;}
   .marquee.fast .track{animation-duration:calc(var(--marquee-dur) * .58);}
   .marquee.rev .track{animation-direction:reverse;}
-  .marquee .item{font-family:var(--display);font-size:30px;letter-spacing:-.01em;display:inline-flex;align-items:center;gap:42px;text-transform:uppercase;}
+  .marquee .item{font-family:var(--display);font-size:clamp(14px, 4vw, 30px);letter-spacing:-.01em;display:inline-flex;align-items:center;gap:42px;text-transform:uppercase;}
   .marquee .star{color:var(--amber);}
   .marquee.bold .star, .marquee.acid .star{color:var(--coal);}
   @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -141,7 +145,7 @@
     position:relative;
   }
   .hero h1 .l2{display:block;color:var(--orange);text-shadow:6px 6px 0 var(--coal-2);}
-  .hero h1 .out{-webkit-text-stroke:2px var(--cream);color:transparent;}
+  .hero h1 .out{-webkit-text-stroke:2px var(--cream);color:transparent;paint-order:stroke fill;}
   .hero h1 sup{
     font-family:'DM Mono', monospace;font-size:12px;font-weight:500;
     vertical-align:top;letter-spacing:.04em;color:var(--amber);
@@ -192,6 +196,7 @@
   .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
   .card{position:relative;border-radius:10px;overflow:hidden;background:var(--coal-2);border:1px solid var(--rule);transition:transform .2s ease, border-color .2s ease;cursor:pointer;}
   .card:hover{transform:translateY(-4px);border-color:var(--orange);}
+  .card:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}
   .card .cover{aspect-ratio:1/1;position:relative;background:var(--cv, linear-gradient(135deg, #f4b860, #c25f2b 60%, #3a1a12));display:flex;align-items:center;justify-content:center;overflow:hidden;}
   .card .cover img.cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
   .card .cover::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(0,0,0,.18) 1px, transparent 1px);background-size:6px 6px;opacity:.55;mix-blend-mode:multiply;z-index:1;}
@@ -292,7 +297,7 @@
   .cta-section .pre{font-family:'DM Mono';font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:18px;}
   .cta-section h2{font-family:var(--display);font-size:clamp(72px, 13vw, 200px);line-height:.82;letter-spacing:-.03em;text-transform:uppercase;}
   .cta-section h2 .o{color:var(--orange);}
-  .cta-section h2 .stroke{-webkit-text-stroke:2px var(--cream);color:transparent;}
+  .cta-section h2 .stroke{-webkit-text-stroke:2px var(--cream);color:transparent;paint-order:stroke fill;}
   .cta-section .row{display:flex;gap:14px;justify-content:center;margin-top:36px;flex-wrap:wrap;}
   .cta-section .em{font-family:'DM Mono';font-size:13px;letter-spacing:.08em;color:var(--cream-dim);margin-top:30px;}
   .cta-section .em a{color:var(--cream);border-bottom:1px solid var(--cream);padding-bottom:1px;}
@@ -329,9 +334,14 @@
     .topbar nav{display:none;}
     .photo-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:90px;}
     .ph-1{grid-column:span 2;grid-row:span 2;}
+    .ph-2{grid-column:span 1;grid-row:span 2;}
+    .ph-3{grid-column:span 1;grid-row:span 1;}
+    .ph-4{grid-column:span 1;grid-row:span 1;}
     .ph-5{grid-column:span 1;grid-row:span 2;}
+    .ph-6{grid-column:span 2;grid-row:span 1;}
     .ph-7{grid-column:span 3;grid-row:span 2;}
   }
+  @media (max-width:480px){.hero .stats{grid-template-columns:1fr;}}
 </style>
 
 <!-- TWEAKS DEFAULTS — edited in place by the host -->
@@ -408,6 +418,8 @@
   </defs>
 </svg>
 
+<a href="#main-content" class="skip-link">Skip to content</a>
+
 <!-- TOP BAR -->
 <header class="topbar">
   <div class="brand">
@@ -428,8 +440,10 @@
   </div>
 </header>
 
+<main id="main-content">
+
 <!-- MARQUEE TOP -->
-<div class="marquee fast">
+<div class="marquee fast" aria-hidden="true">
   <div class="track">
     <span class="item">PHLOCALYST <span class="star">✦</span> LO-FI / JAZZ-HOP / TRUMPET <span class="star">✦</span> NETTWERK RECORDS <span class="star">✦</span> MUNICH&nbsp;→&nbsp;EVERYWHERE <span class="star">✦</span> 200M+ STREAMS <span class="star">✦</span></span>
     <span class="item">PHLOCALYST <span class="star">✦</span> LO-FI / JAZZ-HOP / TRUMPET <span class="star">✦</span> NETTWERK RECORDS <span class="star">✦</span> MUNICH&nbsp;→&nbsp;EVERYWHERE <span class="star">✦</span> 200M+ STREAMS <span class="star">✦</span></span>
@@ -478,7 +492,7 @@
 </section>
 
 <!-- MARQUEE ORANGE -->
-<div class="marquee bold">
+<div class="marquee bold" aria-hidden="true">
   <div class="track">
     <span class="item">SIDE A — INSIGHTS <span class="star">●</span> NETTWERK RECORDS <span class="star">●</span> PRESS PLAY <span class="star">●</span> STREAM / BUY / DIG <span class="star">●</span></span>
     <span class="item">SIDE A — INSIGHTS <span class="star">●</span> NETTWERK RECORDS <span class="star">●</span> PRESS PLAY <span class="star">●</span> STREAM / BUY / DIG <span class="star">●</span></span>
@@ -492,14 +506,14 @@
     <div class="meta">SELECTED · 8 of 37<br/>2019 → 2026</div>
   </div>
   <div class="grid">
-    <div class="card cv-insights"><div class="cover"><img class="cover-img" src="covers/insights.jpg" alt="Insights album cover" loading="lazy"><div class="tag-corner">EP · 2022</div></div><div class="info"><div class="name">Insights</div><div class="row"><span>Nettwerk</span><span class="pl">38M ♥</span></div></div></div>
-    <div class="card cv-daylight"><div class="cover"><img class="cover-img" src="covers/daylight.jpg" alt="Daylight album cover" loading="lazy"><div class="tag-corner">Single · 2022</div></div><div class="info"><div class="name">Daylight</div><div class="row"><span>Nettwerk</span><span class="pl">4.8M ♥</span></div></div></div>
-    <div class="card cv-blue"><div class="cover"><img class="cover-img" src="covers/blue.jpg" alt="Blue Fraction album cover" loading="lazy"><div class="tag-corner">Single · 2022</div></div><div class="info"><div class="name">Blue Fraction</div><div class="row"><span>Nettwerk</span><span class="pl">998K ♥</span></div></div></div>
-    <div class="card cv-zeal"><div class="cover"><img class="cover-img" src="covers/zeal.jpg" alt="Zeal album cover" loading="lazy"><div class="tag-corner">Single · 2022</div></div><div class="info"><div class="name">Zeal</div><div class="row"><span>Nettwerk</span><span class="pl">EU LoFi</span></div></div></div>
-    <div class="card cv-serendip"><div class="cover"><img class="cover-img" src="covers/serendip.jpg" alt="Serendipity album cover" loading="lazy"><div class="tag-corner">EP · 2018 · w/ LESKY</div></div><div class="info"><div class="name">Serendipity</div><div class="row"><span>S!X - Music</span><span class="pl">12M ♥</span></div></div></div>
-    <div class="card cv-parapluie"><div class="cover"><img class="cover-img" src="covers/parapluie.jpg" alt="Parapluie album cover" loading="lazy"><div class="tag-corner">Single · 2021</div></div><div class="info"><div class="name">Parapluie ft. meadow</div><div class="row"><span>Chillhop</span><span class="pl">22M ♥</span></div></div></div>
-    <div class="card cv-slumber"><div class="cover"><img class="cover-img" src="covers/slumber.jpg" alt="Slumber album cover" loading="lazy"><div class="tag-corner">Single · 2019 · w/ Flynn</div></div><div class="info"><div class="name">Slumber</div><div class="row"><span>S!X - Music</span><span class="pl">8.4M ♥</span></div></div></div>
-    <div class="card cv-arise"><div class="cover"><img class="cover-img" src="covers/arise.jpg" alt="Arise album cover" loading="lazy"><div class="tag-corner">LP · 2020</div></div><div class="info"><div class="name">Arise</div><div class="row"><span>S!X - Music</span><span class="pl">18M ♥</span></div></div></div>
+    <div class="card cv-insights" tabindex="0"><div class="cover"><img class="cover-img" src="covers/insights.jpg" alt="Insights album cover" loading="lazy" onerror="this.style.display='none'"><div class="tag-corner">EP · 2022</div></div><div class="info"><div class="name">Insights</div><div class="row"><span>Nettwerk</span><span class="pl">38M ♥</span></div></div></div>
+    <div class="card cv-daylight" tabindex="0"><div class="cover"><img class="cover-img" src="covers/daylight.jpg" alt="Daylight album cover" loading="lazy" onerror="this.style.display='none'"><div class="tag-corner">Single · 2022</div></div><div class="info"><div class="name">Daylight</div><div class="row"><span>Nettwerk</span><span class="pl">4.8M ♥</span></div></div></div>
+    <div class="card cv-blue" tabindex="0"><div class="cover"><img class="cover-img" src="covers/blue.jpg" alt="Blue Fraction album cover" loading="lazy" onerror="this.style.display='none'"><div class="tag-corner">Single · 2022</div></div><div class="info"><div class="name">Blue Fraction</div><div class="row"><span>Nettwerk</span><span class="pl">998K ♥</span></div></div></div>
+    <div class="card cv-zeal" tabindex="0"><div class="cover"><img class="cover-img" src="covers/zeal.jpg" alt="Zeal album cover" loading="lazy" onerror="this.style.display='none'"><div class="tag-corner">Single · 2022</div></div><div class="info"><div class="name">Zeal</div><div class="row"><span>Nettwerk</span><span class="pl">EU LoFi</span></div></div></div>
+    <div class="card cv-serendip" tabindex="0"><div class="cover"><img class="cover-img" src="covers/serendip.jpg" alt="Serendipity album cover" loading="lazy" onerror="this.style.display='none'"><div class="tag-corner">EP · 2018 · w/ LESKY</div></div><div class="info"><div class="name">Serendipity</div><div class="row"><span>S!X - Music</span><span class="pl">12M ♥</span></div></div></div>
+    <div class="card cv-parapluie" tabindex="0"><div class="cover"><img class="cover-img" src="covers/parapluie.jpg" alt="Parapluie album cover" loading="lazy" onerror="this.style.display='none'"><div class="tag-corner">Single · 2021</div></div><div class="info"><div class="name">Parapluie ft. meadow</div><div class="row"><span>Chillhop</span><span class="pl">22M ♥</span></div></div></div>
+    <div class="card cv-slumber" tabindex="0"><div class="cover"><img class="cover-img" src="covers/slumber.jpg" alt="Slumber album cover" loading="lazy" onerror="this.style.display='none'"><div class="tag-corner">Single · 2019 · w/ Flynn</div></div><div class="info"><div class="name">Slumber</div><div class="row"><span>S!X - Music</span><span class="pl">8.4M ♥</span></div></div></div>
+    <div class="card cv-arise" tabindex="0"><div class="cover"><img class="cover-img" src="covers/arise.jpg" alt="Arise album cover" loading="lazy" onerror="this.style.display='none'"><div class="tag-corner">LP · 2020</div></div><div class="info"><div class="name">Arise</div><div class="row"><span>S!X - Music</span><span class="pl">18M ♥</span></div></div></div>
   </div>
 </section>
 
@@ -537,7 +551,7 @@
 </section>
 
 <!-- MARQUEE ACID -->
-<div class="marquee acid rev">
+<div class="marquee acid rev" aria-hidden="true">
   <div class="track">
     <span class="item">DJ SETS w/ LIVE TRUMPET <span class="star">▲</span> BE · DE · FR · ES <span class="star">▲</span> BOOK A SET <span class="star">▲</span> SYNC LICENSING OPEN <span class="star">▲</span></span>
     <span class="item">DJ SETS w/ LIVE TRUMPET <span class="star">▲</span> BE · DE · FR · ES <span class="star">▲</span> BOOK A SET <span class="star">▲</span> SYNC LICENSING OPEN <span class="star">▲</span></span>
@@ -595,8 +609,10 @@
   <div class="em">Or find me on <a href="#">Spotify</a> · <a href="#">Bandcamp</a> · <a href="#">Instagram</a> · <a href="#">YouTube</a></div>
 </section>
 
+</main>
+
 <!-- MARQUEE FOOTER -->
-<div class="marquee">
+<div class="marquee" aria-hidden="true">
   <div class="track">
     <span class="item">PHLOCALYST <span class="star">✦</span> 2017&nbsp;→&nbsp;∞ <span class="star">✦</span> MADE IN MUNICH, FLANDERS&nbsp;IN&nbsp;THE&nbsp;HEART <span class="star">✦</span> KEEP IT LO-FI <span class="star">✦</span></span>
     <span class="item">PHLOCALYST <span class="star">✦</span> 2017&nbsp;→&nbsp;∞ <span class="star">✦</span> MADE IN MUNICH, FLANDERS&nbsp;IN&nbsp;THE&nbsp;HEART <span class="star">✦</span> KEEP IT LO-FI <span class="star">✦</span></span>
@@ -649,8 +665,7 @@
 
 <script src="mobilenav.js"></script>
 
-<!-- Tone.js for procedural lo-fi audio -->
-<script src="https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js"></script>
+<!-- Tone.js loaded dynamically on first play (see tapedeck.jsx createEngine play()) -->
 
 <!-- React + Babel -->
 <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
