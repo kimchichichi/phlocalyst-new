@@ -12,16 +12,15 @@ Serve the files with any static HTTP server — the JSX files are loaded as `<sc
 
 ```bash
 python3 -m http.server 8080
-# then open http://localhost:8080/Phlocalyst%20v3.html
+# then open http://localhost:8080/
 ```
 
 ## File Map
 
 | File | Role |
 |---|---|
-| `Phlocalyst v3.html` | Main site — contains all page HTML, CSS variables, theme system, and the `window.TWEAK_DEFAULTS` block |
+| `index.html` | Main site (landing page) — contains all page HTML, CSS variables, theme system, and the `window.TWEAK_DEFAULTS` block |
 | `Bio.html`, `Contact.html`, `On The Road.html` | Secondary pages; share `contact.css` for nav/layout |
-| `index.html` | Legacy landing page (older design, standalone CSS, no React) |
 | `contact.css` | Shared stylesheet for the three secondary pages |
 | `tapedeck.jsx` | Procedural audio engine + `<TapeDeck />` React component |
 | `tweaks-panel.jsx` | Reusable tweaks panel system (`TweaksPanel`, `useTweaks`, sub-components) |
@@ -31,7 +30,7 @@ python3 -m http.server 8080
 
 ## CDN Dependencies (Pinned Versions)
 
-Loaded in `Phlocalyst v3.html` in this order:
+Loaded in `index.html` in this order:
 
 - **mobilenav.js** (local)
 - **Tone.js 14.8.49** — `cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js`
@@ -59,7 +58,7 @@ Themes are driven entirely by CSS custom properties on `<html>`:
 - **`data-theme`** attribute: `midnight` (default) | `warm` | `cream` | `acid`
 - **`data-display`** attribute: `boldonse` (default) | `bagel` | `bigshoulders`
 
-The initial values come from `window.TWEAK_DEFAULTS` in a `<script>` block near the top of `Phlocalyst v3.html`. These are applied synchronously before page paint (to prevent a flash), then the tweaks panel re-applies them reactively via `applyTweaks()` in `mount.jsx`. To change the site's default theme, edit the `TWEAK_DEFAULTS` block. Note: the `<html>` element has a hardcoded `data-theme="warm"` attribute, but `applyDefaults()` immediately overwrites it with the `TWEAK_DEFAULTS` value before first paint.
+The initial values come from `window.TWEAK_DEFAULTS` in a `<script>` block near the top of `index.html`. These are applied synchronously before page paint (to prevent a flash), then the tweaks panel re-applies them reactively via `applyTweaks()` in `mount.jsx`. To change the site's default theme, edit the `TWEAK_DEFAULTS` block. Note: the `<html>` element has a hardcoded `data-theme="warm"` attribute, but `applyDefaults()` immediately overwrites it with the `TWEAK_DEFAULTS` value before first paint.
 
 The secondary pages (`Bio.html`, `Contact.html`, `On The Road.html`) also default to the `midnight` theme and do not include the tweaks panel.
 
@@ -83,7 +82,7 @@ The Tone.js node graph is created **lazily on first play** to comply with browse
 
 - **No JSX transpilation step** — edit `.jsx` files directly; Babel processes them at runtime.
 - **CSS variables only** — all colour/spacing overrides go through custom properties defined on `:root` or a `[data-theme]` selector, never as inline values.
-- **`TWEAK_DEFAULTS` block** in `Phlocalyst v3.html` is delimited by `/*EDITMODE-BEGIN*/` … `/*EDITMODE-END*/` comments; do not remove these markers.
+- **`TWEAK_DEFAULTS` block** in `index.html` is delimited by `/*EDITMODE-BEGIN*/` … `/*EDITMODE-END*/` comments; do not remove these markers.
 - The secondary pages load `contact.css` as an external file but embed all other styles inline in `<style>` tags — keep this pattern consistent.
 - `mobilenav.js` is self-contained (injects its own CSS and DOM); it targets `header.topbar` to find the nav and mirrors existing `<nav>` links automatically.
 
