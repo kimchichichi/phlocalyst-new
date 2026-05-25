@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Bagel+Fat+One&family=Big+Shoulders+Display:wght@700;900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161009'/%3E%3Ccircle cx='11' cy='16' r='4' fill='%23ff5a1f'/%3E%3Crect x='15' y='14' width='4' height='4' fill='%23ff5a1f'/%3E%3Crect x='19' y='14.5' width='10' height='3' rx='1' fill='%23ff5a1f'/%3E%3C/svg%3E" />
 <style>
   :root{
     --coal:#161009;--coal-2:#1f180e;--cream:#f5ead0;--cream-dim:#bdb29a;
@@ -22,7 +23,12 @@
   html[data-display="bigshoulders"]{--display:'Big Shoulders Display','Arial Black',sans-serif;}
 
   *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:60px;}
   html,body{background:var(--coal);color:var(--cream);}
+
+  /* SKIP LINK */
+  .skip-link{position:absolute;left:-9999px;top:6px;z-index:9999;padding:8px 16px;background:var(--orange);color:var(--coal);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;}
+  .skip-link:focus{left:6px;}
   body{
     font-family:'Bricolage Grotesque',system-ui,sans-serif;
     font-size:16px;line-height:1.5;overflow-x:hidden;
@@ -30,7 +36,7 @@
       radial-gradient(circle at 12% 10%,color-mix(in oklab,var(--orange) 18%,transparent),transparent 40%),
       radial-gradient(circle at 90% 80%,color-mix(in oklab,var(--amber) 14%,transparent),transparent 45%);
   }
-  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;opacity:var(--grain);mix-blend-mode:overlay;
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;opacity:var(--grain);mix-blend-mode:overlay;will-change:transform;contain:strict;
     background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
   a{color:inherit;text-decoration:none;}
@@ -54,13 +60,13 @@
   .marquee.bold{background:var(--orange);color:var(--coal);border-color:var(--orange);}
   .marquee .track{display:inline-flex;gap:42px;animation:scroll var(--marquee-dur) linear infinite;}
   .marquee.fast .track{animation-duration:calc(var(--marquee-dur) * .58);}
-  .marquee .item{font-family:var(--display);font-size:30px;letter-spacing:-.01em;display:inline-flex;align-items:center;gap:42px;text-transform:uppercase;}
+  .marquee .item{font-family:var(--display);font-size:clamp(14px, 4vw, 30px);letter-spacing:-.01em;display:inline-flex;align-items:center;gap:42px;text-transform:uppercase;}
   .marquee .star{color:var(--amber);}.marquee.bold .star{color:var(--coal);}
   @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
   /* HERO */
   .hero{max-width:1280px;margin:0 auto;padding:54px 26px 80px;position:relative;}
-  .hero .topline{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;color:var(--cream-dim);margin-bottom:32px;}
+  .hero .topline{display:flex;justify-content:flex-start;align-items:flex-end;gap:40px;color:var(--cream-dim);margin-bottom:32px;}
   .hero .topline .right{text-align:right;}
   .hero-grid{display:grid;grid-template-columns:380px 1fr;gap:50px;align-items:end;}
   .portrait{
@@ -92,11 +98,12 @@
     display:grid;grid-template-columns:repeat(5,1fr);gap:0;
     border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
   }
-  .fact{padding:24px 22px;border-right:1px solid var(--rule);}
+  .fact{padding:24px 22px;border-right:1px solid var(--rule);transition:background .15s ease;cursor:default;}
   .fact:last-child{border-right:0;}
   .fact .l{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);}
   .fact .v{font-family:var(--display);font-size:32px;line-height:1;margin-top:10px;text-transform:uppercase;letter-spacing:-.01em;}
-  .fact .v.hot{color:var(--orange);}
+  .fact .v.hot{color:var(--orange);font-size:clamp(36px,3.8vw,52px);}
+  .fact:hover{background:color-mix(in oklab,var(--orange) 6%,transparent);}
   .fact .s{font-size:13px;color:var(--cream-dim);margin-top:6px;font-family:'DM Mono',monospace;letter-spacing:.04em;text-transform:uppercase;}
 
   /* SECTION HEAD */
@@ -190,7 +197,7 @@
   /* DAY-IN-LIFE */
   .day-section{background:var(--coal-2);border-block:1px solid var(--rule);padding:100px 26px;}
   .day-section .inner{max-width:1280px;margin:0 auto;}
-  .day-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:20px;}
+  .day-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:20px;}
   .day-row{display:grid;grid-template-columns:100px 1fr;gap:20px;padding:18px 20px;border:1px solid var(--rule);border-radius:8px;background:color-mix(in oklab,var(--cream) 3%,transparent);}
   .day-row .t{font-family:var(--display);font-size:22px;line-height:1;letter-spacing:-.01em;color:var(--orange);}
   .day-row .what b{font-family:var(--display);text-transform:uppercase;font-size:15px;letter-spacing:-.005em;color:var(--cream);display:block;margin-bottom:4px;}
@@ -228,7 +235,7 @@
   .cta .pre{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:18px;}
   .cta h2{font-family:var(--display);font-size:clamp(60px,11vw,160px);line-height:.84;letter-spacing:-.03em;text-transform:uppercase;}
   .cta h2 .o{color:var(--orange);}
-  .cta h2 .stroke{-webkit-text-stroke:2px var(--cream);color:transparent;}
+  .cta h2 .stroke{-webkit-text-stroke:2px var(--cream);color:transparent;paint-order:stroke fill;}
   .cta .row{display:flex;gap:14px;justify-content:center;margin-top:36px;flex-wrap:wrap;}
   .btn{font-family:var(--display);text-transform:uppercase;font-size:13px;letter-spacing:.02em;padding:14px 20px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;border:2px solid var(--cream);color:var(--cream);transition:transform .15s ease,background .15s ease,color .15s ease;}
   .btn:hover{transform:translateY(-2px);}
@@ -292,25 +299,29 @@
   </defs>
 </svg>
 
+<a href="#main-content" class="skip-link">Skip to content</a>
+
 <!-- TOP BAR -->
 <header class="topbar">
   <div class="brand">
     <span class="glyph"></span>
-    <a href="Phlocalyst v3.html"><span>PHLOCALYST<span style="color:var(--orange);">★</span></span></a>
+    <a href="index.html"><span>PHLOCALYST<span style="color:var(--orange);">★</span></span></a>
   </div>
   <nav>
-    <a href="Phlocalyst v3.html#deck">Tape Deck</a>
-    <a href="Phlocalyst v3.html#disco">Discography</a>
-    <a href="Phlocalyst v3.html#portraits">Gallery</a>
+    <a href="index.html#deck">Tape Deck</a>
+    <a href="index.html#disco">Discography</a>
+    <a href="index.html#portraits">Gallery</a>
     <a href="On The Road.html">On The Road</a>
     <a class="active" href="Bio.html">Bio</a>
     <a href="Contact.html">Contact</a>
-    <a href="Phlocalyst v3.html#book">Book</a>
+    <a href="index.html#book">Book</a>
   </nav>
   <div class="right">
-    <a class="back" href="Phlocalyst v3.html">← BACK TO MAIN</a>
+    <a class="back" href="index.html">← BACK TO MAIN</a>
   </div>
 </header>
+
+<main id="main-content">
 
 <!-- MARQUEE -->
 <div class="marquee">
@@ -381,13 +392,13 @@
 <section class="story-section" data-screen-label="02 Origin Story">
   <div class="section-head">
     <h2>The <span class="c">story</span></h2>
-    <div class="meta">5,000 WORDS, GIVE OR TAKE<br/>WRITTEN IN A HOTEL, BRUSSELS</div>
+    <div class="meta">EDITORIAL NARRATIVE<br/>NOT A FACTUAL RECORD</div>
   </div>
 
   <div class="story">
     <aside>
-      <div class="l">Chapter 01</div>
-      <div class="chap">Origins<br/>&amp; horns</div>
+      <div class="l">The origin</div>
+      <div class="chap">Sevilla<br/>→ Munich</div>
     </aside>
     <div class="prose">
       <p class="dropcap">Phlocalyst was born twice. The first time in <em>Sevilla</em>, to Flemish parents passing through on a long Spanish summer in 1992 — a fact he likes more than he admits when he's the only one in a Munich orchestra with a southern shade of his name. The second time was in 2017, on an iPad, in a studio apartment in Cologne, trying to remake a Pete&nbsp;Rock beat at three in the morning when he should've been asleep before a Mahler rehearsal.</p>
@@ -438,12 +449,12 @@
       </div>
       <div class="tl-row">
         <div class="year">2014</div>
-        <div class="title">Audition · Bavaria<small>Munich · 22</small></div>
-        <div class="desc">Wins a third-trumpet position in a professional German orchestra on his second try. Moves to Munich with two suitcases, one trumpet case, and three Robert Glasper records.</div>
+        <div class="title">Wins orchestra audition<small>Bavaria · age 22</small></div>
+        <div class="desc">Secures a third-trumpet position in a professional German orchestra. Continues based in Flanders while preparing the transition.</div>
       </div>
       <div class="tl-row">
         <div class="year">2016</div>
-        <div class="title">First apartment with a studio corner<small>Schwabing</small></div>
+        <div class="title">Moves to Munich<small>Schwabing</small></div>
         <div class="desc">Trumpet in the closet, a borrowed iPad on the kitchen table. Starts learning Logic by watching tutorials in his second language.</div>
       </div>
       <div class="tl-row">
@@ -452,24 +463,34 @@
         <div class="desc">Anonymous SoundCloud account. First track is two minutes long, has one chord, and 47 plays. He listens to it 36 of them himself.</div>
       </div>
       <div class="tl-row">
+        <div class="year">2018</div>
+        <div class="title">Fundamentals (LP)<small>S!X - Music · debut</small></div>
+        <div class="desc">First full-length record. Eight tracks of solo beats with live trumpet. Released the same year as <em>Balance</em> LP and the <em>Serendipity</em> EP — three records in twelve months.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2018</div>
+        <div class="title">Serendipity EP<small>w/ LESKY · S!X - Music</small></div>
+        <div class="desc">Collaborative EP with LESKY. Ten tracks, recorded in a long Cologne weekend. First release to draw attention beyond the SoundCloud sphere.</div>
+      </div>
+      <div class="tl-row">
         <div class="year">2019</div>
-        <div class="title">First label release<small>w/ Oatmello</small></div>
-        <div class="desc">"Tea Light" appears on a Chillhop sampler. He learns the names of two playlist curators and writes them down in a notebook he later loses on a tour bus.</div>
+        <div class="title">Entity (LP)<small>S!X - Music</small></div>
+        <div class="desc">Third full-length on S!X. Twelve tracks including "Parapluie" (feat. m e a d o w) and "Slumber" (feat. Flynn) — both later picked up as catalogue fan favourites.</div>
       </div>
       <div class="tl-row">
         <div class="year">2020</div>
-        <div class="title">Arise (LP)<small>Self-released</small></div>
-        <div class="desc">Debut full-length. Twelve tracks. Trumpet on most of them. First record to cross a million streams; first to make him think this might be a second job and not a side one.</div>
-      </div>
-      <div class="tl-row">
-        <div class="year">2020</div>
-        <div class="title">Serendipity EP<small>w/ LESKY · Melting Pot</small></div>
-        <div class="desc">Half-improvised over a long weekend in Cologne. They mailed each other unfinished stems for a year before deciding to actually be in the same room.</div>
+        <div class="title">Arise (LP)<small>S!X - Music</small></div>
+        <div class="desc">Fourth full-length. Twelve tracks. Trumpet on most of them. First record to cross a million streams; first to make him think this might be a second job and not a side one.</div>
       </div>
       <div class="tl-row">
         <div class="year">2021</div>
-        <div class="title">"Parapluie" hits<small>w/ m e a d o w</small></div>
-        <div class="desc">A vocal feature he wasn't sure about. Eventually crosses 22M streams. The catalogue passes 100M total around its first birthday.</div>
+        <div class="title">"Parapluie" Chillhop single<small>w/ m e a d o w · 22M streams</small></div>
+        <div class="desc">Chillhop release of the track from Entity. Crosses 22M streams. The catalogue passes 100M total around its first birthday.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year">2021</div>
+        <div class="title">Argo (LP)<small>w/ Sátyr · Lofi Records</small></div>
+        <div class="desc">Collaborative LP with Sátyr on Lofi Girl's label. Seven tracks featuring Phlocalyst alongside m e a d o w, LESKY, and Rudy Raw.</div>
       </div>
       <div class="tl-row">
         <div class="year">2022</div>
@@ -478,18 +499,18 @@
       </div>
       <div class="tl-row">
         <div class="year hot">2022</div>
-        <div class="title">Insights (LP) — debut on Nettwerk<small>"A jazz-hop collage"</small></div>
-        <div class="desc">Eight tracks, three singles, one Spotify lofi-beats #3 placement, and a vinyl run that sells out in two months. The artwork by Giza ends up on more bedroom walls than he's comfortable thinking about.</div>
+        <div class="title">Insights (EP) — Nettwerk debut<small>Dec 16, 2022</small></div>
+        <div class="desc">Eight tracks, three singles, one Spotify lofi-beats #3 placement, and a vinyl run that sells out in two months. Artwork by Giza.</div>
+      </div>
+      <div class="tl-row">
+        <div class="year hot">2023</div>
+        <div class="title">Page Break (LP)<small>Jun 30, 2023 · Nettwerk</small></div>
+        <div class="desc">Second album on Nettwerk. Seven tracks: Rising Morning, Sapphire Bounce, Zeal Pt. 2, Marbles, Again, Emmitouflé, Our Time.</div>
       </div>
       <div class="tl-row">
         <div class="year">2023</div>
         <div class="title">First headline tour<small>BE · DE · FR · NL · ES</small></div>
         <div class="desc">Twelve dates with a live SP-404, a trumpet, a laptop he doesn't fully trust. He throws up before half the shows and gets bored of being nervous somewhere around date seven.</div>
-      </div>
-      <div class="tl-row">
-        <div class="year">2024</div>
-        <div class="title">Lofi Girl live session<small>Paris</small></div>
-        <div class="desc">Twenty-minute set, two cameras, one continuous trumpet improvisation. It does eight million plays in a quarter and becomes the thing strangers cite at him in airports.</div>
       </div>
       <div class="tl-row">
         <div class="year hot">2026</div>
@@ -555,7 +576,7 @@
 <section class="gear-section" data-screen-label="05 Gear">
   <div class="section-head">
     <h2>The <span class="c">setup</span></h2>
-    <div class="meta">EVERYTHING SHORT OF THE COFFEE MACHINE<br/>(THE COFFEE MACHINE IS A LA MARZOCCO LINEA MINI)</div>
+    <div class="meta">ILLUSTRATIVE SETUP<br/>NOT VERIFIED FROM PRIMARY SOURCES</div>
   </div>
 
   <div class="gear-grid">
@@ -602,7 +623,7 @@
   <div class="inner">
     <div class="section-head">
       <h2>A normal<br/><span class="c">day</span></h2>
-      <div class="meta">TUESDAY, MUNICH, NOTHING SPECIAL<br/>NOT REPRESENTATIVE OF TOUR DAYS</div>
+      <div class="meta">COMPOSITE TUESDAY<br/>ILLUSTRATIVE · NOT VERIFIED</div>
     </div>
 
     <div class="day-grid">
@@ -624,33 +645,33 @@
 <section class="qs-section" data-screen-label="07 In His Own Words">
   <div class="section-head">
     <h2>In his own <span class="c">words</span></h2>
-    <div class="meta">FROM INTERVIEWS / LINER NOTES<br/>2020 — 2026</div>
+    <div class="meta">ILLUSTRATIVE QUOTES<br/>SOURCES UNVERIFIED</div>
   </div>
 
   <div class="qs-grid">
     <div class="pq">
       <div class="q">My best music is usually made when I'm feeling unwell — there's something about not having the energy to overthink that gets me out of my own way.</div>
-      <div class="src"><b>On making Insights</b> · Nettwerk press · 2022</div>
+      <div class="src"><b>On making Insights</b> · 2022</div>
     </div>
     <div class="pq">
       <div class="q">The trumpet is louder than anything I own. So whatever I sample, whatever I program — the horn has to be the loudest thing in the room emotionally too, or I won't believe it.</div>
-      <div class="src"><b>On arranging</b> · The Quietus interview · 2023</div>
+      <div class="src"><b>On arranging</b> · 2023</div>
     </div>
     <div class="pq">
       <div class="q">Classical music taught me to play long notes. Hip-hop taught me to put them in places long notes are not usually allowed.</div>
-      <div class="src"><b>On the two careers</b> · Süddeutsche Zeitung · 2024</div>
+      <div class="src"><b>On the two careers</b> · 2024</div>
     </div>
     <div class="pq">
       <div class="q">I don't think the genre is "lo-fi". I think the genre is "music you can read to without it asking anything of you." Sometimes that means it's lo-fi. Sometimes it means it's a five-piece band.</div>
-      <div class="src"><b>On the label</b> · Bandcamp Daily · 2024</div>
+      <div class="src"><b>On the label</b> · 2024</div>
     </div>
     <div class="pq">
       <div class="q">If the snare hits exactly on two and four, I get nervous. If it hits ten milliseconds late, the track relaxes — and I do too.</div>
-      <div class="src"><b>On rhythm</b> · Tape Op feature · 2025</div>
+      <div class="src"><b>On rhythm</b> · 2025</div>
     </div>
     <div class="pq">
       <div class="q">My grandfather played in the village band for forty years and never recorded a single note. I think about that almost every time I press save.</div>
-      <div class="src"><b>On legacy</b> · de Standaard · 2025</div>
+      <div class="src"><b>On legacy</b> · 2025</div>
     </div>
   </div>
 </section>
@@ -670,7 +691,7 @@
 
     <details>
       <summary>Is it actually you on every trumpet take?</summary>
-      <div class="a">Yes. Every horn line on every Phlocalyst release is played by me, with the exception of a single guest verse from <em>Theo Croker</em> on a 2024 compilation. Even the samples that sound like horns — those are also me, just resampled and chopped beyond recognition.</div>
+      <div class="a">Yes. Every horn line on every Phlocalyst release is played by me. Even the samples that sound like horns — those are also me, just resampled and chopped beyond recognition.</div>
     </details>
 
     <details>
@@ -711,10 +732,12 @@
   <h2>OK then,<br/><span class="o">let's talk.</span></h2>
   <div class="row">
     <a class="btn primary" href="mailto:hi@phlocalyst.com">Email Michiel <span class="arr">↗</span></a>
-    <a class="btn ghost" href="Phlocalyst v3.html#deck">Back to the tape deck <span class="arr">↗</span></a>
-    <a class="btn ghost" href="Phlocalyst v3.html#book">Book a set <span class="arr">↗</span></a>
+    <a class="btn ghost" href="index.html#deck">Back to the tape deck <span class="arr">↗</span></a>
+    <a class="btn ghost" href="index.html#book">Book a set <span class="arr">↗</span></a>
   </div>
 </section>
+
+</main>
 
 <!-- FOOTER -->
 <footer class="foot">
@@ -726,16 +749,16 @@
     <div>
       <h4>Read more</h4>
       <ul>
-        <li><a href="Phlocalyst v3.html">Main site<span class="arr">↗</span></a></li>
-        <li><a href="Phlocalyst v3.html#deck">Tape deck<span class="arr">↗</span></a></li>
-        <li><a href="Phlocalyst v3.html#disco">Discography<span class="arr">↗</span></a></li>
-        <li><a href="Phlocalyst v3.html#live">Tour<span class="arr">↗</span></a></li>
+        <li><a href="index.html">Main site<span class="arr">↗</span></a></li>
+        <li><a href="index.html#deck">Tape deck<span class="arr">↗</span></a></li>
+        <li><a href="index.html#disco">Discography<span class="arr">↗</span></a></li>
+        <li><a href="index.html#live">Tour<span class="arr">↗</span></a></li>
       </ul>
     </div>
     <div>
       <h4>Listen</h4>
       <ul>
-        <li><a href="#">Spotify<span class="arr">↗</span></a></li>
+        <li><a href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt">Spotify<span class="arr">↗</span></a></li>
         <li><a href="#">Bandcamp<span class="arr">↗</span></a></li>
         <li><a href="#">Apple Music<span class="arr">↗</span></a></li>
         <li><a href="#">YouTube<span class="arr">↗</span></a></li>

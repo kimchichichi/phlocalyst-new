@@ -255,6 +255,15 @@ function createEngine() {
   }
 
   async function play() {
+    if (typeof Tone === 'undefined') {
+      await new Promise((resolve, reject) => {
+        const s = document.createElement('script');
+        s.src = 'https://cdn.jsdelivr.net/npm/tone@14.8.49/build/Tone.js';
+        s.onload = resolve;
+        s.onerror = () => reject(new Error('Tone.js failed to load'));
+        document.head.appendChild(s);
+      });
+    }
     init();
     if (Tone.context.state !== 'running') await Tone.start();
     if (!ctx.cleanup) scheduleTrack(ctx.currentTrackIdx);
@@ -406,7 +415,7 @@ function Knob({ label, value, onChange, color = 'var(--amber)' }) {
   };
   return (
     <div className="tdk-knob">
-      <div className="tdk-knob-body" onPointerDown={onDown}>
+      <div className="tdk-knob-body" onPointerDown={onDown} title="Drag up/down to adjust">
         <div className="tdk-knob-ind" style={{ transform: `rotate(${angle}deg)` }}>
           <i style={{ background: color }} />
         </div>
@@ -549,11 +558,12 @@ function TapeDeck() {
           <div className="tdk-tracks-head">
             <span>#</span>
             <span>TRACK</span>
-            <span>RELEASE</span>
-            <span>BPM</span>
+            <span className="h-rel">RELEASE</span>
+            <span className="h-bpm">BPM</span>
             <span>TIME</span>
             <span></span>
           </div>
+          <div className="tdk-tracks-hint">↔ Widen for release &amp; BPM details</div>
           {TRACKS.map((t, i) => (
             <button key={t.id} className={`tdk-tr ${i === trackIdx ? 'is-active' : ''}`} onClick={() => onSelect(i)}>
               <span className="tdk-tr-n">{String(i + 1).padStart(2, '0')}</span>
@@ -721,6 +731,7 @@ const TAPE_CSS = `
   }
   .tdk-btn-play:active{box-shadow: 0 2px 0 #3a1208, 0 4px 12px rgba(255,90,31,.2), inset 0 1px 0 rgba(255,255,255,.25);}
   .tdk-btn-play.is-playing{background:linear-gradient(180deg, #c2401a, #7a2510);}
+  .tdk-btn-play:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
 
   /* KNOBS */
   .tdk-knobs{display:flex;gap:18px;margin-left:auto;}
@@ -788,11 +799,14 @@ const TAPE_CSS = `
     color:var(--cream-dim);
   }
 
+  .tdk-tracks-hint{display:none;padding:4px 12px 8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-dim);opacity:.6;}
+
   @media (max-width:900px){
     .tdk-face{grid-template-columns:1fr;}
     .tdk-control{padding:0;}
     .tdk-tracks-head, .tdk-tr{grid-template-columns:30px 1fr 50px 26px;}
     .tdk-tracks-head .h-rel, .tdk-tr-rel, .tdk-tracks-head .h-bpm, .tdk-tr-bpm{display:none;}
+    .tdk-tracks-hint{display:block;}
     .tdk-foot{flex-direction:column;}
   }
 `;
