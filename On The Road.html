@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Bagel+Fat+One&family=Big+Shoulders+Display:wght@700;900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161009'/%3E%3Ccircle cx='11' cy='16' r='4' fill='%23ff5a1f'/%3E%3Crect x='15' y='14' width='4' height='4' fill='%23ff5a1f'/%3E%3Crect x='19' y='14.5' width='10' height='3' rx='1' fill='%23ff5a1f'/%3E%3C/svg%3E" />
 <style>
   :root{
     --coal:#161009;--coal-2:#1f180e;--cream:#f5ead0;--cream-dim:#bdb29a;
@@ -21,8 +22,19 @@
   html[data-display="bigshoulders"]{--display:'Big Shoulders Display','Arial Black',sans-serif;}
 
   *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:60px;}
   html,body{background:var(--coal);color:var(--cream);}
-  body{font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:16px;line-height:1.5;}
+  body{
+    font-family:'Bricolage Grotesque',system-ui,sans-serif;font-size:16px;line-height:1.5;overflow-x:hidden;
+    background-image:
+      radial-gradient(circle at 12% 10%,color-mix(in oklab,var(--orange) 18%,transparent),transparent 40%),
+      radial-gradient(circle at 90% 80%,color-mix(in oklab,var(--amber) 14%,transparent),transparent 45%);
+  }
+  body::before{content:'';position:fixed;inset:0;pointer-events:none;z-index:100;opacity:.05;mix-blend-mode:overlay;will-change:transform;contain:strict;
+    background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+  .skip-link{position:absolute;left:-9999px;top:6px;z-index:9999;padding:8px 16px;background:var(--orange);color:var(--coal);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;}
+  .skip-link:focus{left:6px;}
   a{color:inherit;text-decoration:none;}
   .mono{font-family:'DM Mono',ui-monospace,monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;}
 
@@ -73,11 +85,12 @@
     transition:padding .15s ease,background .15s ease;
   }
   .show:hover{background:color-mix(in oklab,var(--cream) 4%,transparent);padding-left:16px;}
-  .show .date{font-family:var(--display);font-size:24px;line-height:1;letter-spacing:-.005em;text-transform:uppercase;color:var(--cream);}
-  .show .date .d{color:var(--orange);}
+  .show .date{display:flex;flex-direction:column;gap:1px;}
+  .show .date .d{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--orange);}
+  .show .date .n{font-family:var(--display);font-size:20px;line-height:1;letter-spacing:-.01em;text-transform:uppercase;color:var(--cream);}
   .show .name{font-family:var(--display);font-size:24px;line-height:1.05;letter-spacing:-.01em;text-transform:uppercase;color:var(--cream);}
   .show .city{font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-dim);}
-  .show .city b{color:var(--cream);font-weight:500;}
+  .cc{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;color:var(--cream-dim);}
   .show .status{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;border-radius:999px;text-align:center;}
   .show .status.on{background:var(--acid);color:var(--coal);}
   .show .status.few{background:var(--amber);color:var(--coal);}
@@ -87,6 +100,10 @@
   .show .tix:hover{color:var(--cream);}
   .show .tix.muted{color:var(--cream-dim);pointer-events:none;}
   .show.sold-row{opacity:.55;}
+  .show.sold-row .name{text-decoration:line-through;text-decoration-color:var(--rule);}
+  .show.sold-row:hover{background:transparent;padding-left:4px;cursor:default;}
+  .summary .cell:first-child .v{font-size:clamp(36px,4vw,52px);}
+  .shows-list{margin-top:0;border-top:2px solid var(--cream);}
 
   /* PAST */
   .past{margin-top:80px;padding-top:30px;border-top:1px dashed var(--rule);}
@@ -119,19 +136,29 @@
   footer.foot .wrap{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);flex-wrap:wrap;}
   footer.foot .wrap a:hover{color:var(--orange);}
 
+  /* ROAD MARQUEE */
+  @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  .road-marquee{overflow:hidden;white-space:nowrap;border-block:1px solid var(--rule);padding:12px 0;background:var(--coal-2);margin:80px 0 0;}
+  .road-marquee .track{display:inline-flex;gap:36px;animation:scroll 22s linear infinite;}
+  .road-marquee span{font-family:var(--display);font-size:clamp(13px,3vw,22px);letter-spacing:-.01em;text-transform:uppercase;display:inline-flex;align-items:center;gap:36px;}
+  .road-marquee .star{color:var(--amber);}
+
   @media (max-width:780px){
     h1{font-size:64px;}
     .summary{grid-template-columns:repeat(2,1fr);}
     .summary .cell{border-right:0;border-bottom:1px solid var(--rule);}
     .show{grid-template-columns:1fr 1fr;gap:10px;}
-    .show .city,.show .status{display:none;}
+    .show .city,.show .status:not(.sold){display:none;}
     .show .tix{text-align:left;}
+    .show.sold-row .name::after{content:' · SOLD';font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;color:var(--cream-dim);text-decoration:none;display:inline-block;margin-left:6px;}
     .book-cta{grid-template-columns:1fr;}
     .topbar nav{display:none;}
   }
 </style>
 </head>
 <body data-screen-label="On the Road">
+
+<a href="#main-content" class="skip-link">Skip to content</a>
 
 <!-- TOPBAR -->
 <header class="topbar">
@@ -152,10 +179,10 @@
 </header>
 
 <!-- PAGE -->
-<main class="page">
+<main class="page" id="main-content">
 
   <div class="label">Tour · Spring &amp; Summer 2026</div>
-  <h1>On the<br/><span class="o">road.</span></h1>
+  <h1>On The<br/><span class="o">Road.</span></h1>
   <p class="lede">A short list of where the trumpet and the SP-404 are going next. Mostly clubs, a couple of festivals, one orchestra hall. For routing requests, write to <a href="mailto:booking@phlocalyst.com">booking@phlocalyst.com</a>.</p>
 
   <!-- SUMMARY -->
@@ -166,182 +193,143 @@
     <div class="cell"><div class="v">Jun → Sep</div><div class="l">Date range</div></div>
   </div>
 
-  <!-- JUNE -->
-  <section class="month">
-    <div class="month-head">
-      <div class="name">June <span class="y">2026</span></div>
-      <div class="count">04 shows</div>
-    </div>
-
+  <!-- SHOWS -->
+  <div class="shows-list">
     <div class="show">
-      <div class="date"><span class="d">Fri</span> 06</div>
+      <div class="date"><span class="d">FRI</span><span class="n">JUN 06</span></div>
       <div class="name">Werkstatt</div>
-      <div class="city">Munich, <b>DE</b></div>
+      <div class="city">Munich, <span class="cc">DE</span></div>
       <div class="status few">Few left</div>
       <a class="tix" href="#">Tickets ↗</a>
     </div>
-
     <div class="show">
-      <div class="date"><span class="d">Sat</span> 14</div>
+      <div class="date"><span class="d">SAT</span><span class="n">JUN 14</span></div>
       <div class="name">Botanique</div>
-      <div class="city">Brussels, <b>BE</b></div>
+      <div class="city">Brussels, <span class="cc">BE</span></div>
       <div class="status on">On sale</div>
       <a class="tix" href="#">Tickets ↗</a>
     </div>
-
     <div class="show sold-row">
-      <div class="date"><span class="d">Sun</span> 22</div>
+      <div class="date"><span class="d">SUN</span><span class="n">JUN 22</span></div>
       <div class="name">Le Trianon</div>
-      <div class="city">Paris, <b>FR</b></div>
+      <div class="city">Paris, <span class="cc">FR</span></div>
       <div class="status sold">Sold out</div>
       <span class="tix muted">— —</span>
     </div>
-
     <div class="show">
-      <div class="date"><span class="d">Fri</span> 27</div>
+      <div class="date"><span class="d">FRI</span><span class="n">JUN 27</span></div>
       <div class="name">De Roma</div>
-      <div class="city">Antwerp, <b>BE</b></div>
+      <div class="city">Antwerp, <span class="cc">BE</span></div>
       <div class="status on">On sale</div>
       <a class="tix" href="#">Tickets ↗</a>
     </div>
-  </section>
-
-  <!-- JULY -->
-  <section class="month">
-    <div class="month-head">
-      <div class="name">July <span class="y">2026</span></div>
-      <div class="count">03 shows</div>
-    </div>
-
     <div class="show">
-      <div class="date"><span class="d">Fri</span> 03</div>
+      <div class="date"><span class="d">FRI</span><span class="n">JUL 03</span></div>
       <div class="name">Razzmatazz</div>
-      <div class="city">Barcelona, <b>ES</b></div>
+      <div class="city">Barcelona, <span class="cc">ES</span></div>
       <div class="status on">On sale</div>
       <a class="tix" href="#">Tickets ↗</a>
     </div>
-
     <div class="show">
-      <div class="date"><span class="d">Sat</span> 18</div>
+      <div class="date"><span class="d">SAT</span><span class="n">JUL 18</span></div>
       <div class="name">Bimhuis</div>
-      <div class="city">Amsterdam, <b>NL</b></div>
+      <div class="city">Amsterdam, <span class="cc">NL</span></div>
       <div class="status on">On sale</div>
       <a class="tix" href="#">Tickets ↗</a>
     </div>
-
     <div class="show sold-row">
-      <div class="date"><span class="d">Thu</span> 23</div>
+      <div class="date"><span class="d">THU</span><span class="n">JUL 23</span></div>
       <div class="name">Jazz Café</div>
-      <div class="city">London, <b>UK</b></div>
+      <div class="city">London, <span class="cc">UK</span></div>
       <div class="status sold">Sold out</div>
       <span class="tix muted">— —</span>
     </div>
-  </section>
-
-  <!-- AUGUST -->
-  <section class="month">
-    <div class="month-head">
-      <div class="name">August <span class="y">2026</span></div>
-      <div class="count">04 shows</div>
-    </div>
-
     <div class="show">
-      <div class="date"><span class="d">Sun</span> 02</div>
+      <div class="date"><span class="d">SUN</span><span class="n">AUG 02</span></div>
       <div class="name">Pukkelpop</div>
-      <div class="city">Kiewit, <b>BE</b></div>
+      <div class="city">Kiewit, <span class="cc">BE</span></div>
       <div class="status fest">Festival</div>
       <a class="tix" href="#">Festival ↗</a>
     </div>
-
     <div class="show">
-      <div class="date"><span class="d">Fri</span> 14</div>
+      <div class="date"><span class="d">FRI</span><span class="n">AUG 14</span></div>
       <div class="name">Way Out West</div>
-      <div class="city">Gothenburg, <b>SE</b></div>
+      <div class="city">Gothenburg, <span class="cc">SE</span></div>
       <div class="status fest">Festival</div>
       <a class="tix" href="#">Festival ↗</a>
     </div>
-
     <div class="show">
-      <div class="date"><span class="d">Sat</span> 22</div>
+      <div class="date"><span class="d">SAT</span><span class="n">AUG 22</span></div>
       <div class="name">Säälchen</div>
-      <div class="city">Berlin, <b>DE</b></div>
+      <div class="city">Berlin, <span class="cc">DE</span></div>
       <div class="status few">Few left</div>
       <a class="tix" href="#">Tickets ↗</a>
     </div>
-
     <div class="show">
-      <div class="date"><span class="d">Mon</span> 24</div>
+      <div class="date"><span class="d">MON</span><span class="n">AUG 24</span></div>
       <div class="name">Sónar+D</div>
-      <div class="city">Barcelona, <b>ES</b></div>
+      <div class="city">Barcelona, <span class="cc">ES</span></div>
       <div class="status on">On sale</div>
       <a class="tix" href="#">Tickets ↗</a>
     </div>
-  </section>
-
-  <!-- SEPTEMBER -->
-  <section class="month">
-    <div class="month-head">
-      <div class="name">September <span class="y">2026</span></div>
-      <div class="count">03 shows</div>
-    </div>
-
     <div class="show">
-      <div class="date"><span class="d">Fri</span> 04</div>
+      <div class="date"><span class="d">FRI</span><span class="n">SEP 04</span></div>
       <div class="name">Le Guess Who?</div>
-      <div class="city">Utrecht, <b>NL</b></div>
+      <div class="city">Utrecht, <span class="cc">NL</span></div>
       <div class="status fest">Festival</div>
       <a class="tix" href="#">Festival ↗</a>
     </div>
-
     <div class="show sold-row">
-      <div class="date"><span class="d">Sat</span> 12</div>
+      <div class="date"><span class="d">SAT</span><span class="n">SEP 12</span></div>
       <div class="name">Cité de la Musique</div>
-      <div class="city">Paris, <b>FR</b></div>
+      <div class="city">Paris, <span class="cc">FR</span></div>
       <div class="status sold">Sold out</div>
       <span class="tix muted">— —</span>
     </div>
-
     <div class="show">
-      <div class="date"><span class="d">Fri</span> 25</div>
+      <div class="date"><span class="d">FRI</span><span class="n">SEP 25</span></div>
       <div class="name">Philharmonie</div>
-      <div class="city">Munich, <b>DE</b></div>
+      <div class="city">Munich, <span class="cc">DE</span></div>
       <div class="status on">On sale</div>
       <a class="tix" href="#">Tickets ↗</a>
     </div>
-  </section>
+  </div>
 
   <!-- PAST -->
   <section class="past">
     <h3>Recently played</h3>
     <div class="show">
-      <div class="date">May 17</div>
+      <div class="date"><span class="d">SAT</span><span class="n">MAY 17, 2026</span></div>
       <div class="name">Lofi Girl Session</div>
-      <div class="city">Paris, <b>FR</b></div>
-      <div class="status"></div>
+      <div class="city">Paris, <span class="cc">FR</span></div>
       <a class="tix" href="#">Watch ↗</a>
     </div>
     <div class="show">
-      <div class="date">Apr 28</div>
+      <div class="date"><span class="d">MON</span><span class="n">APR 28, 2026</span></div>
       <div class="name">Ancienne Belgique</div>
-      <div class="city">Brussels, <b>BE</b></div>
-      <div class="status"></div>
+      <div class="city">Brussels, <span class="cc">BE</span></div>
       <a class="tix" href="#">Recap ↗</a>
     </div>
     <div class="show">
-      <div class="date">Apr 04</div>
+      <div class="date"><span class="d">FRI</span><span class="n">APR 04, 2026</span></div>
       <div class="name">Le Maroquinerie</div>
-      <div class="city">Paris, <b>FR</b></div>
-      <div class="status"></div>
+      <div class="city">Paris, <span class="cc">FR</span></div>
       <a class="tix" href="#">Recap ↗</a>
     </div>
     <div class="show">
-      <div class="date">Mar 22</div>
+      <div class="date"><span class="d">SUN</span><span class="n">MAR 22, 2026</span></div>
       <div class="name">Milla Club</div>
-      <div class="city">Munich, <b>DE</b></div>
-      <div class="status"></div>
+      <div class="city">Munich, <span class="cc">DE</span></div>
       <a class="tix" href="#">Recap ↗</a>
     </div>
   </section>
+
+  <div class="road-marquee" aria-hidden="true">
+    <div class="track">
+      <span>BOOK A DATE <span class="star">●</span> ROUTING OPEN <span class="star">●</span> SOLO OR TRIO FORMAT <span class="star">●</span> 60–90 MIN <span class="star">●</span></span>
+      <span>BOOK A DATE <span class="star">●</span> ROUTING OPEN <span class="star">●</span> SOLO OR TRIO FORMAT <span class="star">●</span> 60–90 MIN <span class="star">●</span></span>
+    </div>
+  </div>
 
   <!-- BOOKING CTA -->
   <section class="book-cta">
