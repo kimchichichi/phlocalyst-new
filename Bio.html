@@ -7,6 +7,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Bagel+Fat+One&family=Big+Shoulders+Display:wght@700;900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161009'/%3E%3Ccircle cx='11' cy='16' r='4' fill='%23ff5a1f'/%3E%3Crect x='15' y='14' width='4' height='4' fill='%23ff5a1f'/%3E%3Crect x='19' y='14.5' width='10' height='3' rx='1' fill='%23ff5a1f'/%3E%3C/svg%3E" />
 <style>
   :root{
     --coal:#161009;--coal-2:#1f180e;--cream:#f5ead0;--cream-dim:#bdb29a;
@@ -22,7 +23,12 @@
   html[data-display="bigshoulders"]{--display:'Big Shoulders Display','Arial Black',sans-serif;}
 
   *{box-sizing:border-box;margin:0;padding:0}
+  html{scroll-behavior:smooth;scroll-padding-top:60px;}
   html,body{background:var(--coal);color:var(--cream);}
+
+  /* SKIP LINK */
+  .skip-link{position:absolute;left:-9999px;top:6px;z-index:9999;padding:8px 16px;background:var(--orange);color:var(--coal);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;}
+  .skip-link:focus{left:6px;}
   body{
     font-family:'Bricolage Grotesque',system-ui,sans-serif;
     font-size:16px;line-height:1.5;overflow-x:hidden;
@@ -60,7 +66,7 @@
 
   /* HERO */
   .hero{max-width:1280px;margin:0 auto;padding:54px 26px 80px;position:relative;}
-  .hero .topline{display:flex;justify-content:space-between;align-items:flex-end;gap:24px;color:var(--cream-dim);margin-bottom:32px;}
+  .hero .topline{display:flex;justify-content:flex-start;align-items:flex-end;gap:40px;color:var(--cream-dim);margin-bottom:32px;}
   .hero .topline .right{text-align:right;}
   .hero-grid{display:grid;grid-template-columns:380px 1fr;gap:50px;align-items:end;}
   .portrait{
@@ -92,11 +98,12 @@
     display:grid;grid-template-columns:repeat(5,1fr);gap:0;
     border-top:1px solid var(--rule);border-bottom:1px solid var(--rule);
   }
-  .fact{padding:24px 22px;border-right:1px solid var(--rule);}
+  .fact{padding:24px 22px;border-right:1px solid var(--rule);transition:background .15s ease;cursor:default;}
   .fact:last-child{border-right:0;}
   .fact .l{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);}
   .fact .v{font-family:var(--display);font-size:32px;line-height:1;margin-top:10px;text-transform:uppercase;letter-spacing:-.01em;}
-  .fact .v.hot{color:var(--orange);}
+  .fact .v.hot{color:var(--orange);font-size:clamp(36px,3.8vw,52px);}
+  .fact:hover{background:color-mix(in oklab,var(--orange) 6%,transparent);}
   .fact .s{font-size:13px;color:var(--cream-dim);margin-top:6px;font-family:'DM Mono',monospace;letter-spacing:.04em;text-transform:uppercase;}
 
   /* SECTION HEAD */
@@ -190,7 +197,7 @@
   /* DAY-IN-LIFE */
   .day-section{background:var(--coal-2);border-block:1px solid var(--rule);padding:100px 26px;}
   .day-section .inner{max-width:1280px;margin:0 auto;}
-  .day-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:18px;margin-top:20px;}
+  .day-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:18px;margin-top:20px;}
   .day-row{display:grid;grid-template-columns:100px 1fr;gap:20px;padding:18px 20px;border:1px solid var(--rule);border-radius:8px;background:color-mix(in oklab,var(--cream) 3%,transparent);}
   .day-row .t{font-family:var(--display);font-size:22px;line-height:1;letter-spacing:-.01em;color:var(--orange);}
   .day-row .what b{font-family:var(--display);text-transform:uppercase;font-size:15px;letter-spacing:-.005em;color:var(--cream);display:block;margin-bottom:4px;}
@@ -292,6 +299,8 @@
   </defs>
 </svg>
 
+<a href="#main-content" class="skip-link">Skip to content</a>
+
 <!-- TOP BAR -->
 <header class="topbar">
   <div class="brand">
@@ -311,6 +320,8 @@
     <a class="back" href="index.html">← BACK TO MAIN</a>
   </div>
 </header>
+
+<main id="main-content">
 
 <!-- MARQUEE -->
 <div class="marquee">
@@ -386,8 +397,8 @@
 
   <div class="story">
     <aside>
-      <div class="l">Chapter 01</div>
-      <div class="chap">Origins<br/>&amp; horns</div>
+      <div class="l">The origin</div>
+      <div class="chap">Sevilla<br/>→ Munich</div>
     </aside>
     <div class="prose">
       <p class="dropcap">Phlocalyst was born twice. The first time in <em>Sevilla</em>, to Flemish parents passing through on a long Spanish summer in 1992 — a fact he likes more than he admits when he's the only one in a Munich orchestra with a southern shade of his name. The second time was in 2017, on an iPad, in a studio apartment in Cologne, trying to remake a Pete&nbsp;Rock beat at three in the morning when he should've been asleep before a Mahler rehearsal.</p>
@@ -716,6 +727,8 @@
   </div>
 </section>
 
+</main>
+
 <!-- FOOTER -->
 <footer class="foot">
   <div class="wrap">
@@ -735,7 +748,7 @@
     <div>
       <h4>Listen</h4>
       <ul>
-        <li><a href="#">Spotify<span class="arr">↗</span></a></li>
+        <li><a href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt">Spotify<span class="arr">↗</span></a></li>
         <li><a href="#">Bandcamp<span class="arr">↗</span></a></li>
         <li><a href="#">Apple Music<span class="arr">↗</span></a></li>
         <li><a href="#">YouTube<span class="arr">↗</span></a></li>
