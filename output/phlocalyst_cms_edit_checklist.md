@@ -1,6 +1,6 @@
-# Phlocalyst Bio CMS Edit Checklist
+# Phlocalyst About CMS Edit Checklist
 
-**Purpose:** Edit the bio page at `https://kimchichichi.github.io/phlocalyst-new/Bio.html` to ensure all claims about Phlocalyst are accurate and supported by verified sources.
+**Purpose:** Edit the about page at `https://kimchichichi.github.io/phlocalyst-new/About.html` to ensure all claims about Phlocalyst are accurate and supported by verified sources.
 
 **Verified sources used:**
 - Nettwerk artist page: https://nettwerk.com/artist/phlocalyst/
