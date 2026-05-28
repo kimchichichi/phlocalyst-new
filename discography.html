@@ -1,0 +1,896 @@
+<!doctype html>
+<html lang="en" data-theme="midnight" data-display="boldonse">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Discography - Phlocalyst</title>
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Bagel+Fat+One&family=Big+Shoulders+Display:wght@700;900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Mono:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;1,6..72,300;1,6..72,400&display=swap" rel="stylesheet" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161009'/%3E%3Cpath d='M4 20 Q4 17 8 17 L20 17 Q22 17 22 15 L22 13 Q22 11 24 11 L28 11' stroke='%23ff5a1f' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='6' cy='20' r='3' fill='none' stroke='%23ff5a1f' stroke-width='2'/%3E%3C/svg%3E" />
+<link rel="stylesheet" href="contact.css" />
+<style>
+  html{scroll-behavior:smooth;scroll-padding-top:72px;}
+  .skip-link{position:absolute;left:-9999px;top:8px;z-index:999;padding:9px 15px;background:var(--orange);color:var(--coal);border-radius:4px;font-family:'DM Mono',monospace;font-size:11px;text-transform:uppercase;}
+  .skip-link:focus{left:8px;}
+  a:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
+  button,input,select{font:inherit;color:inherit;}
+  .catalog-hero{max-width:1280px;margin:0 auto;padding:52px 26px 42px;}
+  .catalog-hero .eyebrow{display:flex;justify-content:space-between;align-items:flex-end;color:var(--cream-dim);margin-bottom:32px;}
+  .catalog-hero .eyebrow .current{color:var(--cream);}
+  .catalog-hero h1{font-family:var(--display);font-size:clamp(46px,9vw,132px);line-height:.83;letter-spacing:-.035em;text-transform:uppercase;}
+  .catalog-hero h1 span{color:var(--orange);}
+  .catalog-hero .lede{font-family:'Newsreader',Georgia,serif;font-size:clamp(21px,2.2vw,28px);line-height:1.42;font-weight:300;max-width:720px;margin-top:28px;}
+  .catalog-hero .lede em{font-style:italic;color:var(--amber);}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;}
+  .stats{max-width:1280px;margin:0 auto;padding:0 26px 48px;}
+  .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);border:1px solid var(--rule);border-radius:10px;overflow:hidden;background:var(--coal-2);}
+  .stat{padding:19px 20px;border-right:1px solid var(--rule);}
+  .stat:last-child{border-right:0;}
+  .stat .value{font-family:var(--display);font-size:clamp(25px,3vw,34px);line-height:1;text-transform:uppercase;}
+  .stat.latest .value{font-size:clamp(18px,2vw,23px);color:var(--orange);}
+  .stat .label{font-family:'DM Mono',monospace;font-size:11px;line-height:1.5;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);margin-top:9px;}
+
+  .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:28px;padding-bottom:18px;margin-bottom:34px;border-bottom:1px solid var(--rule);}
+  .section-head h2{font-family:var(--display);font-size:clamp(34px,5vw,60px);line-height:.9;letter-spacing:-.025em;text-transform:uppercase;}
+  .section-head h2 span{color:var(--orange);}
+  .section-head .meta{font-family:'DM Mono',monospace;font-size:10px;line-height:1.65;letter-spacing:.12em;color:var(--cream-dim);text-align:right;text-transform:uppercase;}
+
+  .feature{max-width:1280px;margin:0 auto;padding:0 26px 54px;}
+  .feature-card{display:grid;grid-template-columns:minmax(270px, .75fr) minmax(360px, 1.25fr);overflow:hidden;background:var(--coal-2);border:1px solid var(--rule);border-radius:12px;}
+  .feature-art{position:relative;min-height:358px;}
+  .feature-art img{display:block;width:100%;height:100%;object-fit:cover;}
+  .feature-art .stamp{position:absolute;left:16px;top:16px;padding:6px 10px;background:rgba(0,0,0,.58);border-radius:4px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream);}
+  .feature-copy{padding:clamp(24px,3vw,38px);display:flex;flex-direction:column;justify-content:center;}
+  .feature-copy .type{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);}
+  .feature-copy h3{font-family:var(--display);font-size:clamp(38px,4.7vw,58px);line-height:.88;letter-spacing:-.025em;text-transform:uppercase;margin:12px 0 16px;}
+  .feature-copy p{font-size:17px;line-height:1.55;color:var(--cream-dim);max-width:520px;}
+  .feature-copy p b{color:var(--cream);font-weight:500;}
+  .tracklist{display:flex;flex-wrap:wrap;gap:7px;margin:20px 0 23px;list-style:none;counter-reset:track;}
+  .tracklist li{font-family:'DM Mono',monospace;font-size:10px;line-height:1;letter-spacing:.08em;text-transform:uppercase;border:1px solid var(--rule);padding:8px 10px;border-radius:999px;color:var(--cream-dim);counter-increment:track;}
+  .tracklist li::before{content:counter(track,decimal-leading-zero)'\a0';color:var(--orange);}
+  .actions{display:flex;flex-wrap:wrap;gap:12px;}
+
+  .chapters{max-width:1280px;margin:0 auto;padding:0 26px 80px;}
+  .catalog-group{margin-top:54px;}
+  .catalog-group:first-of-type{margin-top:0;}
+  .group-header{display:flex;justify-content:space-between;gap:20px;align-items:baseline;margin-bottom:20px;}
+  .group-header h3{font-family:var(--display);font-size:clamp(25px,3vw,34px);text-transform:uppercase;line-height:1;}
+  .group-header .label{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);}
+  .records{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px;}
+  .record{display:flex;justify-content:space-between;gap:22px;padding:23px;border:1px solid var(--rule);background:color-mix(in oklab,var(--cream) 3%,transparent);border-radius:10px;transition:border-color .18s,transform .18s;}
+  .record:hover{border-color:var(--orange);transform:translateY(-3px);}
+  .record .date{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:10px;}
+  .record h4{font-family:var(--display);font-size:clamp(21px,2.3vw,27px);line-height:1;text-transform:uppercase;letter-spacing:-.015em;}
+  .record p{color:var(--cream-dim);font-size:14px;line-height:1.45;margin-top:11px;max-width:450px;}
+  .record .open{flex-shrink:0;font-family:'DM Mono',monospace;font-size:15px;color:var(--orange);}
+  .catalog-actions{display:flex;gap:12px;flex-wrap:wrap;margin:0 0 34px;}
+  .catalog-controls{margin-bottom:42px;padding:20px;border:1px solid var(--rule);border-radius:10px;background:var(--coal-2);}
+  .controls-row{display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap;}
+  .filter-list{display:flex;gap:8px;flex-wrap:wrap;}
+  .filter{border:1px solid var(--rule);background:transparent;border-radius:999px;padding:10px 14px;font-family:'DM Mono',monospace;font-size:11px;line-height:1;letter-spacing:.09em;text-transform:uppercase;cursor:pointer;color:var(--cream-dim);}
+  .filter:hover,.filter[aria-pressed="true"]{background:var(--orange);border-color:var(--orange);color:var(--coal);}
+  .query-controls{display:flex;gap:9px;align-items:center;flex:1;justify-content:flex-end;}
+  .query-controls input,.query-controls select{min-height:42px;border:1px solid var(--rule);border-radius:6px;background:var(--coal);font-family:'DM Mono',monospace;font-size:12px;letter-spacing:.04em;padding:0 13px;}
+  .query-controls input{width:min(250px,100%);}
+  .query-controls input::placeholder{color:var(--cream-dim);}
+  .result-row{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-top:15px;}
+  .result-count{font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);}
+  .result-count strong{font-weight:500;color:var(--amber);}
+  .clear-filters{display:none;align-items:center;min-height:34px;border:1px solid var(--rule);border-radius:6px;background:transparent;padding:0 11px;font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;color:var(--cream-dim);transition:border-color .15s,color .15s;}
+  .clear-filters:hover{border-color:var(--orange);color:var(--cream);}
+  .clear-filters.active{display:inline-flex;}
+  .no-results{display:block;padding:32px 18px;border:1px dashed var(--rule);border-radius:10px;font-family:'Newsreader',Georgia,serif;font-size:22px;color:var(--cream-dim);text-align:center;margin-top:32px;}
+  .no-results[hidden]{display:none;}
+  .release-index{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;}
+  .entry{display:flex;flex-direction:column;min-height:270px;padding:16px 15px;border:1px solid var(--rule);background:color-mix(in oklab,var(--cream) 3%,transparent);border-radius:8px;overflow:hidden;transition:border-color .18s,background .18s,transform .18s;}
+  .entry:hover{border-color:var(--orange);background:color-mix(in oklab,var(--orange) 7%,transparent);transform:translateY(-2px);}
+  .entry .date{font-family:'DM Mono',monospace;font-size:11px;line-height:1.4;letter-spacing:.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;}
+  .entry h4{font-family:var(--display);font-size:clamp(14px,1.3vw,17px);line-height:1.24;text-transform:uppercase;letter-spacing:-.012em;}
+  .entry .credit{margin-top:auto;padding-top:11px;font-family:'DM Mono',monospace;font-size:10.5px;line-height:1.5;letter-spacing:.07em;text-transform:uppercase;color:var(--cream-dim);}
+  .entry.has-art{padding:0;min-height:270px;}
+  .entry-art{height:155px;position:relative;background:var(--coal);}
+  .entry-art img{display:block;width:100%;height:100%;object-fit:cover;}
+  .entry-art::after{content:'';position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(11,15,29,.32));transition:background .2s;}
+  .entry:hover .entry-art::after{background:linear-gradient(180deg,transparent 30%,color-mix(in oklab,var(--orange) 18%,rgba(11,15,29,.45)));}
+  .entry-body{display:flex;flex-direction:column;flex:1;padding:14px 15px;}
+  .badge{display:inline-flex;align-items:center;align-self:flex-start;margin-bottom:10px;padding:5px 8px;border-radius:999px;background:var(--orange);color:var(--coal);font-family:'DM Mono',monospace;font-size:10px;line-height:1;letter-spacing:.1em;text-transform:uppercase;}
+  .badge.label-badge{background:var(--amber);}
+  .detail-cue{display:block;margin-top:10px;padding-top:10px;border-top:1px solid var(--rule);color:var(--orange);font-family:'DM Mono',monospace;font-size:11px;line-height:1.4;letter-spacing:.12em;text-transform:uppercase;}
+  .entry[hidden],.catalog-group[hidden]{display:none;}
+  .collection-toggle{margin-top:54px;}
+  .collection-toggle summary,.sources-toggle summary{display:flex;justify-content:space-between;align-items:center;gap:16px;list-style:none;cursor:pointer;padding:17px 0 19px;border-block:1px solid var(--rule);transition:color .15s;}
+  .collection-toggle summary:hover,.sources-toggle summary:hover{color:var(--orange);}
+  .collection-toggle summary::-webkit-details-marker,.sources-toggle summary::-webkit-details-marker{display:none;}
+  .collection-toggle summary h3,.sources-toggle summary h2{font-family:var(--display);font-size:clamp(25px,3vw,34px);text-transform:uppercase;line-height:1;}
+  .collection-toggle summary .label,.sources-toggle summary .meta{font-family:'DM Mono',monospace;font-size:11px;line-height:1.5;letter-spacing:.1em;text-transform:uppercase;color:var(--amber);}
+  .collection-toggle summary::after,.sources-toggle summary::after{content:'+';color:var(--orange);font-family:'DM Mono',monospace;font-size:24px;}
+  .collection-toggle[open] summary::after,.sources-toggle[open] summary::after{content:'-';}
+  .collection-toggle .release-index{margin-top:20px;}
+  .method{font-family:'Newsreader',Georgia,serif;font-size:19px;line-height:1.5;color:var(--cream);max-width:850px;margin-bottom:32px;}
+  .method em{font-style:italic;color:var(--amber);}
+
+  .release-dialog{position:fixed;inset:50% auto auto 50%;transform:translate(-50%,-50%);margin:0;width:min(940px,calc(100% - 34px));max-height:min(90vh,900px);padding:0;border:1px solid var(--rule);border-radius:13px;background:var(--coal-2);color:var(--cream);box-shadow:0 24px 75px rgba(0,0,0,.48);overflow:auto;}
+  .release-dialog::backdrop{background:rgba(6,9,17,.75);backdrop-filter:blur(4px);}
+  .dialog-close{position:absolute;right:15px;top:15px;z-index:2;width:42px;height:42px;border:1px solid var(--rule);border-radius:999px;background:var(--coal);cursor:pointer;color:var(--cream);font-family:'DM Mono',monospace;font-size:21px;line-height:1;}
+  .dialog-close:hover{border-color:var(--orange);color:var(--orange);}
+  .dialog-grid{display:grid;grid-template-columns:minmax(230px, .74fr) minmax(360px, 1.26fr);}
+  .dialog-art{min-height:100%;background:var(--coal);display:flex;align-items:center;justify-content:center;}
+  .dialog-art img{display:block;width:100%;height:100%;min-height:420px;object-fit:cover;}
+  .dialog-art.empty{padding:42px;text-align:center;}
+  .dialog-art.empty span{font-family:var(--display);font-size:clamp(26px,4vw,42px);line-height:.95;text-transform:uppercase;color:var(--cream-dim);}
+  .dialog-copy{padding:clamp(28px,4vw,43px);padding-top:52px;}
+  .dialog-type{font-family:'DM Mono',monospace;font-size:11px;line-height:1.5;letter-spacing:.14em;text-transform:uppercase;color:var(--amber);}
+  .dialog-copy h2{font-family:var(--display);font-size:clamp(34px,4.5vw,52px);line-height:.92;letter-spacing:-.025em;text-transform:uppercase;margin:13px 0 13px;max-width:500px;}
+  .dialog-credit{font-family:'DM Mono',monospace;font-size:11px;line-height:1.6;letter-spacing:.09em;text-transform:uppercase;color:var(--cream-dim);}
+  .dialog-note{font-family:'Newsreader',Georgia,serif;font-size:18px;line-height:1.5;color:var(--cream);margin:19px 0 23px;max-width:500px;}
+  .track-title{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);margin-bottom:13px;}
+  .dialog-tracks{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 20px;list-style:none;margin:0 0 27px;color:var(--cream-dim);counter-reset:dtrack;}
+  .dialog-tracks li{padding:8px 0;border-bottom:1px solid var(--rule);font-size:14px;line-height:1.35;counter-increment:dtrack;}
+  .dialog-tracks li::before{content:counter(dtrack,decimal-leading-zero)'\a0';font-family:'DM Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:.1em;}
+  .track-empty{border:1px dashed var(--rule);border-radius:8px;padding:15px;margin:0 0 27px;font-size:15px;line-height:1.45;color:var(--cream-dim);}
+  .release-dialog .actions{padding-top:1px;}
+  body.modal-open{overflow:hidden;}
+
+  .sources{background:var(--coal-2);border-block:1px solid var(--rule);padding:50px 26px 64px;}
+  .sources .wrap{max-width:1280px;margin:0 auto;}
+  .sources-intro{display:flex;align-items:start;justify-content:space-between;gap:24px;margin-bottom:25px;}
+  .sources-intro h2{font-family:var(--display);font-size:clamp(34px,5vw,60px);line-height:.9;text-transform:uppercase;}
+  .sources-intro h2 span{color:var(--orange);}
+  .sources-intro p{max-width:520px;font-family:'DM Mono',monospace;font-size:11px;line-height:1.65;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);}
+  .sources-toggle summary{border-bottom:0;}
+  .sources-toggle summary h2{font-size:22px;}
+  .sources-toggle .source-grid{margin-top:22px;}
+  .source-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .source{display:block;border:1px solid var(--rule);border-radius:9px;padding:20px;transition:border-color .18s,background .18s;}
+  .source:hover{border-color:var(--orange);background:color-mix(in oklab,var(--orange) 7%,transparent);}
+  .source .role{font-family:'DM Mono',monospace;font-size:10px;color:var(--amber);letter-spacing:.12em;text-transform:uppercase;}
+  .source h3{font-family:var(--display);font-size:20px;text-transform:uppercase;line-height:1.1;margin:12px 0 9px;}
+  .source p{font-size:14px;line-height:1.48;color:var(--cream-dim);}
+  .source .go{display:block;margin-top:17px;color:var(--orange);font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;}
+  .verification{font-family:'DM Mono',monospace;font-size:10px;line-height:1.65;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);margin-top:24px;max-width:850px;}
+
+  @media (max-width:900px){
+    .records,.source-grid{grid-template-columns:1fr;}
+    .release-index{grid-template-columns:repeat(2,minmax(0,1fr));}
+    .stats-grid{grid-template-columns:repeat(2,1fr);}
+    .stat:nth-child(2){border-right:0;}
+    .stat:nth-child(-n+2){border-bottom:1px solid var(--rule);}
+    .controls-row,.query-controls{align-items:stretch;}
+    .query-controls{justify-content:flex-start;}
+  }
+  @media (max-width:760px){
+    .feature-card{grid-template-columns:1fr;}
+    .feature-art{min-height:0;aspect-ratio:1/1;}
+    .dialog-grid{grid-template-columns:1fr;}
+    .dialog-art{aspect-ratio:1/1;min-height:0;}
+    .dialog-art img{min-height:0;}
+  }
+  @media (max-width:600px){
+    .catalog-controls{position:sticky;top:50px;z-index:40;border-radius:0;border-left:0;border-right:0;margin-left:-18px;margin-right:-18px;padding:14px 18px;}
+    .catalog-hero,.stats,.feature,.chapters{padding-left:18px;padding-right:18px;}
+    .sources{padding-left:18px;padding-right:18px;}
+    .catalog-hero{padding-top:42px;}
+    .catalog-hero h1{font-size:clamp(34px,10.5vw,46px);}
+    .section-head,.group-header{display:block;}
+    .section-head .meta{margin-top:15px;text-align:left;}
+    .group-header .label{display:block;margin-top:10px;}
+    .feature-copy{padding:24px 18px 27px;}
+    .record{padding:19px;}
+    .release-index{grid-template-columns:1fr;}
+    .stats-grid{grid-template-columns:1fr;}
+    .stat,.stat:nth-child(2){border-right:0;border-bottom:1px solid var(--rule);}
+    .stat:last-child{border-bottom:0;}
+    .filter-list{overflow-x:auto;flex-wrap:nowrap;padding-bottom:6px;width:100%;}
+    .filter{white-space:nowrap;min-height:44px;}
+    .query-controls{display:grid;grid-template-columns:1fr;width:100%;margin-top:8px;}
+    .query-controls input{width:100%;}
+    .sources-intro{display:block;}
+    .sources-intro p{margin-top:15px;}
+    .release-dialog{width:calc(100% - 22px);}
+    .dialog-copy{padding:48px 18px 22px;}
+    .dialog-tracks{grid-template-columns:1fr;}
+  }
+</style>
+</head>
+<body>
+<a href="#main-content" class="skip-link">Skip to content</a>
+
+<header class="topbar">
+  <div class="brand">
+    <span class="glyph"></span>
+    <a href="index.html"><span>PHLOCALYST<span style="color:var(--orange);">&#9733;</span></span></a>
+  </div>
+  <nav>
+    <a href="index.html#deck">Listen</a>
+    <a class="active" href="discography.html">Releases</a>
+    <a href="On The Road.html">Shows</a>
+    <a href="Bio.html">Bio</a>
+    <a href="Contact.html">Booking</a>
+  </nav>
+  <div class="right">
+    <a class="back" href="index.html">&larr; Back to main</a>
+  </div>
+</header>
+
+<div class="marquee">
+  <div class="track">
+    <span class="item">DISCOGRAPHY <span class="star">&#10022;</span> MUTED TRUMPET <span class="star">&#10022;</span> MYSTICAL BEATS <span class="star">&#10022;</span> NETTWERK <span class="star">&#10022;</span> S!X - MUSIC <span class="star">&#10022;</span> LOFI GIRL <span class="star">&#10022;</span></span>
+    <span class="item">DISCOGRAPHY <span class="star">&#10022;</span> MUTED TRUMPET <span class="star">&#10022;</span> MYSTICAL BEATS <span class="star">&#10022;</span> NETTWERK <span class="star">&#10022;</span> S!X - MUSIC <span class="star">&#10022;</span> LOFI GIRL <span class="star">&#10022;</span></span>
+  </div>
+</div>
+
+<main id="main-content">
+  <section class="catalog-hero">
+    <div class="eyebrow mono">
+      <div>[ RELEASES ]<br/><span class="current">Albums, EPs and streaming singles</span></div>
+    </div>
+    <h1>Disco<span>graphy</span></h1>
+    <p class="lede">Phlocalyst's catalogue traces a route from independent jazz-hop releases through his work with <em>Nettwerk Music Group</em> and an expanding series of collaborative records.</p>
+    <div class="hero-actions">
+      <a class="btn primary" href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt/discography/all" target="_blank" rel="noopener">Listen on Spotify <span class="arr">&nearr;</span></a>
+      <a class="btn ghost" href="https://music.apple.com/us/artist/phlocalyst/1343862778" target="_blank" rel="noopener">Apple Music <span class="arr">&nearr;</span></a>
+      <a class="btn ghost" href="https://phlocalyst.bandcamp.com/" target="_blank" rel="noopener">Bandcamp <span class="arr">&nearr;</span></a>
+    </div>
+  </section>
+
+  <section class="stats" aria-label="Catalogue summary">
+    <div class="stats-grid">
+      <div class="stat"><div class="value">20</div><div class="label">Official album-index entries</div></div>
+      <div class="stat"><div class="value">9</div><div class="label">EPs + collaborations</div></div>
+      <div class="stat latest"><div class="value">Best Me</div><div class="label">Latest public listing / May 22, 2026</div></div>
+      <div class="stat"><div class="value">2018-26</div><div class="label">Release span</div></div>
+    </div>
+  </section>
+
+  <section class="feature" aria-labelledby="featured-title">
+    <div class="section-head">
+      <h2>Featured <span>release</span></h2>
+      <div class="meta">Official cover sourced from Phlocalyst Bandcamp<br/>Artwork credited there to Giza</div>
+    </div>
+    <article class="feature-card">
+      <div class="feature-art">
+        <img src="covers/pagebreak.jpg" alt="Official Page Break album artwork, credited to Giza" />
+        <div class="stamp">LP / 2023 / Nettwerk</div>
+      </div>
+      <div class="feature-copy">
+        <div class="type">Second LP with Nettwerk Music Group</div>
+        <h3 id="featured-title">Page Break</h3>
+        <p><b>Released June 30, 2023.</b> On the official release page, Phlocalyst describes this seven-track album as picking up where <i>Insights</i> left off.</p>
+        <ol class="tracklist" aria-label="Page Break tracklist">
+          <li>Rising Morning</li>
+          <li>Sapphire Bounce</li>
+          <li>Zeal Pt. 2</li>
+          <li>Marbles</li>
+          <li>Again</li>
+          <li>Emmitoufl&eacute;</li>
+          <li>Our Time</li>
+        </ol>
+        <div class="actions">
+          <a class="btn primary" href="https://phlocalyst.bandcamp.com/album/page-break" target="_blank" rel="noopener">Official release <span class="arr">&nearr;</span></a>
+          <a class="btn ghost" href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt" target="_blank" rel="noopener">Spotify <span class="arr">&nearr;</span></a>
+        </div>
+      </div>
+    </article>
+  </section>
+
+  <section class="chapters" aria-labelledby="selected-releases">
+    <div class="section-head">
+      <h2 id="selected-releases">Full <span>catalogue</span></h2>
+      <div class="meta">Checked May 27, 2026 · Spotify, Apple Music, label pages<br/>Spotify <em>All</em> view has the live complete listing</div>
+    </div>
+
+    <div class="catalog-actions">
+      <a class="btn primary" href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt/discography/all" target="_blank" rel="noopener">All releases on Spotify <span class="arr">&nearr;</span></a>
+      <a class="btn ghost" href="https://music.apple.com/us/artist/phlocalyst/1343862778/full-albums" target="_blank" rel="noopener">Official albums index <span class="arr">&nearr;</span></a>
+    </div>
+    <form class="catalog-controls" id="catalog-controls" role="search">
+      <div class="controls-row">
+        <div class="filter-list" aria-label="Filter releases by format">
+          <button class="filter" type="button" data-filter="all" aria-pressed="true">All</button>
+          <button class="filter" type="button" data-filter="album" aria-pressed="false">Albums</button>
+          <button class="filter" type="button" data-filter="ep" aria-pressed="false">EPs</button>
+          <button class="filter" type="button" data-filter="single" aria-pressed="false">Singles</button>
+          <button class="filter" type="button" data-filter="collab" aria-pressed="false">Collaborations</button>
+        </div>
+        <div class="query-controls">
+          <label class="mono" for="release-search">Find</label>
+          <input id="release-search" type="search" autocomplete="off" placeholder="Title or collaborator" />
+          <select id="release-year" aria-label="Filter by year">
+            <option value="all">All years</option>
+            <option value="2026">2026</option>
+            <option value="2025">2025</option>
+            <option value="2024">2024</option>
+            <option value="2023">2023</option>
+            <option value="2022">2022</option>
+            <option value="2021">2021</option>
+            <option value="2020">2020</option>
+            <option value="2019">2019</option>
+            <option value="2018">2018</option>
+          </select>
+          <select id="release-label" aria-label="Filter by label">
+            <option value="all">All labels</option>
+            <option value="nettwerk">Nettwerk</option>
+            <option value="six">S!X - Music</option>
+            <option value="lofi">Lofi labels</option>
+            <option value="other">Other / listed</option>
+          </select>
+          <label class="mono" for="release-sort">Sort</label>
+          <select id="release-sort">
+            <option value="newest">Newest first</option>
+            <option value="oldest">Oldest first</option>
+            <option value="title">A-Z</option>
+          </select>
+        </div>
+      </div>
+      <div class="result-row">
+        <div class="result-count" aria-live="polite"><strong id="result-total">48</strong> <span id="result-label">releases total</span></div>
+        <button class="clear-filters" id="clear-filters" type="button">Clear filters &times;</button>
+      </div>
+    </form>
+    <p class="no-results" id="no-results" hidden>No releases match these filters. Try clearing the search or choosing all formats.</p>
+
+    <div class="catalog-group">
+      <div class="group-header">
+        <h3>Album Catalogue</h3>
+        <span class="label">20 entries / platform bucket includes verified EPs</span>
+      </div>
+      <div class="release-index">
+        <a class="entry" data-release-key="soulful" href="https://music.apple.com/us/album/soulful/1839529051" target="_blank" rel="noopener"><div class="date">2025 / Album</div><h4>Soulful</h4><div class="credit">7 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="new scenes" href="https://music.apple.com/us/album/new-scenes/1779314370" target="_blank" rel="noopener"><div class="date">2025 / Album</div><h4>New Scenes</h4><div class="credit">Lofi Publishing · 9 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="perspectives" href="https://music.apple.com/us/album/perspectives/1806584373" target="_blank" rel="noopener"><div class="date">2025 / Album</div><h4>Perspectives</h4><div class="credit">okwow · 8 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="impressions" href="https://music.apple.com/us/album/impressions/1779312953" target="_blank" rel="noopener"><div class="date">2025 / Album</div><h4>Impressions</h4><div class="credit">Lofi Publishing · 7 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="sunday supper - instrumentals" href="https://music.apple.com/us/album/sunday-supper-instrumentals-feat-sunday-supper/1790432948" target="_blank" rel="noopener"><div class="date">2025 / Album</div><h4>Sunday Supper - Instrumentals</h4><div class="credit">Sunday Supper · 7 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="horizons" href="https://music.apple.com/us/album/horizons/1825817715" target="_blank" rel="noopener"><div class="date">2025 / Album</div><h4>Horizons</h4><div class="credit">8 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="frameworks" href="https://music.apple.com/us/album/frameworks/1741474623" target="_blank" rel="noopener"><div class="date">2024 / Album</div><h4>Frameworks</h4><div class="credit">Viktor Minsky · 7 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="motifs" href="https://music.apple.com/us/album/motifs/1725168252" target="_blank" rel="noopener"><div class="date">2024 / Album</div><h4>Motifs</h4><div class="credit">Viktor Minsky · 7 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="page break" href="https://music.apple.com/us/album/page-break/1688321675" target="_blank" rel="noopener"><div class="date">2023 / Album</div><h4>Page Break</h4><div class="credit">Nettwerk · 7 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="now / again ii" href="https://music.apple.com/us/album/now-again-ii/1670732563" target="_blank" rel="noopener"><div class="date">2023 / Album</div><h4>Now / Again II</h4><div class="credit">12 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="insights" href="https://music.apple.com/us/album/insights/1652721128" target="_blank" rel="noopener"><div class="date">2022 / EP</div><h4>Insights</h4><div class="credit">Nettwerk · 8 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="aphrodisiac" href="https://music.apple.com/us/album/aphrodisiac/1671353827" target="_blank" rel="noopener"><div class="date">2022 / Album</div><h4>Aphrodisiac</h4><div class="credit">10 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="aiode" href="https://music.apple.com/us/album/aiode/1747367412" target="_blank" rel="noopener"><div class="date">2022 / Album</div><h4>Aiode</h4><div class="credit">7 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="now / again" href="https://music.apple.com/us/album/now-again/1672201128" target="_blank" rel="noopener"><div class="date">2021 / Album</div><h4>Now / Again</h4><div class="credit">12 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="arise" href="https://music.apple.com/us/album/arise/1512516139" target="_blank" rel="noopener"><div class="date">2020 / Album</div><h4>Arise</h4><div class="credit">S!X - Music · 12 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="entity" href="https://music.apple.com/us/album/entity/1466680092" target="_blank" rel="noopener"><div class="date">2019 / Album</div><h4>Entity</h4><div class="credit">S!X - Music · 12 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="life" href="https://music.apple.com/us/album/life/1439862884" target="_blank" rel="noopener"><div class="date">2018 / Album</div><h4>Life</h4><div class="credit">S!X - Music · 7 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="balance" href="https://music.apple.com/us/album/balance/1420329606" target="_blank" rel="noopener"><div class="date">2018 / Album</div><h4>Balance</h4><div class="credit">S!X - Music · 9 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="serendipity" href="https://music.apple.com/us/album/serendipity-feat-lesky/1388132458" target="_blank" rel="noopener"><div class="date">2018 / EP</div><h4>Serendipity</h4><div class="credit">LESKY · S!X - Music &nearr;</div></a>
+        <a class="entry" data-release-key="fundamentals" href="https://music.apple.com/us/album/fundamentals/1462710998" target="_blank" rel="noopener"><div class="date">2018 / Album</div><h4>Fundamentals</h4><div class="credit">S!X - Music · 8 tracks &nearr;</div></a>
+      </div>
+    </div>
+
+    <div class="catalog-group">
+      <div class="group-header">
+        <h3>EPs + Co-Credited Releases</h3>
+        <span class="label">Official label pages and public streaming catalogue</span>
+      </div>
+      <div class="release-index">
+        <a class="entry" data-release-key="now and then" href="https://music.apple.com/us/album/now-and-then-feat-mr-k%C3%A4fer-ep/1882794766" target="_blank" rel="noopener"><div class="date">2026 / EP</div><h4>Now And Then</h4><div class="credit">Mr. K&auml;fer · 6 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="the cool hour" href="https://music.apple.com/us/album/candle-glow/1844211058" target="_blank" rel="noopener"><div class="date">2026 / EP</div><h4>The Cool Hour</h4><div class="credit">xander. · 5 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="end of the road" href="https://lofigirl.bandcamp.com/album/end-of-the-road" target="_blank" rel="noopener"><div class="date">2023 / EP</div><h4>End Of The Road</h4><div class="credit">Lofi Girl · 5 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="portals" href="https://music.apple.com/us/album/portals-ep/1712229752" target="_blank" rel="noopener"><div class="date">2023 / EP</div><h4>Portals</h4><div class="credit">Lofi Jazz Records · 4 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="purity" href="https://music.apple.com/us/album/purity-ep/1707741736" target="_blank" rel="noopener"><div class="date">2023 / EP</div><h4>Purity</h4><div class="credit">blndspot · 4 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="roadwalks" href="https://lofigirl.bandcamp.com/album/roadwalks" target="_blank" rel="noopener"><div class="date">2021 / EP</div><h4>Roadwalks</h4><div class="credit">Mr. K&auml;fer · Lofi Girl · 6 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="relatives" href="https://lofigirl.bandcamp.com/album/relatives" target="_blank" rel="noopener"><div class="date">2021 / EP</div><h4>Relatives</h4><div class="credit">Lofi Girl · 5 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="argo" href="https://lofigirl.bandcamp.com/album/argo" target="_blank" rel="noopener"><div class="date">2021 / Album</div><h4>Argo</h4><div class="credit">S&aacute;tyr · Lofi Girl &nearr;</div></a>
+        <a class="entry" data-release-key="distant relatives" href="https://phlocalyst.bandcamp.com/album/distant-relatives" target="_blank" rel="noopener"><div class="date">2019 / EP</div><h4>Distant Relatives</h4><div class="credit">K. Sparks · 4 tracks &nearr;</div></a>
+      </div>
+    </div>
+
+    <details class="collection-toggle catalog-group" id="singles-toggle">
+      <summary>
+        <h3>Singles / 2026</h3>
+        <span class="label">19 standalone singles / expand list</span>
+      </summary>
+      <div class="release-index">
+        <a class="entry" data-release-key="best me" href="https://music.apple.com/us/album/best-me-single/1896460059" target="_blank" rel="noopener"><span class="badge">Latest</span><div class="date">May 22, 2026 / Single</div><h4>Best Me</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="big bag" href="https://music.apple.com/us/album/big-bag-single/6769071832" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>big bag</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="conversations" href="https://music.apple.com/us/album/conversations-single/1894074698" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Conversations</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="peaceful" href="https://music.apple.com/us/album/peaceful-single/1887363150" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Peaceful</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="beyond the clouds" href="https://music.apple.com/us/album/beyond-the-clouds-single/1886095593" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Beyond the Clouds</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="elsewhere" href="https://music.apple.com/us/album/elsewhere-single/1876372671" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Elsewhere</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="different" href="https://music.apple.com/us/album/different-single/1876372780" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Different</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="crepuscule" href="https://music.apple.com/us/album/crepuscule-single/1894698747" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Crepuscule</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="so fly" href="https://music.apple.com/us/album/so-fly-single/1871344664" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>So Fly</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="the way you move" href="https://music.apple.com/us/album/the-way-you-move-single/1889115650" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>The Way You Move</h4><div class="credit">2 tracks &nearr;</div></a>
+        <a class="entry" data-release-key="goodbye" href="https://music.apple.com/us/album/goodbye-single/1876372651" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Goodbye</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="stone" href="https://music.apple.com/us/album/stone-single/1886520574" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Stone</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="once together, twice alone" href="https://music.apple.com/us/album/once-together-twice-alone-single/1886650492" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Once Together, Twice Alone</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="indoor" href="https://music.apple.com/us/album/indoor-single/1876661549" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Indoor</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="lisboa" href="https://music.apple.com/us/album/lisboa-single/1876372393" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Lisboa</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="alone" href="https://music.apple.com/us/album/alone-single/1871344520" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Alone</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="calm down" href="https://music.apple.com/us/album/calm-down-single/1876951969" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Calm Down</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="all good" href="https://music.apple.com/us/album/all-good-single/1862105289" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>All Good</h4><div class="credit">Single &nearr;</div></a>
+        <a class="entry" data-release-key="long way" href="https://music.apple.com/us/album/long-way-single/1869752990" target="_blank" rel="noopener"><div class="date">2026 / Single</div><h4>Long Way</h4><div class="credit">Single &nearr;</div></a>
+      </div>
+    </details>
+  </section>
+
+  <dialog class="release-dialog" id="release-dialog" aria-labelledby="release-dialog-title">
+    <button class="dialog-close" id="release-dialog-close" type="button" aria-label="Close release details">&times;</button>
+    <div class="dialog-grid">
+      <div class="dialog-art" id="release-dialog-art"></div>
+      <div class="dialog-copy">
+        <div class="dialog-type" id="release-dialog-type"></div>
+        <h2 id="release-dialog-title"></h2>
+        <p class="dialog-credit" id="release-dialog-credit"></p>
+        <p class="dialog-note" id="release-dialog-note"></p>
+        <h3 class="track-title">Tracklist</h3>
+        <ol class="dialog-tracks" id="release-dialog-tracks"></ol>
+        <p class="track-empty" id="release-dialog-empty" hidden>Full tracklist available from the official release listing.</p>
+        <div class="actions">
+          <a class="btn primary" id="release-dialog-spotify" href="#" target="_blank" rel="noopener">Spotify <span class="arr">&nearr;</span></a>
+          <a class="btn ghost" id="release-dialog-apple" href="#" target="_blank" rel="noopener">Apple Music <span class="arr">&nearr;</span></a>
+        </div>
+      </div>
+    </div>
+  </dialog>
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <div class="big">PHLO<span class="o">.</span>CALYST</div>
+      <div class="mono" style="margin-top:16px;color:var(--cream-dim);">Phlocalyst / Official release archive</div>
+    </div>
+    <div>
+      <h4>Read more</h4>
+      <ul>
+        <li><a href="index.html">Main site<span class="arr">&nearr;</span></a></li>
+        <li><a href="index.html#deck">Tape deck<span class="arr">&nearr;</span></a></li>
+        <li><a href="Bio.html">Biography<span class="arr">&nearr;</span></a></li>
+        <li><a href="On The Road.html">Tour<span class="arr">&nearr;</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Listen</h4>
+      <ul>
+        <li><a href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt" target="_blank" rel="noopener">Spotify<span class="arr">&nearr;</span></a></li>
+        <li><a href="https://music.apple.com/us/artist/phlocalyst/1343862778" target="_blank" rel="noopener">Apple Music<span class="arr">&nearr;</span></a></li>
+        <li><a href="https://phlocalyst.bandcamp.com/" target="_blank" rel="noopener">Bandcamp<span class="arr">&nearr;</span></a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>Business</h4>
+      <ul>
+        <li><a href="mailto:booking@phlocalyst.com">Booking<span class="arr">&nearr;</span></a></li>
+        <li><a href="mailto:sync@nettwerk.com">Sync / license<span class="arr">&nearr;</span></a></li>
+        <li><a href="mailto:collabs@phlocalyst.com">Collaborations<span class="arr">&nearr;</span></a></li>
+      </ul>
+    </div>
+    <div class="bot">
+      <span>Release details linked to primary public sources</span>
+      <span>Flemish producer / Portugal / Jazz-hop</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  (() => {
+    const entries = [...document.querySelectorAll('.entry')];
+    const groups = [...document.querySelectorAll('.catalog-group')];
+    const singlesToggle = document.getElementById('singles-toggle');
+    const total = document.getElementById('result-total');
+    const resultLabel = document.getElementById('result-label');
+    const search = document.getElementById('release-search');
+    const year = document.getElementById('release-year');
+    const label = document.getElementById('release-label');
+    const sort = document.getElementById('release-sort');
+    const controls = document.getElementById('catalog-controls');
+    const clear = document.getElementById('clear-filters');
+    const noResults = document.getElementById('no-results');
+    const filters = [...document.querySelectorAll('.filter')];
+    const dialog = document.getElementById('release-dialog');
+    const dialogClose = document.getElementById('release-dialog-close');
+    const dialogArt = document.getElementById('release-dialog-art');
+    const dialogType = document.getElementById('release-dialog-type');
+    const dialogTitle = document.getElementById('release-dialog-title');
+    const dialogCredit = document.getElementById('release-dialog-credit');
+    const dialogNote = document.getElementById('release-dialog-note');
+    const dialogTracks = document.getElementById('release-dialog-tracks');
+    const dialogEmpty = document.getElementById('release-dialog-empty');
+    const dialogSpotify = document.getElementById('release-dialog-spotify');
+    const dialogApple = document.getElementById('release-dialog-apple');
+    let activeFormat = 'all';
+
+    const art = {
+      'soulful': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/50/ef/df/50efdf35-da3e-fca6-cb23-ddf130fe28d8/1963623785640_cover.jpg/592x592bf.webp',
+      'new scenes': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/e4/49/88/e449885b-ef22-4c9c-6a34-2392ce13392e/42340d88-6b1c-46ed-a5e0-652433d42e32.jpg/592x592bf.webp',
+      'perspectives': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/54/62/b6/5462b65e-d15b-8909-9dac-f88477b199e1/cover_4062851135474.jpg/592x592bf.webp',
+      'impressions': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/38/3b/9d/383b9dad-20d8-e4a3-96fd-a95f76fe5dae/1a43c567-b65a-47ac-88e9-87fd6cf4fa95.jpg/592x592bf.webp',
+      'sunday supper - instrumentals': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/f4/cc/a5/f4cca50b-13c2-2f79-ca82-4a8638abf167/cover.jpg/592x592bf.webp',
+      'horizons': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/aa/59/23/aa592361-aa3e-d61e-4bc1-3dfd7e3e80ee/cover_4068992448473.jpg/592x592bf.webp',
+      'frameworks': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a7/d2/b6/a7d2b61b-a193-441a-9543-8b832591ae38/cover_4068992055022.jpg/592x592bf.webp',
+      'motifs': 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/73/ff/f6/73fff6e5-ecdc-fed8-c8cd-afe68111e427/e0ecf8bb-24b0-4a6e-ae35-0b4c0cf252ad.jpg/592x592bf.webp',
+      'page break': 'covers/pagebreak.jpg',
+      'insights': 'covers/insights.jpg',
+      'aphrodisiac': 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/36/cc/48/36cc48d3-91f3-ce8a-1698-cec4828c9edc/cover.jpg/592x592bf.webp',
+      'aiode': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/e8/57/2c/e8572cff-3ec3-9f3a-33fe-b442e5d15cba/ecee3bda-6a2b-409a-9932-83d09b6ca697.jpg/592x592bf.webp',
+      'now / again': 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/cd/31/f3/cd31f30f-a2cf-af54-7c1f-2719d956cab4/cover.jpg/592x592bf.webp',
+      'now / again ii': 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/4a/5f/2b/4a5f2b46-5701-3056-c24c-ebdb01f4f3cd/cover.jpg/592x592bf.webp',
+      'arise': 'covers/arise.jpg',
+      'entity': 'https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/e7/92/1f/e7921fd1-2e20-f6d1-d5e0-e188566b946b/193436161718_01_img001.jpg/592x592bf.webp',
+      'life': 'https://is1-ssl.mzstatic.com/image/thumb/Music118/v4/ee/60/2d/ee602d92-6623-5d6c-d002-0fcf99be1e6a/193436047494_01_img001.jpg/592x592bf.webp',
+      'balance': 'https://is1-ssl.mzstatic.com/image/thumb/Music124/v4/dd/d5/b7/ddd5b7a4-cad7-addd-bc86-0b2474490324/843357192413_01_img001.jpg/592x592bf.webp',
+      'serendipity': 'covers/serendip.jpg',
+      'fundamentals': 'https://is1-ssl.mzstatic.com/image/thumb/Music123/v4/d7/08/da/d708da52-c4d3-207e-6929-2db686f1727f/859726480265_01_img001.jpg/592x592bf.webp',
+      'now and then': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/94/09/39/940939c5-f72c-964e-2299-943259cde0a3/820200550699.jpg/592x592bf.webp',
+      'the cool hour': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b5/f8/71/b5f87184-d812-516f-4955-e1b2c9bab8c5/1963623866431_cover.jpg/592x592bf.webp',
+      'portals': 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/05/72/fa/0572fa77-ebc8-f636-9e4a-f0302e5388a8/1963621698928_cover.jpg/592x592bf.webp',
+      'purity': 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/9d/1b/eb/9d1beb55-bde2-d995-4cba-e40e0bb2e376/1963621635022_cover.jpg/592x592bf.webp',
+      'end of the road': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/20/70/97/2070978d-ca80-8581-8dee-324af0dd7746/7316473170977.jpg/592x592bf.webp',
+      'roadwalks': 'https://is1-ssl.mzstatic.com/image/thumb/Music126/v4/76/75/dd/7675dda3-9961-db8e-d874-a2388beb08e6/121b2452-0d2c-4599-9a6d-5157ca7c4e4b.jpg/592x592bf.webp',
+      'relatives': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/8a/ca/a9/8acaa953-111a-5ad1-d246-852ecb6ccaf9/5054285655825.jpg/592x592bf.webp',
+      'distant relatives': 'https://is1-ssl.mzstatic.com/image/thumb/Music116/v4/c5/b5/3d/c5b53d69-e546-a5c4-12d1-815f6e229cc2/cover.jpg/592x592bf.webp',
+      'best me': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2f/b4/04/2fb404c2-81f9-b114-30da-5885b6d4ab7e/6555.jpg/592x592bf.webp',
+      'big bag': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/6e/2d/be/6e2dbe5e-5357-9c7c-19d0-71edef46b1ac/cover.jpg/592x592bf.webp',
+      'conversations': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4c/bd/72/4cbd721e-4b1a-2d45-0655-4e2a4575d2d4/1963624506480_cover.jpg/592x592bf.webp',
+      'peaceful': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/c3/3e/58/c33e58cf-c33f-9d0c-41df-34e5bfd90103/1963624429987_cover.jpg/592x592bf.webp',
+      'beyond the clouds': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/5e/95/26/5e952660-ddb1-4218-ab72-34d522794d58/723098055010.png/592x592bf.webp',
+      'elsewhere': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/ad/99/09/ad990905-5767-e669-25a2-4ad1754ad8a7/1963624301979_cover.jpg/592x592bf.webp',
+      'different': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/d2/87/7c/d2877c6d-2df3-168c-906e-ab5b89f63057/1963624301924_cover.jpg/592x592bf.webp',
+      'crepuscule': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/b5/9e/11/b59e111a-90a2-b359-cef5-7dfb62693af5/1963624512306_cover.jpg/592x592bf.webp',
+      'so fly': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8e/e0/29/8ee02911-038a-9576-83f2-a2853ec6d17c/1963624241756_cover.jpg/592x592bf.webp',
+      'the way you move': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/c3/f1/ec/c3f1ec5c-0742-93d7-274d-73fc79d34da8/4065328867366.png/592x592bf.webp',
+      'goodbye': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/79/61/02/796102cc-6180-22fc-f870-8455ef79d4f9/1963624301900_cover.jpg/592x592bf.webp',
+      'stone': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/a7/92/4d/a7924d0f-07db-c25f-e060-52bd0c03872c/1963624418325_cover.jpg/592x592bf.webp',
+      'once together, twice alone': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/00/d6/c5/00d6c567-85b9-cd7c-8370-0d02740aa536/cover_4062851270397.jpg/592x592bf.webp',
+      'indoor': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/8d/8a/bf/8d8abf76-3f8a-e647-afc6-322b79d66e2c/1963624306455_cover.jpg/592x592bf.webp',
+      'lisboa': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2a/1f/ea/2a1feaf0-b9e5-f2c2-56d5-ad88253b8e96/1963624301887_cover.png/592x592bf.webp',
+      'alone': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/10/c2/38/10c23815-35c2-8fdd-aa97-5f81d8048a86/1963624241718_cover.jpg/592x592bf.webp',
+      'calm down': 'https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/53/f7/cd/53f7cd66-c8c0-b3a8-af6a-6abc2796bcbe/1963624310360_cover.png/592x592bf.webp',
+      'all good': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/8d/e8/94/8de89416-d34e-dfdd-e8ab-ef1358f8edd6/cover_4062851233590.jpg/592x592bf.webp',
+      'long way': 'https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/bb/ae/e7/bbaee7f3-5070-45d3-d366-9689e4dd9a25/1963624221284_cover.jpg/592x592bf.webp'
+    };
+    const collaborators = {
+      'frameworks': 'Viktor Minsky',
+      'motifs': 'Viktor Minsky',
+      'serendipity': 'LESKY',
+      'now and then': 'Mr. Käfer',
+      'the cool hour': 'xander.',
+      'purity': 'blndspot',
+      'roadwalks': 'Mr. Käfer',
+      'argo': 'Sátyr',
+      'distant relatives': 'K. Sparks'
+    };
+    const labelBadges = {
+      'page break': 'Nettwerk',
+      'insights': 'Nettwerk'
+    };
+    // Verified Spotify album IDs (22-char). Falls back to artist discography for missing entries.
+    const spotifyLinks = {
+      'soulful': '2p1tJbUuw0p5sMatB2KPMy',
+      'new scenes': '10HQdE9mEPPZ7UJGyVYLHr',
+      'sunday supper - instrumentals': '6u3dd2SgQUfoatG93QuJJg',
+      'horizons': '6UV0zrKfKlJYsoYMaaf7la',
+      'frameworks': '5yoMLqQhCNenP58Jj47JIp',
+      'motifs': '53FW22JRE7jjzMCf0He2cj',
+      'page break': '4ocDkgkzX62ebNN8s55LCf',
+      'now / again ii': '6WoUZsp2z2fbuKA9qir52T',
+      'insights': '2JnOxnGfgXP5CwoiZXKQFE',
+      'aphrodisiac': '0iwba3QOMBgtkxVa9NPFjw',
+      'aiode': '6qrJcgmEigwKKrc3MJZlGY',
+      'now / again': '5xEAyf7uCr6rFCTnpHccvh',
+      'arise': '4ZqITLLf5hY5z7C3btgBta',
+      'entity': '406JQa6SatbOznqmyBKmqH',
+      'life': '6N5t33eXUctRIFozkiDQJQ',
+      'balance': '4WKsHssenjkh0RfeUofPnm',
+      'serendipity': '5aDfRCVjy2nDBRj8bvv47h',
+      'fundamentals': '2rLXLA39sAvSJz4PBgsbVP',
+      'impressions': '16ENmRjpxpGC6PQaKfhaC1',
+      'end of the road': '2JUXLVoo4qHEme889MTLNC',
+      'portals': '0zSHO9MFADUoAi53NCTZVh',
+      'roadwalks': '0c5rYgL1HqIJm9S0aIILoa',
+      'relatives': '5mGy2U11YGQmod3oo5Z6ui',
+      'argo': '2HEjlnR6Vs5QBKcXjPz4dI',
+      'distant relatives': '7IuGf9sJypSkyxnR5ypn17',
+      'now and then': '6zaPLyU0w8paCA6Tum2uYJ',
+      'best me': '6TuIvy2yR9FkRXz7uclBLp',
+      'long way': '4KhhikQCc3y4HL48iZRJLu'
+    };
+    // Apple Music overrides for entries whose href links to Bandcamp
+    const appleMusicLinks = {
+      'end of the road': 'https://music.apple.com/us/album/end-of-the-road-ep/6770669322',
+      'roadwalks': 'https://music.apple.com/us/album/roadwalks-ep/1710110017',
+      'relatives': 'https://music.apple.com/us/album/relatives-ep/6770621619',
+      'distant relatives': 'https://music.apple.com/us/album/distant-relatives-ep/1674422960'
+    };
+    const publishedLabels = {
+      'page break': 'nettwerk', 'insights': 'nettwerk',
+      'arise': 'six', 'entity': 'six', 'life': 'six', 'balance': 'six',
+      'serendipity': 'six', 'fundamentals': 'six',
+      'end of the road': 'lofi', 'roadwalks': 'lofi', 'argo': 'lofi',
+      'new scenes': 'lofi', 'impressions': 'lofi'
+    };
+    const releaseInfo = {
+      'fundamentals': {
+        label: 'S!X - Music / Album / 2018',
+        tracks: ['Never Say Hello', 'Trainhop', 'Coffee', 'Juicy', 'Cloudy', 'Bttrswt', 'Me and My Shadow', 'Eating Lotus']
+      },
+      'serendipity': {
+        label: 'S!X - Music / EP / 2018 / with LESKY',
+        source: 'https://s1x-music.bandcamp.com/album/serendipity',
+        tracks: ['Coup de Soleil', 'Hier encore', 'LWTL', "Bate's Motel", 'Resilience', 'Crackle & Hide', 'Close', 'Moonlight', 'Used to Love', "Lil' Darlin"]
+      },
+      'balance': {
+        label: 'S!X - Music / Album / 2018',
+        tracks: ['Slow Dance', 'Sunset', 'MLLW', 'ITMFL', 'Sleepytime', 'Who is She', 'Facial Expression', 'Moving On', 'Cold']
+      },
+      'entity': {
+        label: 'S!X - Music / Album / 2019',
+        source: 'https://s1x-music.bandcamp.com/album/entity',
+        tracks: ['Entity', 'Slumber (feat. Flynn)', 'Different World (feat. Remulak)', 'Parapluie (feat. m e a d o w)', 'Galanthus', 'Vide (feat. LESKY)', 'Mind', "Raindrops Keep Fallin'", 'Conscience (feat. Santport)', 'Amber Skies (feat. Wilczynski)', 'Infinity (feat. Soul Sage)', 'Outro (feat. b l o o p r)']
+      },
+      'distant relatives': {
+        label: 'EP / 2019 / with K. Sparks',
+        source: 'https://phlocalyst.bandcamp.com/album/distant-relatives',
+        tracks: ['Intro (Game 4 Free)', 'The Breakup', 'Once Upon a Time', 'Fade Away']
+      },
+      'arise': {
+        label: 'S!X - Music / Album / 2020',
+        tracks: ['Cerebral (feat. Laffey)', 'Arise (feat. lōland)', 'Mission (feat. M e a d o w)', 'Matches (feat. Pixie Dust)', 'Spheres (feat. Worldtraveller)', 'Image (feat. Cocabona)', 'Silhouette (feat. Mr. Käfer)', 'Knowledge (feat. Living Room)', 'Daydrink (feat. Sátyr)', 'Wings (feat. Rudy Raw)', 'Hier Encore Pt.2 (feat. LESKY)', 'Never 2 Late (feat. K. Sparks)']
+      },
+      'argo': {
+        desc: 'Sátyr and Phlocalyst joined their creative efforts to create a calming journey together on their latest album “Argo”. The release is filled with tranquilising guitar melodies and sleepy rhythms.',
+        label: 'Lofi Girl / Album / 2021 / Sátyr + Phlocalyst',
+        source: 'https://lofigirl.bandcamp.com/album/argo',
+        tracks: ['Flood ft. Drxnk', 'Circle ft. Phlocalyst & mell-ø', 'Emerald ft. Phlocalyst & Rudy Raw', 'Cicada ft. Phlocalyst & LESKY', 'Marble ft. Drxnk & Elior', 'Hyacinth ft. Drxnk & Akīn', "Lucid Dreamin' ft. Drxnk & Living Room"]
+      },
+      'relatives': {
+        desc: 'Phlocalyst is sharing a precious moment with his latest EP “Relatives”. Every track flows gently into one another offering restful guitars, wide ambiances and relaxing sounds of the nature. It’s time to visit that once forgotten place — that holds a strong sense of unity and belonging. Sit down and enjoy the stay.',
+        label: 'Lofi Girl / EP / February 13, 2021',
+        source: 'https://lofigirl.bandcamp.com/album/relatives',
+        tracks: ['Playgrounds ft. mell-ø x Akīn', 'Homage ft. Sátyr x Akīn', 'Bamboo ft. Elior x Living Room', 'Beautiful Morning ft. Living Room x Akīn', 'Old Friend ft. Living Room x Akīn']
+      },
+      'roadwalks': {
+        desc: 'Phlocalyst and Mr. Käfer are here to present a relaxing jazzy experience with their latest EP “Roadwalks”. Soothing piano chords meet with the softest of beats to ensure a chilled out adventure. There’s still a long way to go, but remember that the destination isn’t everything — it’s the journey that counts.',
+        label: 'Lofi Girl / EP / November 24, 2021 / with Mr. Käfer',
+        source: 'https://lofigirl.bandcamp.com/album/roadwalks',
+        tracks: ['Lessons in Nature', 'Promenades', 'Kukui Leaves', 'Sparkling Brooks', 'Time of the Day', 'Life Aquatic ft. Akīn']
+      },
+      'now / again': {
+        desc: 'Lofi heavyweights Mr. Käfer and Phlocalyst are restructuring the metaphysics of a jazz thing. The vibe of the 12 tracks is chill. The kicks, snares and basslines are crisp but relaxed — wrapped up in warm melodic layers and led by the distinctive sound of Phlocalyst’s horn.',
+        label: 'Melting Pot Music / Album / September 17, 2021 / with Mr. Käfer'
+      },
+      'now / again ii': {
+        desc: 'The follow-up to the acclaimed debut, Phlocalyst and Mr. Käfer continue their collaborative chapter with another 12-track journey of warm melodic layers, jazz-inflected trumpet, and crisp lo-fi rhythms.',
+        label: 'Melting Pot Music / Album / March 31, 2023 / with Mr. Käfer'
+      },
+      'insights': {
+        desc: 'Insights is a jazzy instrumental hip-hop collage that describes my current lifestyle. While everything revolves around music, I try to have my main focus on the people and life around me. A huge amount of musical positivity with a touch of nostalgia.',
+        label: 'Nettwerk / EP / December 16, 2022',
+        source: 'https://phlocalyst.bandcamp.com/album/insights',
+        tracks: ['Blue Fraction', 'Daylight', 'Morning Stroll', 'Aries', 'One of Those Things', 'Zeal', 'Beautiful Second', 'Moodswing']
+      },
+      'page break': {
+        desc: 'Page Break is my second LP with Nettwerk Music Group. It picks up right where Insights left off — continuing a voyage of muted trumpet and mystical beats slathered in funky melodies with album art created by Giza.',
+        label: 'Nettwerk / Album / June 30, 2023',
+        source: 'https://phlocalyst.bandcamp.com/album/page-break',
+        tracks: ['Rising Morning', 'Sapphire Bounce', 'Zeal Pt. 2', 'Marbles', 'Again', 'Emmitouflé', 'Our Time']
+      },
+      'end of the road': {
+        label: 'Lofi Girl / EP / 2023',
+        source: 'https://lofigirl.bandcamp.com/album/end-of-the-road',
+        tracks: ['Over The Top ft. Akīn & Hoogway', 'Different Pathway ft. Casiio', 'Arriving Home ft. M e a d o w', 'Mountain Drops ft. Hoogway', 'Latenight Loneliness ft. M e a d o w']
+      }
+    };
+    const officialAppleTracks = {
+      'soulful': ['Chill Mode', 'Latency', 'Reflect', 'Next Week', 'Sweet Smooth', 'Everyday', 'With You'],
+      'new scenes': ["Loungin'", 'No Sleep', 'Limits', 'Muted Harmony', 'Jazzgrown', 'Visiting You', 'Slow Walk', 'New Beginnings', 'Strange Days'],
+      'perspectives': ['Perspectives', 'Coffee Time', 'My Life', 'Loving You', 'Over the Moon (Interlude)', 'Warmth', 'Goals', 'Cooling Off'],
+      'impressions': ['Home Alone', 'Too Much', 'Last Drink', 'Little One', 'Wrong Timing', 'What A Journey', 'I Can Relate'],
+      'sunday supper - instrumentals': ['Déjà-vu - Instrumental (feat. Sunday Supper)', 'Sunday Supper - Instrumental (feat. Sunday Supper)', 'Win Some Lose Some - Instrumental (feat. Sunday Supper)', 'What It Be - Instrumental (feat. Sunday Supper)', 'Life Be Lifting - Instrumental (feat. Sunday Supper)', 'You Blue It - Instrumental (feat. Sunday Supper)', "Don't Sweat The Technique - Instrumental (feat. Sunday Supper)"],
+      'horizons': ['Glass Of Wine', 'Morning Works', 'Views', 'Fallen Lemons', 'Rainy Days (feat. h00t & myuga)', 'Terrace Sundown', 'Take A Step Back', 'Rosé'],
+      'frameworks': ['Examples (feat. Imperial Sax)', 'Perpetual Reverie', 'Beautiful Harmony', 'The Art of Being Friends', 'Leaving', 'Smoked', 'End of Time'],
+      'motifs': ['At the Window', 'Green Leaves', 'Way of Life', 'Midnight Drink', 'Another Coffee', 'Serenade For Brass', 'Keys To My Heart'],
+      'now / again ii': ['Sunny Side Up', 'One Or Two', 'Pictures That Stay', 'Resources', 'Keep On Track', 'Slow Pace', 'Some New Soul', 'Helium', 'Like Children', 'Free Tones', 'Ventilator', 'Echoes'],
+      'aphrodisiac': ['Cancale', 'Venus', 'Philosykos', 'Coco', 'Meli', 'Tartufo', 'Cynara', 'Solenidae', 'Macis', 'Fuerte'],
+      'aiode': ['Do You Even Think of Me', 'Ultramarine', 'Naked Truth', 'Back2Bed', 'Rain Inside', 'Trust Me', 'Last Goodbye'],
+      'now / again': ['Facettes', 'Cloudscapes', 'Stellar', 'Room', 'Lanterns', 'Silence', 'Fractions', 'Memories', 'Evenings', 'Space Travels', 'Respiration', 'Drizzle'],
+      'life': ['Soul', 'Daze', 'Tendencies (feat. woiwide)', 'Autumn', 'Rooftop (feat. h33won)', 'Sorry', 'Abstinence'],
+      'now and then': ['Couch (feat. Mr. Käfer)', 'We Are Lost (feat. Mr. Käfer)', 'Since When (feat. Mr. Käfer)', 'Long Day (feat. Mr. Käfer)', 'Doesn’t Matter (feat. Mr. Käfer & Erwin Do)', 'Morning Call (feat. Mr. Käfer)'],
+      'the cool hour': ['Alleyway', 'Candle Glow', 'Coffee Night', 'Roaming Around', 'Backyard Playground'],
+      'portals': ['Falling', 'Step By Step', 'Muse', 'Sweet Home'],
+      'purity': ['Few Desires', 'Purity', 'Natural Balance', 'Behind the Corner'],
+      'best me': ['Best Me'],
+      'big bag': ['big bag'],
+      'conversations': ['Conversations'],
+      'peaceful': ['Peaceful'],
+      'beyond the clouds': ['Beyond the Clouds'],
+      'elsewhere': ['Elsewhere'],
+      'different': ['Different'],
+      'crepuscule': ['Crepuscule'],
+      'so fly': ['So Fly'],
+      'the way you move': ['The Way You Move', 'The Beauty of Loss'],
+      'goodbye': ['Goodbye'],
+      'stone': ['Stone'],
+      'once together, twice alone': ['Once Together, Twice Alone'],
+      'lisboa': ['Lisboa'],
+      'alone': ['Alone'],
+      'calm down': ['Calm Down'],
+      'all good': ['All Good'],
+      'long way': ['Long Way']
+    };
+    Object.entries(officialAppleTracks).forEach(([key, tracks]) => {
+      releaseInfo[key] = { ...(releaseInfo[key] || {}), tracks };
+    });
+
+    function showRelease(entry) {
+      const title = entry.querySelector('h4').textContent.trim();
+      const key = entry.dataset.releaseKey || title.toLowerCase();
+      const info = releaseInfo[key];
+      const date = entry.querySelector('.date').textContent.trim();
+      const credit = entry.querySelector('.credit').textContent.replace(/\s*↗/g, '').trim();
+      const hasTracks = Boolean(info && info.tracks && info.tracks.length);
+
+      dialogTitle.textContent = title;
+      dialogType.textContent = date;
+      dialogCredit.textContent = info && info.label ? info.label : credit;
+      dialogNote.textContent = (info && info.desc)
+        ? info.desc
+        : hasTracks
+          ? 'Track listing confirmed from the official Apple Music or label release page.'
+          : 'This release is listed in the official public catalogue, but its complete track data could not be confirmed here. Open the listing for details.';
+
+      const spotifyId = spotifyLinks[key];
+      dialogSpotify.href = spotifyId
+        ? `https://open.spotify.com/album/${spotifyId}`
+        : 'https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt/discography/all';
+
+      const appleHref = appleMusicLinks[key] || (entry.href.includes('music.apple.com') ? entry.href : null);
+      dialogApple.style.display = appleHref ? '' : 'none';
+      if (appleHref) dialogApple.href = appleHref;
+
+      dialogArt.replaceChildren();
+      dialogArt.classList.toggle('empty', !art[key]);
+      if (art[key]) {
+        const image = document.createElement('img');
+        image.src = art[key];
+        image.alt = `${title} release artwork`;
+        dialogArt.appendChild(image);
+      } else {
+        dialogArt.innerHTML = '<svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg" style="width:58%;opacity:.18;" aria-hidden="true"><circle cx="100" cy="100" r="95" fill="currentColor"/><circle cx="100" cy="100" r="65" fill="var(--coal)"/><circle cx="100" cy="100" r="50" fill="currentColor" opacity=".12"/><circle cx="100" cy="100" r="32" fill="var(--coal)"/><circle cx="100" cy="100" r="10" fill="currentColor" opacity=".35"/><circle cx="100" cy="100" r="5" fill="var(--coal)"/></svg>';
+      }
+
+      dialogTracks.replaceChildren();
+      dialogTracks.hidden = !hasTracks;
+      dialogEmpty.hidden = hasTracks;
+      if (hasTracks) {
+        info.tracks.forEach((track) => {
+          const item = document.createElement('li');
+          item.textContent = track;
+          dialogTracks.appendChild(item);
+        });
+      }
+
+      dialog.showModal();
+      dialogClose.focus();
+      document.body.classList.add('modal-open');
+    }
+
+    entries.forEach((entry, index) => {
+      const name = entry.querySelector('h4').textContent.trim();
+      const key = entry.dataset.releaseKey || name.toLowerCase();
+      const date = entry.querySelector('.date').textContent.trim();
+      const entryYear = (date.match(/\b20\d{2}\b/) || [''])[0];
+      const format = /\bsingle\b/i.test(date) ? 'single' : /\bep\b/i.test(date) ? 'ep' : 'album';
+      const collaborator = collaborators[key] || '';
+
+      entry.dataset.title = key;
+      entry.dataset.year = entryYear;
+      entry.dataset.format = format;
+      entry.dataset.label = publishedLabels[key] || 'other';
+      entry.dataset.collab = collaborator ? 'true' : 'false';
+      entry.dataset.order = `${entryYear}${String(999 - index).padStart(3, '0')}`;
+
+      if (labelBadges[key]) {
+        const tag = document.createElement('span');
+        tag.className = 'badge label-badge';
+        tag.textContent = labelBadges[key];
+        entry.insertBefore(tag, entry.querySelector('.date'));
+      }
+
+      if (collaborator) {
+        const tag = document.createElement('span');
+        tag.className = 'badge';
+        tag.textContent = collaborator;
+        entry.insertBefore(tag, entry.querySelector('.date'));
+      }
+
+      if (art[key]) {
+        const contents = entry.innerHTML;
+        entry.classList.add('has-art');
+        entry.innerHTML = `<div class="entry-art"><img src="${art[key]}" alt="" loading="lazy"></div><div class="entry-body">${contents}</div>`;
+      }
+
+      const cue = document.createElement('span');
+      cue.className = 'detail-cue';
+      cue.textContent = releaseInfo[key] ? 'View tracks +' : 'View details +';
+      (entry.querySelector('.entry-body') || entry).appendChild(cue);
+      entry.setAttribute('aria-haspopup', 'dialog');
+      entry.removeAttribute('target');
+      entry.addEventListener('click', (event) => {
+        event.preventDefault();
+        showRelease(entry);
+      });
+    });
+
+    const indexes = [...document.querySelectorAll('.release-index')];
+    function reorder() {
+      const mode = sort.value;
+      indexes.forEach((index) => {
+        const sorted = [...index.querySelectorAll('.entry')].sort((a, b) => {
+          if (mode === 'title') return a.dataset.title.localeCompare(b.dataset.title);
+          const difference = a.dataset.order.localeCompare(b.dataset.order);
+          return mode === 'oldest' ? difference : -difference;
+        });
+        sorted.forEach((entry) => index.appendChild(entry));
+      });
+    }
+
+    function update() {
+      const query = search.value.trim().toLowerCase();
+      let count = 0;
+      entries.forEach((entry) => {
+        const searchable = entry.textContent.toLowerCase();
+        const formatMatches = activeFormat === 'all'
+          || (activeFormat === 'collab' ? entry.dataset.collab === 'true' : entry.dataset.format === activeFormat);
+        const matches = formatMatches
+          && (year.value === 'all' || entry.dataset.year === year.value)
+          && (label.value === 'all' || entry.dataset.label === label.value)
+          && (!query || searchable.includes(query));
+        entry.hidden = !matches;
+        if (matches) count += 1;
+      });
+      groups.forEach((group) => {
+        group.hidden = !group.querySelector('.entry:not([hidden])');
+      });
+      const isFiltered = activeFormat !== 'all' || query || year.value !== 'all' || label.value !== 'all';
+      if (isFiltered) singlesToggle.open = true;
+      total.textContent = count;
+      resultLabel.textContent = isFiltered ? `of ${entries.length} releases` : 'releases total';
+      clear.classList.toggle('active', isFiltered);
+      noResults.hidden = count !== 0;
+    }
+
+    filters.forEach((button) => {
+      button.addEventListener('click', () => {
+        activeFormat = button.dataset.filter;
+        filters.forEach((filter) => filter.setAttribute('aria-pressed', String(filter === button)));
+        update();
+      });
+    });
+    search.addEventListener('input', update);
+    year.addEventListener('change', update);
+    label.addEventListener('change', update);
+    sort.addEventListener('change', () => {
+      reorder();
+      update();
+    });
+    clear.addEventListener('click', () => {
+      activeFormat = 'all';
+      search.value = '';
+      year.value = 'all';
+      label.value = 'all';
+      sort.value = 'newest';
+      filters.forEach((filter) => filter.setAttribute('aria-pressed', String(filter.dataset.filter === 'all')));
+      singlesToggle.open = false;
+      reorder();
+      update();
+    });
+    dialogClose.addEventListener('click', () => dialog.close());
+    dialog.addEventListener('close', () => document.body.classList.remove('modal-open'));
+    dialog.addEventListener('click', (event) => {
+      const bounds = dialog.getBoundingClientRect();
+      const isOutside = event.clientX < bounds.left || event.clientX > bounds.right
+        || event.clientY < bounds.top || event.clientY > bounds.bottom;
+      if (isOutside) dialog.close();
+    });
+    controls.addEventListener('submit', (event) => event.preventDefault());
+    reorder();
+    update();
+  })();
+</script>
+<script src="mobilenav.js"></script>
+</body>
+</html>
