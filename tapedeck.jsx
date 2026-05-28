@@ -14,9 +14,9 @@
 const TRACKS = [
   {
     id: 'daylight',
-    name: 'Daylight',
-    release: 'Insights · 2022',
-    label: 'NETTWERK',
+    name: 'Daylight Loop',
+    release: 'Inspired by Insights · 2022',
+    label: 'PROCEDURAL AUDIO',
     bpm: 75,
     durSec: 196,
     chords: [
@@ -34,9 +34,9 @@ const TRACKS = [
   },
   {
     id: 'blue',
-    name: 'Blue Fraction',
-    release: 'Insights · 2022',
-    label: 'NETTWERK',
+    name: 'Blue Fraction Loop',
+    release: 'Inspired by Insights · 2022',
+    label: 'PROCEDURAL AUDIO',
     bpm: 68,
     durSec: 184,
     chords: [
@@ -53,9 +53,9 @@ const TRACKS = [
   },
   {
     id: 'zeal',
-    name: 'Zeal',
-    release: 'Insights · 2022',
-    label: 'NETTWERK',
+    name: 'Zeal Loop',
+    release: 'Inspired by Insights · 2022',
+    label: 'PROCEDURAL AUDIO',
     bpm: 88,
     durSec: 172,
     chords: [
@@ -72,9 +72,9 @@ const TRACKS = [
   },
   {
     id: 'serendipity',
-    name: 'Serendipity',
-    release: 'w/ LESKY · 2020',
-    label: 'MELTING POT',
+    name: 'Serendipity Loop',
+    release: 'Inspired by release w/ LESKY · 2018',
+    label: 'PROCEDURAL AUDIO',
     bpm: 72,
     durSec: 218,
     chords: [
@@ -413,9 +413,31 @@ function Knob({ label, value, onChange, color = 'var(--amber)' }) {
     window.addEventListener('pointermove', move);
     window.addEventListener('pointerup', up);
   };
+  const onKeyDown = (e) => {
+    const increment = e.shiftKey ? 0.1 : 0.04;
+    let next = value;
+    if (e.key === 'ArrowUp' || e.key === 'ArrowRight') next = value + increment;
+    else if (e.key === 'ArrowDown' || e.key === 'ArrowLeft') next = value - increment;
+    else if (e.key === 'Home') next = 0;
+    else if (e.key === 'End') next = 1;
+    else return;
+    e.preventDefault();
+    onChange(Math.max(0, Math.min(1, next)));
+  };
   return (
     <div className="tdk-knob">
-      <div className="tdk-knob-body" onPointerDown={onDown} title="Drag up/down to adjust">
+      <div
+        className="tdk-knob-body"
+        onPointerDown={onDown}
+        onKeyDown={onKeyDown}
+        title="Drag or use arrow keys to adjust"
+        role="slider"
+        tabIndex={0}
+        aria-label={label}
+        aria-valuemin="0"
+        aria-valuemax="100"
+        aria-valuenow={Math.round(value * 100)}
+      >
         <div className="tdk-knob-ind" style={{ transform: `rotate(${angle}deg)` }}>
           <i style={{ background: color }} />
         </div>
@@ -433,11 +455,11 @@ function TapeDeck() {
   const engine = engineRef.current;
 
   const [playing, setPlaying] = React.useState(false);
+  const [hasPlayed, setHasPlayed] = React.useState(false);
   const [trackIdx, setTrackIdx] = React.useState(0);
-  const [elapsed, setElapsed] = React.useState(0); // for scrubber display only
-  const [volume, setVolume] = React.useState(0.7);
+  const [elapsed, setElapsed] = React.useState(0);
+  const [volume, setVol] = React.useState(0.7);
   const [lofi, setLofi] = React.useState(0.5);
-  const [tickerNoise, setTickerNoise] = React.useState(false);
 
   const track = TRACKS[trackIdx];
 
@@ -455,11 +477,13 @@ function TapeDeck() {
 
   const togglePlay = async () => {
     if (playing) { engine.pause(); setPlaying(false); }
-    else { await engine.play(); setPlaying(true); }
+    else { await engine.play(); setPlaying(true); setHasPlayed(true); }
   };
   const onPrev = () => { engine.prev(); setTrackIdx(engine.ctx.currentTrackIdx); setElapsed(0); };
   const onNext = () => { engine.next(); setTrackIdx(engine.ctx.currentTrackIdx); setElapsed(0); };
   const onSelect = (i) => { engine.selectTrack(i); setTrackIdx(i); setElapsed(0); };
+  const onVolume = (v) => { setVol(v); engine.setVolume(v); };
+  const onLofi = (v) => { setLofi(v); engine.setLofi(v); };
 
   const fmtTime = (s) => {
     const m = Math.floor(s / 60);
@@ -472,114 +496,116 @@ function TapeDeck() {
   return (
     <>
       <style>{TAPE_CSS}</style>
-      <div className="tdk-wrap">
+      <div className="tdk-wrap" aria-label="Procedural tape loops player">
 
-        {/* Top label / brand */}
         <div className="tdk-strip">
           <div className="tdk-strip-l">
-            <span className="tdk-brand">PHLO-MATIC <i>★</i> Model PH-808</span>
-            <span className="tdk-sep">/</span>
-            <span className="tdk-on">{playing ? '● REC ON' : '○ STANDBY'}</span>
+            <span className="tdk-brand">PHLO<i>·</i>MATIC</span>
+            <span className="tdk-sep">|</span>
+            <span>TAPE DECK · UNIT II</span>
           </div>
           <div className="tdk-strip-r">
-            <span>STEREO · DOLBY B</span>
-            <span className="tdk-sep">/</span>
-            <span>TYPE II · CrO₂</span>
+            <span className={playing ? 'tdk-on' : ''}>● {playing ? 'PLAYING' : 'STANDBY'}</span>
           </div>
         </div>
 
-        {/* Main deck face */}
         <div className="tdk-face">
-
-          {/* Left column: cassette window */}
           <div className="tdk-cassette">
             <div className="tdk-cassette-inner">
               <div className="tdk-c-label">
                 <div className="tdk-c-label-band">
-                  <div className="tdk-c-title">{track.name}</div>
-                  <div className="tdk-c-sub">{track.release}</div>
+                  <span className="tdk-c-title">{track.name.replace(' Loop', '')}</span>
+                  <span className="tdk-c-sub">{track.label}</span>
                 </div>
-                <div className="tdk-c-tape-info">
-                  <span>SIDE A</span>
-                  <span>{track.bpm} BPM</span>
-                  <span>C-60</span>
-                </div>
+              </div>
+              <div className="tdk-c-tape-info">
+                <span>{track.release}</span>
+                <span>{track.bpm} BPM</span>
               </div>
               <div className="tdk-reels">
                 <Reel spinning={playing} side="l" />
-                {/* tape ribbon between reels */}
                 <div className="tdk-ribbon">
                   <div className="tdk-ribbon-fill" style={{ width: `${progress * 100}%` }} />
                 </div>
                 <Reel spinning={playing} side="r" />
               </div>
               <div className="tdk-c-holes">
-                <i/><i/><i/><i/><i/>
+                <i /><i /><i /><i /><i />
               </div>
             </div>
           </div>
 
-          {/* Right column: display + controls + VU */}
           <div className="tdk-control">
-            {/* LCD-style display */}
             <div className="tdk-lcd">
               <div className="tdk-lcd-row">
-                <span className="tdk-lcd-mode">{playing ? '▶ PLAY' : '❚❚ PAUSE'}</span>
-                <span className="tdk-lcd-time">{fmtTime(elapsed % track.durSec)} <span className="tdk-lcd-dim">/ {fmtTime(track.durSec)}</span></span>
+                <span className="tdk-lcd-mode">{playing ? '▶ PLAY' : '■ STOP'}</span>
+                <span className="tdk-lcd-time tdk-lcd-dim">{fmtTime(elapsed % track.durSec)} / {fmtTime(track.durSec)}</span>
               </div>
-              <div className="tdk-lcd-title">{track.name}</div>
-              <div className="tdk-lcd-meta">{track.release} <span className="tdk-lcd-dim">· {track.label}</span></div>
+              <div className="tdk-lcd-title">{track.name.replace(' Loop', '')}</div>
+              <div className="tdk-lcd-meta">{track.release}</div>
               <div className="tdk-scrubber">
                 <div className="tdk-scrubber-fill" style={{ width: `${progress * 100}%` }} />
-                <div className="tdk-scrubber-head" style={{ left: `${progress * 100}%` }} />
+                <div className="tdk-scrubber-head" style={{ left: `calc(${progress * 100}% - 2px)` }} />
               </div>
+              {!hasPlayed && (
+                <div className="tdk-play-hint" aria-live="polite">
+                  <span>▶ Press play to start procedural audio</span>
+                </div>
+              )}
             </div>
 
-            {/* Transport */}
             <div className="tdk-transport">
-              <button className="tdk-btn tdk-btn-sm" onClick={onPrev} aria-label="Previous">◀◀</button>
-              <button className={`tdk-btn tdk-btn-play ${playing ? 'is-playing' : ''}`} onClick={togglePlay} aria-label={playing ? 'Pause' : 'Play'}>
-                {playing ? '❚❚' : '▶'}
+              <button className="tdk-btn tdk-btn-sm" onClick={onPrev} aria-label="Previous track">⏮</button>
+              <button
+                className={`tdk-btn tdk-btn-play${playing ? ' is-playing' : ''}`}
+                onClick={togglePlay}
+                aria-label={playing ? 'Pause' : 'Play'}
+              >
+                {playing ? '⏸' : '▶'}
               </button>
-              <button className="tdk-btn tdk-btn-sm" onClick={onNext} aria-label="Next">▶▶</button>
+              <button className="tdk-btn tdk-btn-sm" onClick={onNext} aria-label="Next track">⏭</button>
               <div className="tdk-knobs">
-                <Knob label="VOLUME" value={volume} color="var(--amber)" onChange={(v) => { setVolume(v); engine.setVolume(v); }} />
-                <Knob label="LO-FI" value={lofi} color="var(--orange)" onChange={(v) => { setLofi(v); engine.setLofi(v); }} />
+                <Knob label="VOL" value={volume} onChange={onVolume} color="var(--amber)" />
+                <Knob label="LO-FI" value={lofi} onChange={onLofi} color="var(--orange)" />
               </div>
             </div>
 
-            {/* VU meters */}
             <VuMeter engine={engine} playing={playing} />
           </div>
         </div>
 
-        {/* Track listing */}
         <div className="tdk-tracks">
           <div className="tdk-tracks-head">
             <span>#</span>
-            <span>TRACK</span>
-            <span className="h-rel">RELEASE</span>
+            <span>Title</span>
+            <span className="h-rel">Release</span>
             <span className="h-bpm">BPM</span>
-            <span>TIME</span>
+            <span>Time</span>
             <span></span>
           </div>
-          <div className="tdk-tracks-hint">↔ Widen for release &amp; BPM details</div>
           {TRACKS.map((t, i) => (
-            <button key={t.id} className={`tdk-tr ${i === trackIdx ? 'is-active' : ''}`} onClick={() => onSelect(i)}>
+            <button
+              key={t.id}
+              className={`tdk-tr${i === trackIdx ? ' is-active' : ''}`}
+              onClick={() => onSelect(i)}
+              aria-pressed={i === trackIdx}
+            >
               <span className="tdk-tr-n">{String(i + 1).padStart(2, '0')}</span>
-              <span className="tdk-tr-name">{t.name}</span>
+              <span className="tdk-tr-name">{t.name.replace(' Loop', '')}</span>
               <span className="tdk-tr-rel">{t.release}</span>
               <span className="tdk-tr-bpm">{t.bpm}</span>
               <span className="tdk-tr-time">{fmtTime(t.durSec)}</span>
               <span className="tdk-tr-play">{i === trackIdx && playing ? '▶' : '○'}</span>
             </button>
           ))}
+          <div className="tdk-tracks-hint">Tap a row to load · swipe left for BPM &amp; length</div>
         </div>
 
         <div className="tdk-foot">
-          <span>↑ Procedurally generated lo-fi loops · Tone.js · 100% in-browser audio</span>
-          <span>Press play. Reels spin. VU bounces. Hold the orange knob to scrub the lo-fi character.</span>
+          <span>PROCEDURAL AUDIO · NOT ORIGINAL RECORDINGS</span>
+          <span>PHLO·MATIC UNIT II © 2026</span>
         </div>
+
       </div>
     </>
   );
@@ -587,6 +613,98 @@ function TapeDeck() {
 
 // ── STYLES ───────────────────────────────────────────────────────────────────
 const TAPE_CSS = `
+  .mini-deck{
+    display:grid;
+    grid-template-columns:minmax(210px, 1fr) minmax(260px, 1.45fr) auto;
+    align-items:center;
+    gap:24px;
+    padding:22px 24px;
+    border:1px solid var(--rule);
+    border-radius:12px;
+    background:linear-gradient(180deg, var(--coal-2), var(--coal));
+    box-shadow:0 18px 42px rgba(0,0,0,.27), inset 0 1px 0 rgba(255,255,255,.04);
+  }
+  .mini-label{
+    margin-bottom:9px;
+    font-family:'DM Mono', monospace;
+    font-size:10px;
+    letter-spacing:.1em;
+    color:var(--amber);
+  }
+  .mini-title{
+    font-family:var(--display);
+    font-size:clamp(24px, 2.8vw, 34px);
+    line-height:1;
+    text-transform:uppercase;
+  }
+  .mini-meta{
+    margin-top:9px;
+    font-family:'DM Mono', monospace;
+    font-size:10px;
+    line-height:1.5;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    color:var(--cream-dim);
+  }
+  .mini-progress{
+    height:5px;
+    overflow:hidden;
+    border-radius:999px;
+    background:color-mix(in oklab, var(--cream) 12%, transparent);
+  }
+  .mini-progress-fill{
+    height:100%;
+    border-radius:inherit;
+    background:var(--orange);
+    transition:width .12s linear;
+  }
+  .mini-picks{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px;}
+  .mini-pick{
+    appearance:none;
+    padding:8px 11px;
+    border:1px solid var(--rule);
+    border-radius:999px;
+    background:transparent;
+    color:var(--cream-dim);
+    font-family:'DM Mono', monospace;
+    font-size:10px;
+    letter-spacing:.04em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:color .15s ease,border-color .15s ease,background .15s ease;
+  }
+  .mini-pick:hover, .mini-pick.is-active{border-color:var(--orange);color:var(--cream);}
+  .mini-pick.is-active{background:color-mix(in oklab, var(--orange) 18%, transparent);}
+  .mini-controls{display:flex;align-items:center;gap:8px;}
+  .mini-time{
+    margin-right:8px;
+    color:var(--cream-dim);
+    font-family:'DM Mono', monospace;
+    font-size:11px;
+    font-variant-numeric:tabular-nums;
+    white-space:nowrap;
+  }
+  .mini-btn{
+    appearance:none;
+    height:42px;
+    padding:0 13px;
+    border:1px solid var(--rule);
+    border-radius:999px;
+    background:transparent;
+    color:var(--cream);
+    font-family:'DM Mono', monospace;
+    font-size:11px;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    cursor:pointer;
+    transition:border-color .15s ease,background .15s ease,color .15s ease;
+  }
+  .mini-btn:hover{border-color:var(--orange);}
+  .mini-play{padding-inline:21px;background:var(--orange);border-color:var(--orange);color:var(--coal);}
+  .mini-play:hover{background:var(--amber);border-color:var(--amber);}
+  .mini-play.is-playing{background:transparent;color:var(--orange);}
+  .mini-btn:focus-visible, .mini-pick:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
+
   .tdk-wrap{
     background: linear-gradient(180deg, var(--coal-2) 0%, var(--coal) 100%);
     border:1px solid var(--rule);border-radius:14px;
@@ -704,6 +822,16 @@ const TAPE_CSS = `
   }
   .tdk-scrubber-fill{position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg, #7eebd7, #a8ff3e);transition:width .12s linear;}
   .tdk-scrubber-head{position:absolute;top:-3px;width:4px;height:12px;background:#a8ff3e;border-radius:1px;transition:left .12s linear;box-shadow:0 0 8px rgba(168,255,62,.7);}
+  .tdk-play-hint{
+    margin-top:12px;padding:9px 12px;
+    border-radius:5px;
+    background:rgba(168,255,62,.08);
+    border:1px dashed rgba(168,255,62,.3);
+    font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;
+    color:#7eebd7;text-align:center;
+    animation:tdk-hint-pulse 2s ease-in-out infinite;
+  }
+  @keyframes tdk-hint-pulse{0%,100%{opacity:.7;}50%{opacity:1;}}
 
   /* TRANSPORT */
   .tdk-transport{
@@ -731,6 +859,7 @@ const TAPE_CSS = `
   }
   .tdk-btn-play:active{box-shadow: 0 2px 0 #3a1208, 0 4px 12px rgba(255,90,31,.2), inset 0 1px 0 rgba(255,255,255,.25);}
   .tdk-btn-play.is-playing{background:linear-gradient(180deg, #c2401a, #7a2510);}
+  .tdk-btn:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
   .tdk-btn-play:focus-visible{outline:2px solid var(--amber);outline-offset:3px;}
 
   /* KNOBS */
@@ -743,6 +872,7 @@ const TAPE_CSS = `
     box-shadow:0 3px 8px rgba(0,0,0,.5), inset 0 -2px 4px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.1);
     cursor:ns-resize;
   }
+  .tdk-knob-body:focus-visible{outline:2px solid var(--amber);outline-offset:4px;}
   .tdk-knob-arc{
     position:absolute;inset:-6px;border-radius:50%;
     -webkit-mask: radial-gradient(circle, transparent 60%, black 61%, black 70%, transparent 71%);
@@ -802,12 +932,55 @@ const TAPE_CSS = `
   .tdk-tracks-hint{display:none;padding:4px 12px 8px;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-dim);opacity:.6;}
 
   @media (max-width:900px){
+    .mini-deck{grid-template-columns:1fr;gap:18px;padding:20px;}
+    .mini-controls{justify-content:flex-end;}
+    .mini-time{margin-right:auto;}
     .tdk-face{grid-template-columns:1fr;}
     .tdk-control{padding:0;}
     .tdk-tracks-head, .tdk-tr{grid-template-columns:30px 1fr 50px 26px;}
     .tdk-tracks-head .h-rel, .tdk-tr-rel, .tdk-tracks-head .h-bpm, .tdk-tr-bpm{display:none;}
     .tdk-tracks-hint{display:block;}
     .tdk-foot{flex-direction:column;}
+  }
+  @media (max-width:480px){
+    .mini-deck{padding:16px;}
+    .mini-now{font-size:clamp(28px, 9vw, 34px);line-height:1;}
+    .mini-controls{flex-wrap:wrap;gap:6px;}
+    .mini-time{width:100%;margin-right:0;order:-1;font-size:10px;}
+    .mini-btn{flex:1;min-width:0;justify-content:center;}
+    .mini-play{flex:1.5;}
+    .mini-picks{gap:6px;}
+    .mini-pick{padding:7px 9px;font-size:9px;}
+    .tdk-shell{border-radius:10px;}
+    .tdk-head{padding:16px;}
+    .tdk-title{font-size:24px;line-height:1.05;}
+    .tdk-face{padding:16px;gap:16px;}
+    .tdk-cassette,.tdk-control{min-width:0;width:100%;max-width:100%;}
+    .tdk-cassette{padding:16px 14px;border-radius:8px;}
+    .tdk-cassette-inner{padding:12px 12px 16px;}
+    .tdk-c-label-band{padding:9px 10px;gap:8px;}
+    .tdk-c-title{font-size:20px;}
+    .tdk-c-sub{font-size:9px;letter-spacing:.04em;}
+    .tdk-c-window{gap:10px;margin:14px 0;}
+    .tdk-reels{grid-template-columns:minmax(0,1fr) 56px minmax(0,1fr);gap:8px;padding-left:0;padding-right:0;}
+    .tdk-reel{max-width:96px;}
+    .tdk-ribbon{width:56px;}
+    .tdk-lcd{padding:14px;}
+    .tdk-lcd-title{font-size:24px;line-height:1.05;}
+    .tdk-buttons{gap:8px;}
+    .tdk-btn-sm{width:44px;height:40px;}
+    .tdk-play{width:58px;height:58px;}
+    .tdk-knob{width:48px;height:48px;}
+    .tdk-vu-row{grid-template-columns:12px 1fr 44px;gap:8px;}
+    .tdk-tracks{padding:10px 0 12px;}
+    .tdk-tracks-head, .tdk-tr{grid-template-columns:28px minmax(0,1fr) 42px 24px;padding-left:12px;padding-right:12px;gap:8px;}
+    .tdk-tr-name{font-size:16px;line-height:1.05;}
+    .tdk-foot{padding:12px 16px 16px;gap:8px;line-height:1.45;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    .mini-btn, .mini-pick, .mini-progress-fill{transition:none;}
+    .tdk-reel.spin svg{animation:none;}
+    .tdk-tr, .tdk-scrubber-fill, .tdk-scrubber-head, .tdk-vu-fill, .tdk-vu-peak{transition:none;}
   }
 `;
 

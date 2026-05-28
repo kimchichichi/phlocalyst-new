@@ -3,11 +3,22 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-<title>PHLOCALYST ⟢ LO-FI / JAZZ-HOP / TRUMPET — v3</title>
+<title>PHLOCALYST ⟢ LO-FI / JAZZ-HOP / TRUMPET</title>
+<meta name="description" content="Phlocalyst — Flemish lo-fi / jazz-hop producer and classical trumpet player based in Portugal. 200M+ streams on Nettwerk Music Group." />
+<meta property="og:type" content="website" />
+<meta property="og:site_name" content="Phlocalyst" />
+<meta property="og:title" content="Phlocalyst — Lo-Fi / Jazz-Hop / Trumpet" />
+<meta property="og:description" content="Flemish lo-fi producer and classical trumpet player based in Portugal. 200M+ streams. On Nettwerk Music Group." />
+<meta property="og:image" content="https://f4.bcbits.com/img/a1225331664_10.jpg" />
+<meta name="twitter:card" content="summary_large_image" />
+<meta name="twitter:title" content="Phlocalyst — Lo-Fi / Jazz-Hop / Trumpet" />
+<meta name="twitter:description" content="Flemish lo-fi producer and classical trumpet player based in Portugal. 200M+ streams." />
+<meta name="twitter:image" content="https://f4.bcbits.com/img/a1225331664_10.jpg" />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Bagel+Fat+One&family=Big+Shoulders+Display:wght@700;900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
-<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161009'/%3E%3Ccircle cx='11' cy='16' r='4' fill='%23ff5a1f'/%3E%3Crect x='15' y='14' width='4' height='4' fill='%23ff5a1f'/%3E%3Crect x='19' y='14.5' width='10' height='3' rx='1' fill='%23ff5a1f'/%3E%3C/svg%3E" />
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161009'/%3E%3Cpath d='M4 20 Q4 17 8 17 L20 17 Q22 17 22 15 L22 13 Q22 11 24 11 L28 11' stroke='%23ff5a1f' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='6' cy='20' r='3' fill='none' stroke='%23ff5a1f' stroke-width='2'/%3E%3C/svg%3E" />
+<!-- vinyl alt: <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161009'/%3E%3Ccircle cx='16' cy='16' r='11' fill='%23ff5a1f'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23161009'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ff5a1f'/%3E%3Ccircle cx='16' cy='16' r='1.2' fill='%23161009'/%3E%3C/svg%3E" /> -->
 <style>
   :root{
     --coal:#161009;
@@ -22,6 +33,7 @@
     --display:'Boldonse', 'Arial Black', sans-serif;
     --grain:0.05;
     --marquee-dur:38s;
+    --trumpet-motion-state:running;
   }
   /* THEMES — swapped via [data-theme] on <html> */
   html[data-theme="midnight"]{
@@ -62,7 +74,7 @@
   html[data-display="bigshoulders"]{--display:'Big Shoulders Display', 'Arial Black', sans-serif;}
 
   *{box-sizing:border-box;margin:0;padding:0}
-  html{scroll-behavior:smooth;scroll-padding-top:60px;}
+  html{scroll-behavior:smooth;scroll-padding-top:60px;-webkit-text-size-adjust:100%;}
   html,body{background:var(--coal);color:var(--cream);transition:background .3s ease, color .3s ease;}
   @keyframes breathe{
     0%,100%{background-position:0% 0%;}
@@ -82,9 +94,11 @@
     background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
   }
 
+  img,svg{max-width:100%;}
   a{color:inherit;text-decoration:none;}
   .display{font-family:var(--display);font-weight:400;letter-spacing:-0.02em;line-height:.85;text-transform:uppercase;}
   .mono{font-family:'DM Mono', ui-monospace, monospace;font-size:11px;letter-spacing:0.06em;text-transform:uppercase;}
+  a:focus-visible, button:focus-visible{outline:2px solid var(--orange);outline-offset:4px;}
 
   /* SKIP LINK */
   .skip-link{position:absolute;left:-9999px;top:6px;z-index:9999;padding:8px 16px;background:var(--orange);color:var(--coal);font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.08em;text-transform:uppercase;border-radius:4px;}
@@ -95,29 +109,39 @@
     position:sticky;top:0;z-index:50;
     display:flex;align-items:center;justify-content:space-between;
     padding:14px 26px;
-    background:color-mix(in oklab, var(--coal) 78%, transparent);
+    background:color-mix(in oklab, var(--coal) 54%, transparent);
     backdrop-filter: blur(8px);
-    border-bottom:1px solid var(--rule);
+    border-bottom:1px solid transparent;
+    transition:background .2s ease,border-color .2s ease,box-shadow .2s ease;
   }
-  .topbar .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:14px;letter-spacing:.02em;}
+  .topbar.is-scrolled{background:color-mix(in oklab, var(--coal) 86%, transparent);border-bottom-color:var(--rule);box-shadow:0 12px 30px rgba(0,0,0,.14);}
+  .topbar .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:14px;letter-spacing:.02em;transition:color .15s ease;}
   .topbar .brand .glyph{
     width:20px;height:20px;border-radius:50%;
     background:radial-gradient(circle at 35% 35%, var(--amber), var(--orange) 50%, var(--oxblood));
     box-shadow:inset 0 0 0 2px var(--coal), inset 0 0 0 3px var(--cream);
+    transition:box-shadow .15s ease,transform .15s ease;
   }
+  .topbar .brand:hover{color:var(--orange);}
+  .topbar .brand:hover .glyph{box-shadow:inset 0 0 0 2px var(--coal),inset 0 0 0 3px var(--cream),0 0 0 4px color-mix(in oklab,var(--orange) 18%,transparent);transform:translateY(-1px);}
   .topbar nav{display:flex;gap:22px;}
-  .topbar nav a{font-family:'DM Mono', monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);transition:color .15s;}
+  .topbar nav a{font-family:'DM Mono', monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);padding:8px 0;transition:color .15s,border-color .15s,background .15s;}
   .topbar nav a:hover{color:var(--orange);}
+  .topbar nav a[aria-current="page"]{color:var(--orange);border-bottom:1px solid var(--orange);}
+  .topbar nav a:last-child{padding:8px 12px;border:1px solid var(--rule);border-radius:999px;}
+  .topbar nav a:last-child:hover,
+  .topbar nav a:last-child[aria-current="page"]{border-color:var(--orange);background:color-mix(in oklab,var(--orange) 10%,transparent);}
   .topbar .right{display:flex;align-items:center;gap:14px;}
   .live-pill{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border:1px solid var(--orange);border-radius:999px;font-family:'DM Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);}
-  .live-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);box-shadow:0 0 0 0 var(--orange);animation:ping 1.6s ease-out infinite;}
-  @keyframes ping{0%{box-shadow:0 0 0 0 color-mix(in oklab, var(--orange) 60%, transparent)}100%{box-shadow:0 0 0 10px color-mix(in oklab, var(--orange) 0%, transparent)}}
+  .live-pill:hover{background:var(--orange);color:var(--coal);}
+  .live-pill .dot{width:6px;height:6px;border-radius:50%;background:var(--orange);}
+  .live-pill:hover .dot{background:var(--coal);}
 
   /* MARQUEE */
   .marquee{
     overflow:hidden;white-space:nowrap;
     border-block:1px solid var(--rule);
-    padding:14px 0;
+    padding:10px 0;
     background:var(--coal-2);
   }
   .marquee.bold{background:var(--orange);color:var(--coal);border-color:var(--orange);}
@@ -130,26 +154,38 @@
   .marquee.bold .star, .marquee.acid .star{color:var(--coal);}
   @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 
+  /* MARQUEE STATIC — shown on mobile in place of animated strip */
+  .marquee-static{
+    display:none;
+    text-align:center;padding:9px 18px;
+    background:var(--coal-2);border-block:1px solid var(--rule);
+    font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--cream-dim);
+    white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  }
+
   /* HERO */
   .hero{
     position:relative;
-    padding:54px 26px 60px;
-    max-width:1280px;margin:0 auto;
+    padding:30px 26px 40px;
+    max-width:1660px;margin:0 auto;
+    isolation:isolate;
   }
   .hero .topline{
     display:flex;justify-content:flex-start;align-items:flex-end;gap:40px;
     color:var(--cream-dim);
-    margin-bottom:32px;
+    margin-bottom:90px;
   }
   .hero .topline .right{text-align:right;}
   .hero h1{
     font-family:var(--display);
-    font-size: clamp(72px, 16.8vw, 252px);
+    font-size: clamp(68px, 11.7vw, 172px);
     line-height:.78;
     letter-spacing:-0.035em;
     text-transform:uppercase;
     color:var(--cream);
     position:relative;
+    z-index:1;
   }
   .hero h1 .l2{display:block;color:var(--orange);text-shadow:6px 6px 0 var(--coal-2);}
   .hero h1 .out{-webkit-text-stroke:2px var(--cream);color:transparent;paint-order:stroke fill;}
@@ -159,156 +195,47 @@
     margin-left:6px;text-transform:none;
   }
   .hero .sub{
-    display:grid;grid-template-columns:1.4fr 1fr;gap:40px;
-    margin-top:46px;align-items:start;
+    display:block;
+    margin-top:24px;align-items:start;
   }
-  .hero .sub .tag{font-size:23px;line-height:1.3;letter-spacing:-.01em;max-width:560px;}
+  .hero .sub .tag{font-size:23px;line-height:1.3;letter-spacing:-.01em;max-width:560px;margin-top:80px;}
   .hero .sub .tag em{color:var(--amber);font-style:italic;}
   .hero .sub .tag .accent{color:var(--orange);}
-  .hero .stats{display:grid;grid-template-columns:1fr 1fr;gap:20px 28px;padding:24px;border:1px solid var(--rule);border-radius:8px;background:color-mix(in oklab, var(--cream) 3%, transparent);}
-  .stats .stat .n{font-family:var(--display);font-size:38px;line-height:1;color:var(--cream);}
-  .stats .stat .l{font-family:'DM Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);margin-top:8px;}
-  .stats .stat.hot .n{color:var(--orange);font-size:clamp(44px,4.5vw,60px);}
+  .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;}
 
   /* TRUMPET hero motif */
   .trumpet-hero{
-    position:absolute;right:-20px;top:80px;
-    width:520px;
+    position:absolute;right:70px;top:200px;
+    width:clamp(270px, 44vw, 680px);
     pointer-events:none;
-    transform:rotate(-8deg);
-    opacity:.95;
+    color:var(--amber);
+    opacity:.88;
     filter:drop-shadow(0 20px 40px rgba(0,0,0,.4));
     display:var(--trumpet-display, block);
+    animation:trumpet-float 2.6s ease-in-out infinite;
+    animation-play-state:var(--trumpet-motion-state);
+    z-index:2;
   }
-  /* trumpet animation: valves bob, slight wobble */
+  /* Trumpet motion remains independent of the optional audio/player scripts. */
   .trumpet-svg .valve-btn{transform-box:fill-box;transform-origin:center;}
-  .trumpet-svg.playing .valve-btn.v1{animation:valve 0.6s ease-in-out infinite;}
-  .trumpet-svg.playing .valve-btn.v2{animation:valve 0.6s ease-in-out infinite .2s;}
-  .trumpet-svg.playing .valve-btn.v3{animation:valve 0.6s ease-in-out infinite .4s;}
+  .trumpet-hero .valve-btn.v1{animation:valve 0.6s ease-in-out infinite;animation-play-state:var(--trumpet-motion-state);}
+  .trumpet-hero .valve-btn.v2{animation:valve 0.6s ease-in-out infinite .2s;animation-play-state:var(--trumpet-motion-state);}
+  .trumpet-hero .valve-btn.v3{animation:valve 0.6s ease-in-out infinite .4s;animation-play-state:var(--trumpet-motion-state);}
   @keyframes valve{0%,100%{transform:translateY(0);}50%{transform:translateY(7px);}}
-  .trumpet-svg.playing .sound-wave{animation:soundwave 1.6s ease-out infinite;}
+  .trumpet-hero .sound-wave{animation:soundwave 1.6s ease-out infinite;animation-play-state:var(--trumpet-motion-state);}
   .trumpet-svg .sound-wave{opacity:0;transform-origin:center;transform-box:fill-box;}
   @keyframes soundwave{0%{opacity:.7;transform:scale(.6);}80%{opacity:0;transform:scale(1.4);}100%{opacity:0;}}
-  .trumpet-svg.playing{animation:trumpet-bob 2.4s ease-in-out infinite;transform-origin:30% 50%;}
-  @keyframes trumpet-bob{0%,100%{transform:rotate(0deg);}50%{transform:rotate(2deg);}}
+  @keyframes trumpet-float{0%,100%{transform:rotate(-7deg) translateY(0);}50%{transform:rotate(-5deg) translateY(-10px);}}
 
   /* Section heading style */
   .section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:30px;margin-bottom:30px;padding-bottom:18px;border-bottom:1px solid var(--rule);}
-  .section-head h3{font-family:var(--display);font-size:64px;line-height:.9;text-transform:uppercase;letter-spacing:-.02em;}
-  .section-head h3 .c{color:var(--orange);}
+  .section-head h2{font-family:var(--display);font-size:64px;line-height:.9;text-transform:uppercase;letter-spacing:-.02em;}
+  .section-head h2 .c{color:var(--orange);}
   .section-head .meta{font-family:'DM Mono';font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);text-align:right;}
+  .deck-section{max-width:1280px;margin:0 auto;padding:0 26px 64px;}
+  .deck-section .section-head{margin-bottom:24px;}
+  .deck-section .section-head h2{font-size:clamp(40px,6vw,64px);}
 
-  /* DISCOGRAPHY */
-  .disco{max-width:1280px;margin:0 auto;padding:60px 26px;}
-  .grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px;}
-  .card{position:relative;border-radius:10px;overflow:hidden;background:var(--coal-2);border:1px solid var(--rule);transition:transform .2s ease, border-color .2s ease;cursor:pointer;}
-  .card:hover{transform:translateY(-4px);border-color:var(--orange);}
-  .card:focus-visible{outline:2px solid var(--orange);outline-offset:2px;}
-  .card .cover{aspect-ratio:1/1;position:relative;background:var(--cv, linear-gradient(135deg, #f4b860, #c25f2b 60%, #3a1a12));display:flex;align-items:center;justify-content:center;overflow:hidden;}
-  .card .cover img.cover-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;}
-  .card .cover::before{content:'';position:absolute;inset:0;background-image:radial-gradient(rgba(0,0,0,.18) 1px, transparent 1px);background-size:6px 6px;opacity:.55;mix-blend-mode:multiply;z-index:1;}
-  .card .cover .ct{font-family:var(--display);font-size:32px;line-height:.9;letter-spacing:-.02em;text-transform:uppercase;color:rgba(0,0,0,.7);text-align:center;padding:0 16px;mix-blend-mode:overlay;position:relative;z-index:2;text-shadow:2px 2px 0 rgba(255,255,255,.15);}
-  .card .cover .tag-corner{position:absolute;top:10px;left:10px;font-family:'DM Mono';font-size:9px;letter-spacing:.12em;text-transform:uppercase;background:rgba(0,0,0,.55);color:var(--cream);padding:4px 8px;border-radius:4px;backdrop-filter:blur(4px);z-index:3;}
-  .card .info{padding:14px 16px 16px;}
-  .card .info .name{font-family:var(--display);font-size:18px;text-transform:uppercase;letter-spacing:-.01em;line-height:1;}
-  .card .info .row{display:flex;justify-content:space-between;align-items:center;margin-top:10px;font-family:'DM Mono';font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);}
-  .card .info .row .pl{color:var(--orange);}
-  .cv-insights{--cv: radial-gradient(circle at 30% 30%, #f4b860, #c25f2b 55%, #3a1a12);}
-  .cv-daylight{--cv: linear-gradient(150deg, #f9d27a, #e58438 65%, #7a3a1a);}
-  .cv-blue{--cv: linear-gradient(160deg, #4c7099, #1a2840 60%, #0c1320);}
-  .cv-zeal{--cv: linear-gradient(135deg, #e6b478, #8a4d2a 70%, #2c1610);}
-  .cv-serendip{--cv: linear-gradient(140deg, #cfe0c8, #6a8a78 70%, #2a3a35);}
-  .cv-parapluie{--cv: linear-gradient(150deg, #b8c2d8, #5b6c8e 60%, #232c45);}
-  .cv-slumber{--cv: linear-gradient(155deg, #3a4068, #1a1d33 70%, #0a0b15);}
-  .cv-arise{--cv: linear-gradient(135deg, #e5c89a, #b88346 60%, #5a3320);}
-
-  /* PORTRAITS GRID — new */
-  .portraits{max-width:1280px;margin:0 auto;padding:60px 26px;}
-  .photo-grid{
-    display:grid;
-    grid-template-columns:repeat(6,1fr);
-    grid-auto-rows:120px;
-    gap:14px;
-  }
-  .photo{
-    position:relative;
-    border-radius:8px;
-    overflow:hidden;
-    background:var(--ph-bg, linear-gradient(135deg, #3a2818, #1a1208));
-    border:1px solid var(--rule);
-    cursor:pointer;
-    transition:transform .25s ease, box-shadow .25s ease;
-  }
-  .photo:hover{transform:translateY(-3px) rotate(.4deg);box-shadow:0 20px 40px rgba(0,0,0,.4);}
-  .photo::before{
-    content:'';position:absolute;inset:0;
-    background-image:radial-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
-    background-size:4px 4px;mix-blend-mode:overlay;
-  }
-  .photo::after{
-    content:attr(data-cap);
-    position:absolute;left:12px;bottom:10px;
-    font-family:'DM Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;
-    color:rgba(245,234,208,.92);
-    text-shadow:0 1px 3px rgba(0,0,0,.6);
-    z-index:2;max-width:80%;
-  }
-  .photo .ph-num{
-    position:absolute;right:12px;top:10px;font-family:'DM Mono';font-size:9px;letter-spacing:.12em;
-    color:rgba(245,234,208,.6);background:rgba(0,0,0,.4);padding:3px 6px;border-radius:3px;backdrop-filter:blur(4px);
-    z-index:2;
-  }
-  .photo svg.silhouette{position:absolute;inset:0;width:100%;height:100%;opacity:.45;color:currentColor;}
-
-  /* photo placeholders' gradient + grid placement */
-  .ph-1{grid-column:span 3;grid-row:span 3;--ph-bg:radial-gradient(circle at 30% 30%, #6a5236, #2a1810 70%);}
-  .ph-2{grid-column:span 2;grid-row:span 2;--ph-bg:linear-gradient(135deg, #2a3a5e, #0a1424);}
-  .ph-3{grid-column:span 1;grid-row:span 2;--ph-bg:linear-gradient(165deg, #c25f2b, #5a1f10);}
-  .ph-4{grid-column:span 2;grid-row:span 2;--ph-bg:linear-gradient(150deg, #8a7a4a, #2a2412);}
-  .ph-5{grid-column:span 2;grid-row:span 3;--ph-bg:radial-gradient(circle at 60% 40%, #4a3a28, #1a1208 70%);}
-  .ph-6{grid-column:span 2;grid-row:span 2;--ph-bg:linear-gradient(135deg, #3a4a3a, #0a1a0e);}
-  .ph-7{grid-column:span 3;grid-row:span 2;--ph-bg:linear-gradient(145deg, #f0a431, #7a3a14 70%, #1a0e08);}
-
-  /* TOUR */
-  .live-section{max-width:1280px;margin:0 auto;padding:80px 26px;}
-  .tour{border-top:2px solid var(--cream);}
-  .tour .row{display:grid;grid-template-columns:120px 1fr 1fr 140px 120px;align-items:center;gap:20px;padding:20px 8px;border-bottom:1px solid var(--rule);transition:background .15s ease, padding .15s ease;}
-  .tour .row:hover{background:var(--coal-2);padding-left:18px;}
-  .tour .row .date{font-family:var(--display);font-size:22px;text-transform:uppercase;letter-spacing:-.005em;}
-  .tour .row .venue{font-family:var(--display);font-size:28px;text-transform:uppercase;letter-spacing:-.01em;}
-  .tour .row .city{font-family:'DM Mono';font-size:13px;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-dim);}
-  .tour .row .status{font-family:'DM Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;text-align:center;padding:6px 10px;border-radius:999px;justify-self:start;}
-  .tour .row .status.few{background:var(--amber);color:var(--coal);}
-  .tour .row .status.sold{background:transparent;color:var(--cream-dim);border:1px solid var(--rule);}
-  .tour .row .status.on{background:var(--acid);color:var(--coal);}
-  .tour .row .tix{font-family:'DM Mono';font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);text-align:right;}
-  .tour .row.sold-row{opacity:.5;}
-  .tour .row.sold-row .venue{text-decoration:line-through;text-decoration-color:var(--rule);}
-
-  /* ABOUT */
-  .about-section{background:var(--coal-2);border-block:1px solid var(--rule);padding:100px 26px;position:relative;overflow:hidden;}
-  .about-section .wrap{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1fr 1.6fr;gap:60px;align-items:start;position:relative;z-index:1;}
-  .about-section .label{font-family:'DM Mono';font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--amber);}
-  .about-section h3{font-family:var(--display);font-size:72px;line-height:.88;text-transform:uppercase;letter-spacing:-.02em;margin-top:14px;}
-  .about-section h3 .c{color:var(--orange);}
-  .about-section p{font-size:22px;line-height:1.45;color:var(--cream);}
-  .about-section p + p{margin-top:18px;}
-  .about-section p em{color:var(--amber);font-style:italic;}
-  .factoids{margin-top:32px;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;}
-  .factoid{padding:18px;border:1px solid var(--rule);border-radius:8px;}
-  .factoid .n{font-family:var(--display);font-size:30px;color:var(--cream);}
-  .factoid .l{font-family:'DM Mono';font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--cream-dim);margin-top:6px;}
-  .about-section .trumpet-bg{position:absolute;right:-80px;bottom:-40px;width:520px;opacity:.08;pointer-events:none;display:var(--trumpet-display, block);}
-
-  /* CTA */
-  .cta-section{max-width:1280px;margin:0 auto;padding:120px 26px;text-align:center;position:relative;}
-  .cta-section .pre{font-family:'DM Mono';font-size:12px;letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:18px;}
-  .cta-section h2{font-family:var(--display);font-size:clamp(72px, 13vw, 200px);line-height:.82;letter-spacing:-.03em;text-transform:uppercase;}
-  .cta-section h2 .o{color:var(--orange);}
-  .cta-section h2 .stroke{-webkit-text-stroke:2px var(--cream);color:rgba(232,228,208,0.08);paint-order:stroke fill;}
-  .cta-section .row{display:flex;gap:14px;justify-content:center;margin-top:36px;flex-wrap:wrap;}
-  .cta-section .em{font-family:'DM Mono';font-size:13px;letter-spacing:.08em;color:var(--cream-dim);margin-top:30px;}
-  .cta-section .em a{color:var(--cream);border-bottom:1px solid var(--cream);padding-bottom:1px;}
   .btn{font-family:var(--display);text-transform:uppercase;font-size:13px;letter-spacing:.02em;padding:14px 20px;border-radius:999px;display:inline-flex;align-items:center;gap:8px;border:2px solid var(--cream);color:var(--cream);transition:transform .15s ease, background .15s ease, color .15s ease;}
   .btn:hover{transform:translateY(-2px);}
   .btn.primary{background:var(--orange);border-color:var(--orange);color:var(--coal);}
@@ -319,38 +246,115 @@
   /* FOOTER */
   footer.foot{border-top:1px solid var(--rule);background:var(--coal);padding:50px 26px 30px;}
   footer.foot .wrap{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;}
-  footer.foot h4{font-family:'DM Mono';font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:14px;}
+  footer.foot h4{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:14px;}
   footer.foot .big{font-family:var(--display);font-size:60px;text-transform:uppercase;line-height:.88;letter-spacing:-.02em;}
   footer.foot .big .o{color:var(--orange);}
   footer.foot ul{list-style:none;}
   footer.foot ul li{padding:6px 0;font-size:14px;}
-  footer.foot ul li a{display:inline-flex;justify-content:space-between;align-items:center;gap:6px;}
   footer.foot ul li a:hover{color:var(--orange);}
-  footer.foot ul li .arr{font-family:'DM Mono';font-size:10px;opacity:.5;}
-  footer.foot .bot{grid-column:1/-1;margin-top:40px;padding-top:20px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-family:'DM Mono';font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);}
+  footer.foot ul li .arr{font-family:'DM Mono',monospace;font-size:10px;opacity:.5;margin-left:4px;}
+  footer.foot .bot{grid-column:1/-1;margin-top:40px;padding-top:20px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);}
+
+  /* LATEST RELEASES */
+  .latest-section{max-width:1280px;margin:0 auto;padding:0 26px 52px;}
+  .latest-hd{display:flex;justify-content:space-between;align-items:center;padding-bottom:14px;border-bottom:1px solid var(--rule);margin-bottom:20px;}
+  .latest-hd a{color:var(--cream-dim);transition:color .15s;}
+  .latest-hd a:hover{color:var(--orange);}
+  .latest-pills{display:flex;gap:10px;overflow-x:auto;padding-bottom:4px;margin-bottom:18px;-webkit-overflow-scrolling:touch;scrollbar-width:none;}
+  .latest-pills::-webkit-scrollbar{display:none;}
+  .latest-pill{
+    display:inline-flex;flex-direction:column;gap:5px;flex-shrink:0;
+    padding:13px 16px;border:1px solid var(--rule);border-radius:10px;
+    background:color-mix(in oklab, var(--cream) 3%, transparent);
+    text-decoration:none;transition:border-color .15s, background .15s;
+    min-width:140px;
+  }
+  .latest-pill:hover{border-color:var(--orange);background:color-mix(in oklab, var(--orange) 7%, transparent);}
+  .latest-pill.is-new{border-color:var(--amber);}
+  .latest-pill .lp-badge{display:inline-flex;font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.14em;text-transform:uppercase;background:var(--amber);color:var(--coal);padding:3px 7px;border-radius:2px;align-self:flex-start;}
+  .latest-pill .lp-title{font-family:var(--display);font-size:18px;line-height:1;text-transform:uppercase;letter-spacing:-.01em;color:var(--cream);}
+  .latest-pill .lp-meta{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-dim);}
+  .latest-album{
+    display:grid;grid-template-columns:clamp(116px,18vw,160px) 1fr;gap:18px;align-items:center;
+    padding:18px;border:1px solid var(--rule);border-radius:10px;
+    background:color-mix(in oklab, var(--cream) 3%, transparent);
+    text-decoration:none;transition:border-color .15s, background .15s;
+  }
+  .latest-album:hover{border-color:var(--orange);background:color-mix(in oklab, var(--orange) 7%, transparent);}
+  .latest-album-art{aspect-ratio:1;border-radius:6px;overflow:hidden;border:1px solid var(--rule);}
+  .latest-album-art img{display:block;width:100%;height:100%;object-fit:cover;}
+  .latest-album-type{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:6px;}
+  .latest-album-title{font-family:var(--display);font-size:clamp(24px,3vw,36px);line-height:1;text-transform:uppercase;letter-spacing:-.01em;color:var(--cream);}
+  .latest-album-tracks{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.05em;text-transform:uppercase;color:var(--cream-dim);margin-top:8px;line-height:1.6;}
+  .latest-album-cta{display:inline-flex;margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);}
+  .latest-art-credit{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--cream-dim);opacity:.55;text-align:right;margin-top:8px;}
 
   @media (max-width:900px){
-    .hero h1{font-size:88px;}
-    .hero .sub{grid-template-columns:1fr;}
-    .grid{grid-template-columns:repeat(2,1fr);}
-    .tour .row{grid-template-columns:1fr 1fr;}
-    .tour .row .city, .tour .row .status, .tour .row .tix{display:none;}
-    .tour .row[data-city] .venue::after{content:attr(data-city);display:block;font-family:'DM Mono';font-size:9px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);margin-top:3px;}
-    .about-section .wrap{grid-template-columns:1fr;}
-    .about-section h3{font-size:48px;}
-    footer.foot .wrap{grid-template-columns:1fr 1fr;}
-    .trumpet-hero{display:none;}
+    .hero{padding-top:30px;}
+    .hero h1{font-size:clamp(58px,21vw,84px);}
+    .hero .topline{justify-content:space-between;gap:18px;}
+    .trumpet-hero{width:clamp(230px,42vw,330px);right:18px;top:90px;opacity:1;}
     .topbar nav{display:none;}
-    .photo-grid{grid-template-columns:repeat(3,1fr);grid-auto-rows:90px;}
-    .ph-1{grid-column:span 2;grid-row:span 2;}
-    .ph-2{grid-column:span 1;grid-row:span 2;}
-    .ph-3{grid-column:span 1;grid-row:span 1;}
-    .ph-4{grid-column:span 1;grid-row:span 1;}
-    .ph-5{grid-column:span 1;grid-row:span 2;}
-    .ph-6{grid-column:span 2;grid-row:span 1;}
-    .ph-7{grid-column:span 3;grid-row:span 2;}
+    .latest-pills{
+      -webkit-mask-image:linear-gradient(to right, black 0%, black calc(100% - 48px), transparent 100%);
+      mask-image:linear-gradient(to right, black 0%, black calc(100% - 48px), transparent 100%);
+    }
   }
-  @media (max-width:480px){.hero .stats{grid-template-columns:1fr;}}
+  @media (max-width:620px){
+    body{font-size:15.5px;line-height:1.5;}
+    .topbar{padding:12px 18px;}
+    .topbar .brand{font-size:13px;gap:8px;min-width:0;}
+    .topbar .brand .glyph{width:18px;height:18px;flex:0 0 auto;}
+    .live-pill{display:none;}
+    .marquee{display:none;}
+    .marquee-static{display:block;}
+    .hero, .deck-section, .latest-section{padding-left:18px;padding-right:18px;}
+    .hero{padding-top:34px;padding-bottom:34px;}
+    .latest-section{padding-bottom:40px;}
+    .latest-hd{align-items:flex-start;gap:12px;}
+    .latest-hd a{max-width:48%;text-align:right;line-height:1.35;}
+    .latest-pill{min-width:152px;padding:12px 14px;border-radius:8px;}
+    .latest-pill .lp-title{font-size:17px;line-height:1.05;}
+    .latest-pill .lp-meta{line-height:1.35;}
+    .latest-album{grid-template-columns:78px 1fr;gap:12px;padding:13px;border-radius:8px;}
+    .latest-album-title{font-size:25px;}
+    .latest-album-type,.latest-album-tracks,.latest-album-cta{line-height:1.45;}
+    .hero .topline .right{display:none;}
+    .trumpet-hero{top:88px;right:8px;width:clamp(150px,46vw,215px);opacity:1;}
+    .hero h1{font-size:clamp(56px,21vw,82px);line-height:.8;letter-spacing:-.02em;}
+    .hero h1 .l2{text-shadow:4px 4px 0 var(--coal-2);}
+    .hero .topline{margin-bottom:82px;}
+    .hero .sub .tag{font-size:19px;line-height:1.35;margin-top:48px;max-width:31rem;}
+    .hero-actions{display:grid;grid-template-columns:1fr;gap:10px;margin-top:20px;}
+    .btn{width:100%;justify-content:center;min-height:48px;padding:13px 16px;text-align:center;}
+    .section-head{align-items:start;flex-direction:column;gap:14px;}
+    .section-head h2{font-size:clamp(36px,12vw,42px);line-height:.95;}
+    .section-head .meta{text-align:left;font-size:11px;line-height:1.5;}
+    footer.foot{padding-left:18px;padding-right:18px;padding-top:36px;}
+    footer.foot .wrap{grid-template-columns:1fr 1fr;}
+    footer.foot .big{font-size:40px;}
+    footer.foot .bot{flex-direction:column;gap:10px;}
+    .mono{font-size:12px;letter-spacing:.07em;}
+  }
+  @media (max-width:480px){
+    footer.foot .wrap{grid-template-columns:1fr;}
+    footer.foot .big{font-size:36px;}
+  }
+  @media (max-width:360px){
+    .topbar{padding-left:14px;padding-right:14px;}
+    .hero, .deck-section, .latest-section{padding-left:14px;padding-right:14px;}
+    .hero h1{font-size:clamp(52px,20vw,70px);}
+    .trumpet-hero{right:4px;width:150px;}
+    .latest-album{grid-template-columns:1fr;}
+    .latest-album-art{width:96px;}
+    .latest-hd{display:block;}
+    .latest-hd a{display:inline-flex;max-width:none;margin-top:10px;text-align:left;}
+  }
+  @media (prefers-reduced-motion: reduce){
+    *, *::before, *::after{scroll-behavior:auto !important;animation:none !important;transition-duration:0.01ms !important;}
+    body{animation:none;}
+    .marquee .track{transform:none;}
+  }
 </style>
 
 <!-- TWEAKS DEFAULTS — edited in place by the host -->
@@ -371,6 +375,7 @@
     document.documentElement.style.setProperty('--marquee-dur', d.marqueeSpeed + 's');
     document.documentElement.style.setProperty('--grain', String(d.grain));
     document.documentElement.style.setProperty('--trumpet-display', d.showTrumpet ? 'block' : 'none');
+    document.documentElement.style.setProperty('--trumpet-motion-state', d.vinylSpin ? 'running' : 'paused');
   })();
 </script>
 </head>
@@ -431,20 +436,19 @@
 
 <!-- TOP BAR -->
 <header class="topbar">
-  <div class="brand">
+  <a class="brand" href="index.html" aria-label="Phlocalyst home">
     <span class="glyph"></span>
     <span>PHLOCALYST<span style="color:var(--orange);">★</span></span>
-  </div>
-  <nav>
-    <a href="#deck">Tape Deck</a>
-    <a href="#disco">Discography</a>
-    <a href="#portraits">Gallery</a>
-    <a href="On The Road.html">On The Road</a>
-    <a href="Bio.html">Bio</a>
-    <a href="Contact.html">Booking</a>
+  </a>
+  <nav aria-label="Main navigation">
+    <a href="#deck" aria-current="page">Listen</a>
+    <a href="Music.html">Music</a>
+    <a href="Shows.html">Shows</a>
+    <a href="About.html">About</a>
+    <a href="Contact.html">Contact</a>
   </nav>
   <div class="right">
-    <a href="#disco" class="live-pill"><span class="dot"></span>New EP / Out Now</a>
+    <a href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt" class="live-pill" target="_blank" rel="noopener"><span class="dot"></span>Listen on Spotify ↗</a>
   </div>
 </header>
 
@@ -453,10 +457,12 @@
 <!-- MARQUEE TOP -->
 <div class="marquee fast" aria-hidden="true">
   <div class="track">
-    <span class="item">PHLOCALYST <span class="star">✦</span> LO-FI / JAZZ-HOP / TRUMPET <span class="star">✦</span> NETTWERK RECORDS <span class="star">✦</span> MUNICH&nbsp;→&nbsp;EVERYWHERE <span class="star">✦</span> 200M+ STREAMS <span class="star">✦</span></span>
-    <span class="item">PHLOCALYST <span class="star">✦</span> LO-FI / JAZZ-HOP / TRUMPET <span class="star">✦</span> NETTWERK RECORDS <span class="star">✦</span> MUNICH&nbsp;→&nbsp;EVERYWHERE <span class="star">✦</span> 200M+ STREAMS <span class="star">✦</span></span>
+    <span class="item">PHLOCALYST <span class="star">✦</span> LO-FI / JAZZ-HOP / TRUMPET <span class="star">✦</span> NEW MUSIC 2026 <span class="star">✦</span> BEST ME &middot; OUT NOW <span class="star">✦</span> NOW AND THEN EP <span class="star">✦</span></span>
+    <span class="item">PHLOCALYST <span class="star">✦</span> LO-FI / JAZZ-HOP / TRUMPET <span class="star">✦</span> NEW MUSIC 2026 <span class="star">✦</span> BEST ME &middot; OUT NOW <span class="star">✦</span> NOW AND THEN EP <span class="star">✦</span></span>
   </div>
 </div>
+
+<div class="marquee-static" aria-hidden="true">PHLOCALYST ✦ LO-FI / JAZZ-HOP / TRUMPET ✦ 200M+ STREAMS ✦ PORTUGAL</div>
 
 <!-- HERO -->
 <section class="hero">
@@ -467,203 +473,118 @@
 
   <div class="topline mono">
     <div>
-      [&nbsp;FLEMISH&nbsp;]&nbsp;&nbsp;LO-FI PRODUCER &amp; CLASSICAL TRUMPET<br/>
-      <span style="color:var(--cream)">EST. 2017 — MUNICH, DE</span>
-    </div>
-    <div class="right">
-      <div>MAY 24, 2026</div>
-      <div style="color:var(--cream)">CATALOGUE NO. 037</div>
+      PORTUGAL-BASED PRODUCER &amp; CLASSICAL TRUMPET<br/>
+      <span style="color:var(--cream)">NETTWERK MUSIC GROUP &middot; 200M+ STREAMS</span>
     </div>
   </div>
 
   <h1>
     PHLO<span class="out">.</span><br/>
-    <span class="l2">CALYST<sup>™</sup></span>
+    <span class="l2">CALYST</span>
   </h1>
 
   <div class="sub">
     <div class="tag">
-      Muted trumpet, dust-flecked beats, phased Rhodes. <em>Day-job:</em> classical trumpet in a Munich orchestra. <em>Night-job:</em> <span class="accent">jazz-hop collages</span> stitched on an SP-404, a horn he's held since age five, and the patience of a long German winter.
+      Classical trumpet player turned lo-fi producer. Muted brass, dusty drums and <span class="accent">late-night grooves</span>.
     </div>
-    <div class="stats">
-      <div class="stat hot"><div class="n">200M+</div><div class="l">Total Streams</div></div>
-      <div class="stat"><div class="n">1.8M</div><div class="l">Spotify / mo</div></div>
-      <div class="stat"><div class="n">37</div><div class="l">Releases</div></div>
-      <div class="stat hot"><div class="n">#3</div><div class="l">Lofi Beats — Spotify</div></div>
+    <div class="hero-actions">
+      <a class="btn primary" href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt" target="_blank" rel="noopener">Listen on Spotify <span class="arr">↗</span></a>
+      <a class="btn ghost" href="#deck" style="border-color:var(--amber);color:var(--amber);">Play Tape Loops</a>
+      <a class="btn ghost" href="https://music.apple.com/us/artist/phlocalyst/1343862778" target="_blank" rel="noopener">Apple Music <span class="arr">↗</span></a>
     </div>
   </div>
 </section>
 
-<!-- ────────────────── TAPE DECK MOUNT ────────────────── -->
-<section id="deck" data-screen-label="02 Tape Deck" style="max-width:1280px;margin:0 auto;padding:0 26px 80px;">
+<!-- LATEST IN 2026 -->
+<section class="latest-section" id="latest" aria-labelledby="latest-heading">
+  <div class="latest-hd">
+    <span class="mono" style="color:var(--amber);font-size:11px;letter-spacing:.14em" id="latest-heading">NEW IN 2026</span>
+    <a href="Music.html" class="mono">Full music catalog ↗</a>
+  </div>
+  <div class="latest-pills" aria-label="2026 releases">
+    <a class="latest-pill is-new" href="https://music.apple.com/us/album/best-me-single/1896460059" target="_blank" rel="noopener">
+      <span class="lp-badge">Latest &middot; May 22</span>
+      <span class="lp-title">Best Me</span>
+      <span class="lp-meta">Single &middot; 2026</span>
+    </a>
+    <a class="latest-pill" href="https://music.apple.com/us/album/now-and-then-feat-mr-k%C3%A4fer-ep/1882794766" target="_blank" rel="noopener">
+      <span class="lp-title">Now And Then</span>
+      <span class="lp-meta">EP &middot; Feat. Mr. K&auml;fer &middot; 6 tracks</span>
+    </a>
+    <a class="latest-pill" href="https://music.apple.com/us/album/candle-glow/1844211058" target="_blank" rel="noopener">
+      <span class="lp-title">The Cool Hour</span>
+      <span class="lp-meta">EP &middot; With xander. &middot; 5 tracks</span>
+    </a>
+    <a class="latest-pill" href="https://music.apple.com/us/album/conversations-single/1894074698" target="_blank" rel="noopener">
+      <span class="lp-title">Conversations</span>
+      <span class="lp-meta">Single &middot; 2026</span>
+    </a>
+    <a class="latest-pill" href="https://music.apple.com/us/album/beyond-the-clouds-single/1886095593" target="_blank" rel="noopener">
+      <span class="lp-title">Beyond the Clouds</span>
+      <span class="lp-meta">Single &middot; 2026</span>
+    </a>
+  </div>
+  <a class="latest-album" href="https://phlocalyst.bandcamp.com/album/page-break" target="_blank" rel="noopener">
+    <div class="latest-album-art">
+      <img src="covers/pagebreak.jpg" alt="Page Break — Phlocalyst (cover art by Giza)" />
+    </div>
+    <div>
+      <div class="latest-album-type">Latest LP &middot; Jun 30, 2023 &middot; Nettwerk Music Group</div>
+      <div class="latest-album-title">Page Break</div>
+      <div class="latest-album-tracks">Rising Morning &middot; Sapphire Bounce &middot; Zeal Pt. 2 &middot; Marbles &middot; Again &middot; Emmitoufl&eacute; &middot; Our Time</div>
+      <div class="latest-album-cta">Open on Bandcamp ↗</div>
+    </div>
+  </a>
+  <div class="latest-art-credit">Cover art: Giza &middot; Procedural audio loops — not original recordings</div>
+</section>
+
+<!-- AUDIO LOOPS -->
+<section class="deck-section" id="deck" data-screen-label="02 Audio Loops">
+  <div class="section-head">
+    <h2>TAPE <span class="c">LOOPS</span></h2>
+    <div class="meta">PROCEDURAL AUDIO<br/>NOT ORIGINAL RECORDINGS</div>
+  </div>
   <div id="tape-deck-mount"></div>
 </section>
 
-<!-- MARQUEE ORANGE -->
-<div class="marquee bold" aria-hidden="true">
-  <div class="track">
-    <span class="item">SIDE A — INSIGHTS <span class="star">●</span> NETTWERK RECORDS <span class="star">●</span> PRESS PLAY <span class="star">●</span> STREAM / BUY / DIG <span class="star">●</span></span>
-    <span class="item">SIDE A — INSIGHTS <span class="star">●</span> NETTWERK RECORDS <span class="star">●</span> PRESS PLAY <span class="star">●</span> STREAM / BUY / DIG <span class="star">●</span></span>
-  </div>
-</div>
-
-<!-- DISCOGRAPHY -->
-<section class="disco" id="disco" data-screen-label="03 Discography">
-  <div class="section-head">
-    <h3>DISCO<br/><span class="c">GRAPHY</span></h3>
-    <div class="meta">SELECTED · 8 of 37<br/>2018 → 2026</div>
-  </div>
-  <div class="grid">
-    <div class="card cv-insights" tabindex="0"><div class="cover"><img class="cover-img" src="covers/insights.jpg" alt="Insights album cover" loading="lazy" onerror="this.style.display='none'"><div class="ct">Insights</div><div class="tag-corner">EP · 2022</div></div><div class="info"><div class="name">Insights</div><div class="row"><span>Nettwerk</span><span class="pl">38M ♥</span></div></div></div>
-    <div class="card cv-daylight" tabindex="0"><div class="cover"><img class="cover-img" src="covers/daylight.jpg" alt="Daylight album cover" loading="lazy" onerror="this.style.display='none'"><div class="ct">Daylight</div><div class="tag-corner">Single · 2022</div></div><div class="info"><div class="name">Daylight</div><div class="row"><span>Nettwerk</span><span class="pl">4.8M ♥</span></div></div></div>
-    <div class="card cv-blue" tabindex="0"><div class="cover"><img class="cover-img" src="covers/blue.jpg" alt="Blue Fraction album cover" loading="lazy" onerror="this.style.display='none'"><div class="ct">Blue Fraction</div><div class="tag-corner">Single · 2022</div></div><div class="info"><div class="name">Blue Fraction</div><div class="row"><span>Nettwerk</span><span class="pl">998K ♥</span></div></div></div>
-    <div class="card cv-zeal" tabindex="0"><div class="cover"><img class="cover-img" src="covers/zeal.jpg" alt="Zeal album cover" loading="lazy" onerror="this.style.display='none'"><div class="ct">Zeal</div><div class="tag-corner">Single · 2022</div></div><div class="info"><div class="name">Zeal</div><div class="row"><span>Nettwerk</span><span class="pl">EU LoFi</span></div></div></div>
-    <div class="card cv-serendip" tabindex="0"><div class="cover"><img class="cover-img" src="covers/serendip.jpg" alt="Serendipity album cover" loading="lazy" onerror="this.style.display='none'"><div class="ct">Serendipity</div><div class="tag-corner">EP · 2018 · w/ LESKY</div></div><div class="info"><div class="name">Serendipity</div><div class="row"><span>S!X - Music</span><span class="pl">12M ♥</span></div></div></div>
-    <div class="card cv-parapluie" tabindex="0"><div class="cover"><img class="cover-img" src="covers/parapluie.jpg" alt="Parapluie album cover" loading="lazy" onerror="this.style.display='none'"><div class="ct">Parapluie</div><div class="tag-corner">Single · 2021</div></div><div class="info"><div class="name">Parapluie ft. meadow</div><div class="row"><span>Chillhop</span><span class="pl">22M ♥</span></div></div></div>
-    <div class="card cv-slumber" tabindex="0"><div class="cover"><img class="cover-img" src="covers/slumber.jpg" alt="Slumber album cover" loading="lazy" onerror="this.style.display='none'"><div class="ct">Slumber</div><div class="tag-corner">Single · 2019 · w/ Flynn</div></div><div class="info"><div class="name">Slumber</div><div class="row"><span>S!X - Music</span><span class="pl">8.4M ♥</span></div></div></div>
-    <div class="card cv-arise" tabindex="0"><div class="cover"><img class="cover-img" src="covers/arise.jpg" alt="Arise album cover" loading="lazy" onerror="this.style.display='none'"><div class="ct">Arise</div><div class="tag-corner">LP · 2020</div></div><div class="info"><div class="name">Arise</div><div class="row"><span>S!X - Music</span><span class="pl">18M ♥</span></div></div></div>
-  </div>
-</section>
-
-<!-- ────────────────── PHOTO / PORTRAIT GRID ────────────────── -->
-<section class="portraits" id="portraits" data-screen-label="04 Gallery">
-  <div class="section-head">
-    <h3>IN THE<br/><span class="c">ROOM</span></h3>
-    <div class="meta">STUDIO · STAGE · STREET<br/>MUNICH · BRUSSELS · 2017 → NOW</div>
-  </div>
-  <div class="photo-grid">
-    <div class="photo ph-1" data-cap="Studio · Munich · 04:12 AM"><span class="ph-num">01 / 07</span>
-      <!-- silhouette: portrait -->
-      <svg class="silhouette" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><circle cx="50" cy="38" r="14" fill="currentColor"/><path d="M22 100 Q22 64 50 64 Q78 64 78 100 Z" fill="currentColor"/></svg>
-    </div>
-    <div class="photo ph-2" data-cap="Side B · Pre-show"><span class="ph-num">02 / 07</span>
-      <!-- silhouette: trumpet in hand -->
-      <svg class="silhouette" viewBox="0 0 480 180" preserveAspectRatio="xMidYMid slice"><use href="#trumpet-shape"/></svg>
-    </div>
-    <div class="photo ph-3" data-cap="SP-404"><span class="ph-num">03 / 07</span>
-      <svg class="silhouette" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><rect x="14" y="38" width="72" height="34" rx="4" fill="currentColor"/><g fill="rgba(255,255,255,.4)"><circle cx="24" cy="48" r="2"/><circle cx="32" cy="48" r="2"/><circle cx="40" cy="48" r="2"/><circle cx="48" cy="48" r="2"/><circle cx="24" cy="58" r="2"/><circle cx="32" cy="58" r="2"/><circle cx="40" cy="58" r="2"/><circle cx="48" cy="58" r="2"/></g></svg>
-    </div>
-    <div class="photo ph-4" data-cap="Crate dig · Antwerp"><span class="ph-num">04 / 07</span>
-      <svg class="silhouette" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><circle cx="50" cy="50" r="30" fill="currentColor"/><circle cx="50" cy="50" r="12" fill="rgba(255,255,255,.4)"/><circle cx="50" cy="50" r="3" fill="currentColor"/></svg>
-    </div>
-    <div class="photo ph-5" data-cap="Bell · close"><span class="ph-num">05 / 07</span>
-      <svg class="silhouette" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><path d="M 10 30 L 90 10 L 90 90 L 10 70 Z" fill="currentColor"/><path d="M 18 38 L 80 22 L 80 26 L 18 42 Z" fill="rgba(255,255,255,.4)"/></svg>
-    </div>
-    <div class="photo ph-6" data-cap="Set · Brussels"><span class="ph-num">06 / 07</span>
-      <svg class="silhouette" viewBox="0 0 100 100" preserveAspectRatio="xMidYMid slice"><rect x="20" y="20" width="60" height="60" rx="4" fill="currentColor"/><g fill="rgba(255,255,255,.35)"><rect x="28" y="30" width="44" height="4"/><rect x="28" y="40" width="32" height="4"/><rect x="28" y="50" width="40" height="4"/></g></svg>
-    </div>
-    <div class="photo ph-7" data-cap="Daylight · Spotify #3 LoFi Beats"><span class="ph-num">07 / 07</span>
-      <svg class="silhouette" viewBox="0 0 200 100" preserveAspectRatio="xMidYMid slice"><circle cx="100" cy="60" r="34" fill="currentColor"/><g stroke="rgba(255,255,255,.4)" stroke-width="3" fill="none"><circle cx="100" cy="60" r="22"/><circle cx="100" cy="60" r="12"/></g></svg>
-    </div>
-  </div>
-</section>
-
-<!-- MARQUEE ACID -->
-<div class="marquee acid rev" aria-hidden="true">
-  <div class="track">
-    <span class="item">DJ SETS w/ LIVE TRUMPET <span class="star">▲</span> BE · DE · FR · ES <span class="star">▲</span> BOOK A SET <span class="star">▲</span> SYNC LICENSING OPEN <span class="star">▲</span></span>
-    <span class="item">DJ SETS w/ LIVE TRUMPET <span class="star">▲</span> BE · DE · FR · ES <span class="star">▲</span> BOOK A SET <span class="star">▲</span> SYNC LICENSING OPEN <span class="star">▲</span></span>
-  </div>
-</div>
-
-<!-- TOUR -->
-<section class="live-section" id="live" data-screen-label="05 Tour">
-  <div class="section-head">
-    <h3>ON THE <span class="c">ROAD</span></h3>
-    <div class="meta">2026 SPRING/SUMMER<br/>BOOKINGS@PHLOCALYST.COM</div>
-  </div>
-  <div class="tour">
-    <div class="row" data-city="Munich, DE"><div class="date">JUN 06</div><div class="venue">Werkstatt</div><div class="city">Munich, DE</div><div class="status few">Few left</div><div class="tix">Tickets ↗</div></div>
-    <div class="row" data-city="Brussels, BE"><div class="date">JUN 14</div><div class="venue">Botanique</div><div class="city">Brussels, BE</div><div class="status on">On sale</div><div class="tix">Tickets ↗</div></div>
-    <div class="row sold-row" data-city="Paris, FR"><div class="date">JUN 22</div><div class="venue">Le Trianon</div><div class="city">Paris, FR</div><div class="status sold">Sold out</div><div class="tix">— —</div></div>
-    <div class="row" data-city="Barcelona, ES"><div class="date">JUL 03</div><div class="venue">Razzmatazz</div><div class="city">Barcelona, ES</div><div class="status on">On sale</div><div class="tix">Tickets ↗</div></div>
-    <div class="row" data-city="Amsterdam, NL"><div class="date">JUL 18</div><div class="venue">Bimhuis</div><div class="city">Amsterdam, NL</div><div class="status on">On sale</div><div class="tix">Tickets ↗</div></div>
-    <div class="row" data-city="Kiewit, BE"><div class="date">AUG 02</div><div class="venue">Pukkelpop</div><div class="city">Kiewit, BE</div><div class="status few">Festival</div><div class="tix">Festival ↗</div></div>
-    <div class="row" data-city="Barcelona, ES"><div class="date">AUG 24</div><div class="venue">Sónar+D</div><div class="city">Barcelona, ES</div><div class="status on">On sale</div><div class="tix">Tickets ↗</div></div>
-  </div>
-</section>
-
-<!-- ABOUT -->
-<section class="about-section" id="bio" data-screen-label="06 Bio">
-  <svg class="trumpet-bg" viewBox="0 0 480 180" aria-hidden="true" style="color:var(--cream);">
-    <use href="#trumpet-shape"></use>
-  </svg>
-  <div class="wrap">
-    <div>
-      <div class="label">Bio — 002</div>
-      <h3>Day job:<br/>Orchestra.<br/><span class="c">Night job:</span><br/>Beats.</h3>
-    </div>
-    <div>
-      <p>Phlocalyst is the recording name of <em>Michiel De Vleeschhouwer</em> — born in Sevilla, raised in Flanders, trumpet in hand since age five. He plays third trumpet in a professional Munich orchestra. The other half of the day, he's in headphones with an iPad and an SP-404, looping his own horn into the kind of dust-warm beats that quietly cross 200 million streams while nobody's watching.</p>
-      <p>He started in 2017 to <em>release the stress</em> of his classical career — Pete Rock and J Dilla in the morning, Mahler at night. Insights, his debut LP with Nettwerk, was conceived during a single quarantine in February.</p>
-      <div class="factoids">
-        <div class="factoid"><div class="n">5</div><div class="l">Age started trumpet</div></div>
-        <div class="factoid"><div class="n">2017</div><div class="l">First beat</div></div>
-        <div class="factoid"><div class="n">Munich</div><div class="l">Base of ops</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- CTA -->
-<section class="cta-section" id="book" data-screen-label="07 Contact">
-  <div class="pre">↓ BOOK A SET · SYNC · COLLAB · SAY HI ↓</div>
-  <h2>LET'S <span class="stroke">MAKE</span><br/>SOME<span class="o">.</span><br/><span class="o">NOISE</span></h2>
-  <div class="row">
-    <a class="btn primary" href="mailto:booking@phlocalyst.com">Book a set <span class="arr">↗</span></a>
-    <a class="btn ghost" href="mailto:sync@nettwerk.com">Sync &amp; license <span class="arr">↗</span></a>
-    <a class="btn ghost" href="mailto:hi@phlocalyst.com">Just say hi <span class="arr">↗</span></a>
-  </div>
-  <div class="em">Or find me on <a href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt">Spotify</a> · <a href="#">Bandcamp</a> · <a href="https://www.instagram.com/phlocalyst">Instagram</a> · <a href="#">YouTube</a></div>
-</section>
-
 </main>
-
-<!-- MARQUEE FOOTER -->
-<div class="marquee" aria-hidden="true">
-  <div class="track">
-    <span class="item">PHLOCALYST <span class="star">✦</span> 2017&nbsp;→&nbsp;∞ <span class="star">✦</span> MADE IN MUNICH, FLANDERS&nbsp;IN&nbsp;THE&nbsp;HEART <span class="star">✦</span> KEEP IT LO-FI <span class="star">✦</span></span>
-    <span class="item">PHLOCALYST <span class="star">✦</span> 2017&nbsp;→&nbsp;∞ <span class="star">✦</span> MADE IN MUNICH, FLANDERS&nbsp;IN&nbsp;THE&nbsp;HEART <span class="star">✦</span> KEEP IT LO-FI <span class="star">✦</span></span>
-  </div>
-</div>
 
 <!-- FOOTER -->
 <footer class="foot">
   <div class="wrap">
     <div>
       <div class="big">PHLO<span class="o">.</span>CALYST</div>
-      <div class="mono" style="margin-top:16px;color:var(--cream-dim);">© Michiel De Vleeschhouwer 2026 — All horns reserved.</div>
+      <div class="mono" style="margin-top:16px;color:var(--cream-dim);">Flemish producer &middot; Portugal<br/>Jazz-hop &amp; classical trumpet</div>
+    </div>
+    <div>
+      <h4>Explore</h4>
+      <ul>
+        <li><a href="Music.html">Music<span class="arr">↗</span></a></li>
+        <li><a href="Shows.html">Shows<span class="arr">↗</span></a></li>
+        <li><a href="About.html">About<span class="arr">↗</span></a></li>
+        <li><a href="#deck">Tape Deck<span class="arr">↗</span></a></li>
+      </ul>
     </div>
     <div>
       <h4>Listen</h4>
       <ul>
-        <li><a href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt">Spotify <span class="arr">↗</span></a></li>
-        <li><a href="#">Apple Music <span class="arr">↗</span></a></li>
-        <li><a href="#">Bandcamp <span class="arr">↗</span></a></li>
-        <li><a href="#">SoundCloud <span class="arr">↗</span></a></li>
-      </ul>
-    </div>
-    <div>
-      <h4>Follow</h4>
-      <ul>
-        <li><a href="#">Instagram <span class="arr">↗</span></a></li>
-        <li><a href="#">YouTube <span class="arr">↗</span></a></li>
-        <li><a href="#">TikTok <span class="arr">↗</span></a></li>
-        <li><a href="#">Twitter <span class="arr">↗</span></a></li>
+        <li><a href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt" target="_blank" rel="noopener">Spotify<span class="arr">↗</span></a></li>
+        <li><a href="https://music.apple.com/us/artist/phlocalyst/1343862778" target="_blank" rel="noopener">Apple Music<span class="arr">↗</span></a></li>
+        <li><a href="https://phlocalyst.bandcamp.com/" target="_blank" rel="noopener">Bandcamp<span class="arr">↗</span></a></li>
       </ul>
     </div>
     <div>
       <h4>Business</h4>
       <ul>
-        <li><a href="mailto:booking@phlocalyst.com">Booking <span class="arr">↗</span></a></li>
-        <li><a href="mailto:sync@nettwerk.com">Sync / License <span class="arr">↗</span></a></li>
-        <li><a href="#">Press kit <span class="arr">↗</span></a></li>
-        <li><a href="#">Mailing list <span class="arr">↗</span></a></li>
+        <li><a href="mailto:booking@phlocalyst.com">Booking<span class="arr">↗</span></a></li>
+        <li><a href="mailto:sync@nettwerk.com">Sync licensing<span class="arr">↗</span></a></li>
+        <li><a href="Contact.html">Contact<span class="arr">↗</span></a></li>
+        <li><a href="https://www.instagram.com/phlocalyst/" target="_blank" rel="noopener">Instagram<span class="arr">↗</span></a></li>
       </ul>
     </div>
     <div class="bot">
-      <span>Set in Boldonse, Bricolage Grotesque &amp; DM Mono · Audio by Tone.js</span>
-      <span>Munich · Flanders · Internet</span>
+      <span>Phlocalyst &copy; 2026 &middot; On Nettwerk Music Group</span>
+      <span>Set in Boldonse, Bricolage Grotesque &amp; DM Mono</span>
     </div>
   </div>
 </footer>
@@ -671,7 +592,7 @@
 <!-- Tweaks mount -->
 <div id="tweaks-mount"></div>
 
-<script src="mobilenav.js"></script>
+<script src="mobilenav.js?v=20260528-mobile"></script>
 
 <!-- Tone.js loaded dynamically on first play (see tapedeck.jsx createEngine play()) -->
 
@@ -683,7 +604,7 @@
 <!-- Tweaks shell + helpers -->
 <script type="text/babel" src="tweaks-panel.jsx"></script>
 <!-- Tape deck (audio engine + UI) -->
-<script type="text/babel" src="tapedeck.jsx"></script>
+<script type="text/babel" src="tapedeck.jsx?v=20260528-mobile"></script>
 <!-- Mount: tape deck + tweaks panel -->
 <script type="text/babel" src="mount.jsx"></script>
 

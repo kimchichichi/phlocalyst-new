@@ -1,10 +1,10 @@
-# CLAUDE.md
+# AGENTS.md
 
-This file provides guidance to Claude Code (claude.ai/code) when working with code in this repository.
+This file provides guidance to Codex (Codex.ai/code) when working with code in this repository.
 
 ## What This Is
 
-A static artist portfolio website for **Phlocalyst** (Michiel De Vleeschhouwer — classical trumpet player and lo-fi / jazz-hop producer based in Portugal). There is **no build system, no package manager, and no test suite**. All dependencies are loaded via CDN; JSX is transpiled in-browser by Babel.
+A static artist portfolio website for **Phlocalyst** (Michiel De Vleeschhouwer — classical trumpet player and lo-fi / jazz-hop producer based in Munich). There is **no build system, no package manager, and no test suite**. All dependencies are loaded via CDN; JSX is transpiled in-browser by Babel.
 
 ## Running Locally
 
@@ -89,8 +89,8 @@ The Tone.js node graph is created **lazily on first play** to comply with browse
 ## Artist Facts (for Content Changes)
 
 - **Artist:** Phlocalyst = Michiel De Vleeschhouwer (Flemish; born Sevilla, raised in Flanders)
-- **Base:** Portugal (relocated from Munich, Germany where he was based since 2016)
-- **Day job:** Was third trumpet in a professional Munich orchestra; started producing in 2017
+- **Base:** Munich, Germany (since 2016)
+- **Day job:** Third trumpet in a professional Munich orchestra; started producing in 2017
 - **Streams:** 200M+ on Spotify (per Nettwerk biography)
 - **Label:** Nettwerk Music Group — full recorded catalogue since 2022; sync licensing contact: `sync@nettwerk.com`
 - **Contact emails:** `booking@phlocalyst.com` (booking — handled by Annika Lehmann), `collabs@phlocalyst.com` (collaborations — Michiel personally), `hi@phlocalyst.com` (general)

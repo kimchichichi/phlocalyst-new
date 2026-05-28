@@ -9,8 +9,7 @@ function applyTweaks(t) {
   root.style.setProperty('--marquee-dur', t.marqueeSpeed + 's');
   root.style.setProperty('--grain', String(t.grain));
   root.style.setProperty('--trumpet-display', t.showTrumpet ? 'block' : 'none');
-  const horn = document.getElementById('trumpet-hero');
-  if (horn) horn.classList.toggle('playing', !!(t.showTrumpet && t.vinylSpin));
+  root.style.setProperty('--trumpet-motion-state', t.vinylSpin ? 'running' : 'paused');
 }
 
 function PhloTweaks() {
@@ -76,10 +75,3 @@ if (tapeMount) ReactDOM.createRoot(tapeMount).render(<TapeDeck />);
 // Mount tweaks panel
 const tweaksMount = document.getElementById('tweaks-mount');
 if (tweaksMount) ReactDOM.createRoot(tweaksMount).render(<PhloTweaks />);
-
-// Kick the trumpet "playing" class on initial load if defaults say so
-window.addEventListener('load', () => {
-  const horn = document.getElementById('trumpet-hero');
-  const d = window.TWEAK_DEFAULTS || {};
-  if (horn && d.showTrumpet && d.vinylSpin) horn.classList.add('playing');
-});
