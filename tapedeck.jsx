@@ -661,7 +661,8 @@ const TAPE_CSS = `
   .mini-picks{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px;}
   .mini-pick{
     appearance:none;
-    padding:8px 11px;
+    padding:10px 13px;
+    min-height:44px;
     border:1px solid var(--rule);
     border-radius:999px;
     background:transparent;
@@ -686,7 +687,8 @@ const TAPE_CSS = `
   }
   .mini-btn{
     appearance:none;
-    height:42px;
+    height:44px;
+    min-height:44px;
     padding:0 13px;
     border:1px solid var(--rule);
     border-radius:999px;

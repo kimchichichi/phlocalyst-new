@@ -18,7 +18,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Bagel+Fat+One&family=Big+Shoulders+Display:wght@700;900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700;12..96,800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161009'/%3E%3Cpath d='M4 20 Q4 17 8 17 L20 17 Q22 17 22 15 L22 13 Q22 11 24 11 L28 11' stroke='%23ff5a1f' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='6' cy='20' r='3' fill='none' stroke='%23ff5a1f' stroke-width='2'/%3E%3C/svg%3E" />
-<!-- vinyl alt: <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161009'/%3E%3Ccircle cx='16' cy='16' r='11' fill='%23ff5a1f'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23161009'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ff5a1f'/%3E%3Ccircle cx='16' cy='16' r='1.2' fill='%23161009'/%3E%3C/svg%3E" /> -->
 <style>
   :root{
     --coal:#161009;
@@ -203,6 +202,39 @@
   .hero .sub .tag .accent{color:var(--orange);}
   .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:22px;}
 
+  /* SCROLL CUE — bouncing chevron at hero bottom */
+  .hero-scroll{
+    position:absolute;bottom:20px;left:50%;transform:translateX(-50%);
+    display:flex;flex-direction:column;align-items:center;
+    color:var(--cream-dim);opacity:.45;
+    text-decoration:none;z-index:3;
+    animation:scroll-bounce 2.4s ease-in-out infinite;
+    transition:opacity .2s;
+  }
+  .hero-scroll:hover{opacity:.85;}
+  .hero-scroll svg{width:24px;height:24px;display:block;}
+  @keyframes scroll-bounce{0%,100%{transform:translateX(-50%) translateY(0);}55%{transform:translateX(-50%) translateY(8px);}}
+  @media (max-width:620px){.hero-scroll{display:none;}}
+
+  /* DECK SKELETON — shown while React/Babel loads */
+  #tape-deck-mount:empty{
+    min-height:380px;
+    border:1px solid var(--rule);border-radius:14px;
+    background:linear-gradient(180deg, var(--coal-2) 0%, var(--coal) 100%);
+    display:flex;align-items:center;justify-content:center;
+    font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--cream-dim);opacity:.6;
+  }
+  #tape-deck-mount:empty::after{content:'Loading tape deck…';}
+
+  /* PILL TYPE ACCENTS — amber top-bar for EPs, orange for singles */
+  .latest-pill[data-type="ep"]::before,
+  .latest-pill[data-type="single"]::before{
+    content:'';display:block;height:2px;border-radius:1px;margin-bottom:3px;
+  }
+  .latest-pill[data-type="ep"]::before{background:var(--amber);}
+  .latest-pill[data-type="single"]:not(.is-new)::before{background:color-mix(in oklab,var(--orange) 65%,transparent);}
+
   /* TRUMPET hero motif */
   .trumpet-hero{
     position:absolute;right:70px;top:200px;
@@ -244,16 +276,19 @@
   .btn .arr{font-family:'DM Mono';}
 
   /* FOOTER */
-  footer.foot{border-top:1px solid var(--rule);background:var(--coal);padding:50px 26px 30px;}
-  footer.foot .wrap{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:40px;}
-  footer.foot h4{font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--cream-dim);margin-bottom:14px;}
-  footer.foot .big{font-family:var(--display);font-size:60px;text-transform:uppercase;line-height:.88;letter-spacing:-.02em;}
-  footer.foot .big .o{color:var(--orange);}
-  footer.foot ul{list-style:none;}
-  footer.foot ul li{padding:6px 0;font-size:14px;}
-  footer.foot ul li a:hover{color:var(--orange);}
-  footer.foot ul li .arr{font-family:'DM Mono',monospace;font-size:10px;opacity:.5;margin-left:4px;}
-  footer.foot .bot{grid-column:1/-1;margin-top:40px;padding-top:20px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);}
+  footer.foot{border-top:1px solid var(--rule);background:var(--coal);padding:48px 26px 32px;}
+  footer.foot .wrap{max-width:1280px;margin:0 auto;display:grid;grid-template-columns:1.6fr 1fr 1fr 1fr;gap:40px 32px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);}
+  footer.foot .foot-brand{font-family:var(--display);font-size:18px;letter-spacing:.01em;color:var(--cream);margin-bottom:10px;}
+  footer.foot .foot-tagline{line-height:1.7;font-size:10px;}
+  footer.foot .foot-col-head{color:var(--cream);font-size:10px;letter-spacing:.14em;margin-bottom:12px;}
+  footer.foot .foot-links{display:flex;flex-direction:column;gap:9px;}
+  footer.foot .foot-links a:hover{color:var(--orange);}
+  footer.foot .foot-sync{margin-top:14px;line-height:1.7;}
+  footer.foot .foot-sync a:hover{color:var(--orange);}
+  footer.foot .foot-bot{max-width:1280px;margin:32px auto 0;padding-top:20px;border-top:1px solid var(--rule);display:flex;justify-content:space-between;align-items:center;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);}
+  @media (max-width:900px){
+    footer.foot .wrap{grid-template-columns:1fr 1fr;gap:32px 24px;}
+  }
 
   /* LATEST RELEASES */
   .latest-section{max-width:1280px;margin:0 auto;padding:0 26px 52px;}
@@ -289,6 +324,14 @@
   .latest-album-cta{display:inline-flex;margin-top:12px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--orange);}
   .latest-art-credit{font-family:'DM Mono',monospace;font-size:9px;letter-spacing:.07em;text-transform:uppercase;color:var(--cream-dim);opacity:.55;text-align:right;margin-top:8px;}
 
+  /* PILL ACTIVE STATE */
+  .latest-pill.is-active{border-color:var(--orange) !important;background:color-mix(in oklab,var(--orange) 12%,transparent);}
+  .latest-pill.is-active .lp-title{color:var(--orange);}
+  /* SPOTLIGHT — no-art layout collapses to single-column */
+  #release-spotlight{transition:opacity .18s ease, border-color .15s, background .15s;}
+  #release-spotlight.no-art{grid-template-columns:1fr;}
+  #release-spotlight.no-art #spotlight-art{display:none;}
+
   @media (max-width:900px){
     .hero{padding-top:30px;}
     .hero h1{font-size:clamp(58px,21vw,84px);}
@@ -307,6 +350,7 @@
     .topbar .brand .glyph{width:18px;height:18px;flex:0 0 auto;}
     .live-pill{display:none;}
     .marquee{display:none;}
+    .marquee.bold{display:block;}
     .marquee-static{display:block;}
     .hero, .deck-section, .latest-section{padding-left:18px;padding-right:18px;}
     .hero{padding-top:34px;padding-bottom:34px;}
@@ -330,15 +374,12 @@
     .section-head{align-items:start;flex-direction:column;gap:14px;}
     .section-head h2{font-size:clamp(36px,12vw,42px);line-height:.95;}
     .section-head .meta{text-align:left;font-size:11px;line-height:1.5;}
-    footer.foot{padding-left:18px;padding-right:18px;padding-top:36px;}
-    footer.foot .wrap{grid-template-columns:1fr 1fr;}
-    footer.foot .big{font-size:40px;}
-    footer.foot .bot{flex-direction:column;gap:10px;}
+    footer.foot{padding:36px 18px 24px;}
+    footer.foot .wrap{grid-template-columns:1fr 1fr;gap:28px 20px;}
+    footer.foot .foot-bot{flex-direction:column;gap:8px;text-align:center;}
     .mono{font-size:12px;letter-spacing:.07em;}
   }
   @media (max-width:480px){
-    footer.foot .wrap{grid-template-columns:1fr;}
-    footer.foot .big{font-size:36px;}
   }
   @media (max-width:360px){
     .topbar{padding-left:14px;padding-right:14px;}
@@ -350,6 +391,47 @@
     .latest-hd{display:block;}
     .latest-hd a{display:inline-flex;max-width:none;margin-top:10px;text-align:left;}
   }
+  /* CREDIBILITY PILL */
+  .cred-pill{
+    display:inline-flex;align-items:center;gap:9px;
+    padding:8px 14px;
+    border:1.5px solid var(--amber);
+    border-radius:999px;
+    font-family:'DM Mono',monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+    color:var(--amber);
+    text-decoration:none;
+    transition:background .15s,color .15s;
+    margin-bottom:20px;
+  }
+  .cred-pill:hover{background:var(--amber);color:var(--coal);}
+  .cred-pill .cp-dot{width:6px;height:6px;border-radius:50%;background:var(--amber);flex-shrink:0;}
+
+  /* MOBILE STICKY CTA BAR */
+  .mobile-cta{
+    display:none;
+    position:fixed;bottom:0;left:0;right:0;z-index:200;
+    padding:12px 18px calc(12px + env(safe-area-inset-bottom,0px));
+    background:color-mix(in oklab, var(--coal) 92%, transparent);
+    backdrop-filter:blur(14px);
+    border-top:1px solid var(--rule);
+    gap:10px;
+  }
+  .mobile-cta a{
+    flex:1;display:flex;align-items:center;justify-content:center;gap:6px;
+    padding:13px 12px;border-radius:999px;
+    font-family:var(--display);font-size:13px;letter-spacing:.02em;text-transform:uppercase;
+    transition:transform .15s, background .15s;
+  }
+  .mobile-cta a:active{transform:scale(.97);}
+  .mobile-cta .mcta-primary{background:var(--orange);color:var(--coal);}
+  .mobile-cta .mcta-secondary{border:1.5px solid var(--rule);color:var(--cream);}
+
+  @media (max-width:620px){
+    .mobile-cta{display:flex;}
+    /* push footer above the bar */
+    footer.foot{padding-bottom:calc(72px + env(safe-area-inset-bottom,0px));}
+  }
+
   @media (prefers-reduced-motion: reduce){
     *, *::before, *::after{scroll-behavior:auto !important;animation:none !important;transition-duration:0.01ms !important;}
     body{animation:none;}
@@ -379,7 +461,7 @@
   })();
 </script>
 </head>
-<body data-screen-label="01 Phlocalyst v3 Tape Deck">
+<body>
 
 <!-- Reusable trumpet SVG defs (referenced via <use>) -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
@@ -441,15 +523,11 @@
     <span>PHLOCALYST<span style="color:var(--orange);">★</span></span>
   </a>
   <nav aria-label="Main navigation">
-    <a href="#deck" aria-current="page">Listen</a>
     <a href="Music.html">Music</a>
     <a href="Shows.html">Shows</a>
     <a href="About.html">About</a>
     <a href="Contact.html">Contact</a>
   </nav>
-  <div class="right">
-    <a href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt" class="live-pill" target="_blank" rel="noopener"><span class="dot"></span>Listen on Spotify ↗</a>
-  </div>
 </header>
 
 <main id="main-content">
@@ -489,10 +567,14 @@
     </div>
     <div class="hero-actions">
       <a class="btn primary" href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt" target="_blank" rel="noopener">Listen on Spotify <span class="arr">↗</span></a>
-      <a class="btn ghost" href="#deck" style="border-color:var(--amber);color:var(--amber);">Play Tape Loops</a>
       <a class="btn ghost" href="https://music.apple.com/us/artist/phlocalyst/1343862778" target="_blank" rel="noopener">Apple Music <span class="arr">↗</span></a>
+      <a class="btn ghost" href="Shows.html" style="border-color:var(--amber);color:var(--amber);">Live Shows <span class="arr">↗</span></a>
     </div>
   </div>
+
+  <a href="#latest" class="hero-scroll" aria-label="Scroll to releases">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="6 9 12 15 18 9"/></svg>
+  </a>
 </section>
 
 <!-- LATEST IN 2026 -->
@@ -502,95 +584,118 @@
     <a href="Music.html" class="mono">Full music catalog ↗</a>
   </div>
   <div class="latest-pills" aria-label="2026 releases">
-    <a class="latest-pill is-new" href="https://music.apple.com/us/album/best-me-single/1896460059" target="_blank" rel="noopener">
+    <a class="latest-pill is-new" data-type="single"
+       data-label="Single &middot; feat. Sylvan LaCue &middot; May 22, 2026"
+       data-tracks="Best Me (feat. Sylvan LaCue)"
+       data-cta="Listen on Apple Music ↗"
+       data-art="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/2f/b4/04/2fb404c2-81f9-b114-30da-5885b6d4ab7e/6555.jpg/600x600bb.jpg"
+       href="https://music.apple.com/us/album/best-me-single/1896460059" target="_blank" rel="noopener">
       <span class="lp-badge">Latest &middot; May 22</span>
       <span class="lp-title">Best Me</span>
-      <span class="lp-meta">Single &middot; 2026</span>
+      <span class="lp-meta">feat. Sylvan LaCue &middot; Single &middot; 2026</span>
     </a>
-    <a class="latest-pill" href="https://music.apple.com/us/album/now-and-then-feat-mr-k%C3%A4fer-ep/1882794766" target="_blank" rel="noopener">
+    <a class="latest-pill" data-type="ep"
+       data-label="EP &middot; feat. Mr. K&auml;fer &middot; 6 tracks &middot; 2026"
+       data-tracks="Couch &middot; We Are Lost &middot; Since When &middot; Long Day &middot; Doesn&rsquo;t Matter &middot; Morning Call"
+       data-cta="Listen on Apple Music ↗"
+       data-art="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/94/09/39/940939c5-f72c-964e-2299-943259cde0a3/820200550699.jpg/600x600bb.jpg"
+       href="https://music.apple.com/us/album/now-and-then-feat-mr-k%C3%A4fer-ep/1882794766" target="_blank" rel="noopener">
       <span class="lp-title">Now And Then</span>
-      <span class="lp-meta">EP &middot; Feat. Mr. K&auml;fer &middot; 6 tracks</span>
+      <span class="lp-meta">EP &middot; feat. Mr. K&auml;fer &middot; 6 tracks</span>
     </a>
-    <a class="latest-pill" href="https://music.apple.com/us/album/candle-glow/1844211058" target="_blank" rel="noopener">
+    <a class="latest-pill" data-type="ep"
+       data-label="EP &middot; with xander. &middot; 5 tracks &middot; Feb 20, 2026"
+       data-tracks="Alleyway &middot; Candle Glow &middot; Coffee Night &middot; Roaming Around &middot; Backyard Playground"
+       data-cta="Listen on Apple Music ↗"
+       data-art="https://is1-ssl.mzstatic.com/image/thumb/Music221/v4/b5/f8/71/b5f87184-d812-516f-4955-e1b2c9bab8c5/1963623866431_cover.jpg/600x600bb.jpg"
+       href="https://music.apple.com/us/album/candle-glow/1844211058" target="_blank" rel="noopener">
       <span class="lp-title">The Cool Hour</span>
-      <span class="lp-meta">EP &middot; With xander. &middot; 5 tracks</span>
+      <span class="lp-meta">EP &middot; with xander. &middot; 5 tracks</span>
     </a>
-    <a class="latest-pill" href="https://music.apple.com/us/album/conversations-single/1894074698" target="_blank" rel="noopener">
+    <a class="latest-pill" data-type="single"
+       data-label="Single &middot; with Myri&aacute;d &middot; May 21, 2026"
+       data-tracks="Conversations (with Myri&aacute;d)"
+       data-cta="Listen on Apple Music ↗"
+       data-art="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/4c/bd/72/4cbd721e-4b1a-2d45-0655-4e2a4575d2d4/1963624506480_cover.jpg/600x600bb.jpg"
+       href="https://music.apple.com/us/album/conversations-single/1894074698" target="_blank" rel="noopener">
       <span class="lp-title">Conversations</span>
-      <span class="lp-meta">Single &middot; 2026</span>
+      <span class="lp-meta">with Myri&aacute;d &middot; Single &middot; 2026</span>
     </a>
-    <a class="latest-pill" href="https://music.apple.com/us/album/beyond-the-clouds-single/1886095593" target="_blank" rel="noopener">
+    <a class="latest-pill" data-type="single"
+       data-label="Single &middot; Snarez &amp; Phlocalyst &middot; 2026"
+       data-tracks="Beyond the Clouds (with Snarez)"
+       data-cta="Listen on Apple Music ↗"
+       data-art="https://is1-ssl.mzstatic.com/image/thumb/Music211/v4/5e/95/26/5e952660-ddb1-4218-ab72-34d522794d58/723098055010.png/600x600bb.jpg"
+       href="https://music.apple.com/us/album/beyond-the-clouds-single/1886095593" target="_blank" rel="noopener">
       <span class="lp-title">Beyond the Clouds</span>
-      <span class="lp-meta">Single &middot; 2026</span>
+      <span class="lp-meta">with Snarez &middot; Single &middot; 2026</span>
     </a>
   </div>
-  <a class="latest-album" href="https://phlocalyst.bandcamp.com/album/page-break" target="_blank" rel="noopener">
-    <div class="latest-album-art">
-      <img src="covers/pagebreak.jpg" alt="Page Break — Phlocalyst (cover art by Giza)" />
+  <a class="latest-album" id="release-spotlight" href="https://phlocalyst.bandcamp.com/album/page-break" target="_blank" rel="noopener" aria-live="polite" aria-label="Selected release">
+    <div class="latest-album-art" id="spotlight-art">
+      <img id="spotlight-img" src="covers/pagebreak.jpg" alt="Page Break — Phlocalyst (cover art by Giza)" loading="lazy" />
     </div>
     <div>
-      <div class="latest-album-type">Latest LP &middot; Jun 30, 2023 &middot; Nettwerk Music Group</div>
-      <div class="latest-album-title">Page Break</div>
-      <div class="latest-album-tracks">Rising Morning &middot; Sapphire Bounce &middot; Zeal Pt. 2 &middot; Marbles &middot; Again &middot; Emmitoufl&eacute; &middot; Our Time</div>
-      <div class="latest-album-cta">Open on Bandcamp ↗</div>
+      <div class="latest-album-type" id="spotlight-label">Latest LP &middot; Jun 30, 2023 &middot; Nettwerk Music Group</div>
+      <div class="latest-album-title" id="spotlight-title">Page Break</div>
+      <div class="latest-album-tracks" id="spotlight-tracks">Rising Morning &middot; Sapphire Bounce &middot; Zeal Pt. 2 &middot; Marbles &middot; Again &middot; Emmitoufl&eacute; &middot; Our Time</div>
+      <div class="latest-album-cta" id="spotlight-cta">Open on Bandcamp ↗</div>
     </div>
   </a>
   <div class="latest-art-credit">Cover art: Giza &middot; Procedural audio loops — not original recordings</div>
 </section>
 
-<!-- AUDIO LOOPS -->
-<section class="deck-section" id="deck" data-screen-label="02 Audio Loops">
-  <div class="section-head">
-    <h2>TAPE <span class="c">LOOPS</span></h2>
-    <div class="meta">PROCEDURAL AUDIO<br/>NOT ORIGINAL RECORDINGS</div>
-  </div>
-  <div id="tape-deck-mount"></div>
-</section>
 
 </main>
 
 <!-- FOOTER -->
 <footer class="foot">
   <div class="wrap">
-    <div>
-      <div class="big">PHLO<span class="o">.</span>CALYST</div>
-      <div class="mono" style="margin-top:16px;color:var(--cream-dim);">Flemish producer &middot; Portugal<br/>Jazz-hop &amp; classical trumpet</div>
+    <div class="foot-col">
+      <div class="foot-brand">PHLOCALYST<span style="color:var(--orange)">★</span></div>
+      <div class="foot-tagline">Classical trumpet &middot; Lo-fi / Jazz-hop<br/>Portugal-based &middot; Nettwerk Music Group</div>
     </div>
-    <div>
-      <h4>Explore</h4>
-      <ul>
-        <li><a href="Music.html">Music<span class="arr">↗</span></a></li>
-        <li><a href="Shows.html">Shows<span class="arr">↗</span></a></li>
-        <li><a href="About.html">About<span class="arr">↗</span></a></li>
-        <li><a href="#deck">Tape Deck<span class="arr">↗</span></a></li>
-      </ul>
+    <div class="foot-col">
+      <div class="foot-col-head">Music</div>
+      <nav class="foot-links">
+        <a href="Music.html">Discography</a>
+        <a href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt" target="_blank" rel="noopener">Spotify ↗</a>
+        <a href="https://phlocalyst.bandcamp.com" target="_blank" rel="noopener">Bandcamp ↗</a>
+        <a href="https://music.apple.com/us/artist/phlocalyst/1343862778" target="_blank" rel="noopener">Apple Music ↗</a>
+      </nav>
     </div>
-    <div>
-      <h4>Listen</h4>
-      <ul>
-        <li><a href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt" target="_blank" rel="noopener">Spotify<span class="arr">↗</span></a></li>
-        <li><a href="https://music.apple.com/us/artist/phlocalyst/1343862778" target="_blank" rel="noopener">Apple Music<span class="arr">↗</span></a></li>
-        <li><a href="https://phlocalyst.bandcamp.com/" target="_blank" rel="noopener">Bandcamp<span class="arr">↗</span></a></li>
-      </ul>
+    <div class="foot-col">
+      <div class="foot-col-head">Live &amp; Contact</div>
+      <nav class="foot-links">
+        <a href="Shows.html">Tour dates</a>
+        <a href="mailto:booking@phlocalyst.com">Booking ↗</a>
+        <a href="mailto:collabs@phlocalyst.com">Collabs ↗</a>
+        <a href="Contact.html">Contact page</a>
+      </nav>
     </div>
-    <div>
-      <h4>Business</h4>
-      <ul>
-        <li><a href="mailto:booking@phlocalyst.com">Booking<span class="arr">↗</span></a></li>
-        <li><a href="mailto:sync@nettwerk.com">Sync licensing<span class="arr">↗</span></a></li>
-        <li><a href="Contact.html">Contact<span class="arr">↗</span></a></li>
-        <li><a href="https://www.instagram.com/phlocalyst/" target="_blank" rel="noopener">Instagram<span class="arr">↗</span></a></li>
-      </ul>
+    <div class="foot-col">
+      <div class="foot-col-head">Follow</div>
+      <nav class="foot-links">
+        <a href="https://www.instagram.com/phlocalyst/" target="_blank" rel="noopener">Instagram ↗</a>
+        <a href="About.html">About</a>
+      </nav>
+      <div class="foot-sync">Sync licensing:<br/><a href="mailto:sync@nettwerk.com">sync@nettwerk.com</a></div>
     </div>
-    <div class="bot">
-      <span>Phlocalyst &copy; 2026 &middot; On Nettwerk Music Group</span>
-      <span>Set in Boldonse, Bricolage Grotesque &amp; DM Mono</span>
-    </div>
+  </div>
+  <div class="foot-bot">
+    <span>Phlocalyst &copy; 2026 &middot; Nettwerk Music Group</span>
   </div>
 </footer>
 
 <!-- Tweaks mount -->
 <div id="tweaks-mount"></div>
+
+<!-- MOBILE STICKY CTA BAR (≤620px only) -->
+<div class="mobile-cta" role="navigation" aria-label="Quick links">
+  <a class="mcta-primary" href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt" target="_blank" rel="noopener">▶ Spotify</a>
+  <a class="mcta-secondary" href="https://music.apple.com/us/artist/phlocalyst/1343862778" target="_blank" rel="noopener">Apple Music</a>
+  <a class="mcta-secondary" href="mailto:booking@phlocalyst.com">Booking ↗</a>
+</div>
 
 <script src="mobilenav.js?v=20260528-mobile"></script>
 
@@ -607,6 +712,83 @@
 <script type="text/babel" src="tapedeck.jsx?v=20260528-mobile"></script>
 <!-- Mount: tape deck + tweaks panel -->
 <script type="text/babel" src="mount.jsx"></script>
+
+<script>
+  // Topbar scroll state
+  (function(){
+    var tb = document.querySelector('.topbar');
+    function sync(){ tb.classList.toggle('is-scrolled', window.scrollY > 8); }
+    window.addEventListener('scroll', sync, {passive:true});
+    sync();
+  })();
+
+  // Release pill → spotlight
+  (function(){
+    var spotlight = document.getElementById('release-spotlight');
+    if (!spotlight) return;
+    var spotArt    = document.getElementById('spotlight-art');
+    var spotImg    = document.getElementById('spotlight-img');
+    var spotLabel  = document.getElementById('spotlight-label');
+    var spotTitle  = document.getElementById('spotlight-title');
+    var spotTracks = document.getElementById('spotlight-tracks');
+    var spotCta    = document.getElementById('spotlight-cta');
+
+    var DEFAULT = {
+      href:   'https://phlocalyst.bandcamp.com/album/page-break',
+      art:    'covers/pagebreak.jpg',
+      alt:    'Page Break — Phlocalyst (cover art by Giza)',
+      label:  'Latest LP · Jun 30, 2023 · Nettwerk Music Group',
+      title:  'Page Break',
+      tracks: 'Rising Morning · Sapphire Bounce · Zeal Pt. 2 · Marbles · Again · Emmitouflé · Our Time',
+      cta:    'Open on Bandcamp ↗',
+    };
+
+    function flash(fn) {
+      spotlight.style.opacity = '0.45';
+      setTimeout(function(){ fn(); spotlight.style.opacity = ''; }, 130);
+    }
+
+    function apply(d) {
+      spotlight.href = d.href;
+      if (d.art) {
+        spotImg.src = d.art;
+        spotImg.alt = d.alt || '';
+        spotlight.classList.remove('no-art');
+      } else {
+        spotlight.classList.add('no-art');
+      }
+      spotLabel.innerHTML  = d.label;
+      spotTitle.textContent  = d.title;
+      spotTracks.innerHTML = d.tracks;
+      spotTracks.style.display = d.tracks ? '' : 'none';
+      spotCta.textContent  = d.cta;
+    }
+
+    var pills = document.querySelectorAll('.latest-pill');
+    pills.forEach(function(pill) {
+      pill.addEventListener('click', function(e) {
+        e.preventDefault();
+        var alreadyActive = pill.classList.contains('is-active');
+        pills.forEach(function(p){ p.classList.remove('is-active'); });
+        flash(function(){
+          if (alreadyActive) {
+            apply(DEFAULT);
+          } else {
+            pill.classList.add('is-active');
+            apply({
+              href:   pill.href,
+              art:    pill.dataset.art || '',
+              label:  pill.dataset.label || pill.querySelector('.lp-meta').textContent,
+              title:  pill.querySelector('.lp-title').textContent,
+              tracks: pill.dataset.tracks || '',
+              cta:    pill.dataset.cta || 'Listen ↗',
+            });
+          }
+        });
+      });
+    });
+  })();
+</script>
 
 </body>
 </html>

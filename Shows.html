@@ -17,7 +17,6 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Boldonse&family=Bagel+Fat+One&family=Big+Shoulders+Display:wght@700;900&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,500;12..96,600;12..96,700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet" />
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161009'/%3E%3Cpath d='M4 20 Q4 17 8 17 L20 17 Q22 17 22 15 L22 13 Q22 11 24 11 L28 11' stroke='%23ff5a1f' stroke-width='2.5' fill='none' stroke-linecap='round'/%3E%3Ccircle cx='6' cy='20' r='3' fill='none' stroke='%23ff5a1f' stroke-width='2'/%3E%3C/svg%3E" />
-<!-- vinyl alt: <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23161009'/%3E%3Ccircle cx='16' cy='16' r='11' fill='%23ff5a1f'/%3E%3Ccircle cx='16' cy='16' r='7' fill='%23161009'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ff5a1f'/%3E%3Ccircle cx='16' cy='16' r='1.2' fill='%23161009'/%3E%3C/svg%3E" /> -->
 <style>
   :root{
     --coal:#161009;--coal-2:#1f180e;--cream:#f5ead0;--cream-dim:#bdb29a;
@@ -64,6 +63,9 @@
   .topbar nav a:last-child:hover,.topbar nav a:last-child[aria-current="page"]{border-color:var(--orange);background:color-mix(in oklab,var(--orange) 10%,transparent);}
   .back{font-family:'DM Mono',monospace;font-size:11px;color:var(--cream-dim);letter-spacing:.1em;text-transform:uppercase;}
   .back:hover{color:var(--cream);}
+  .topbar .right{display:flex;align-items:center;gap:10px;}
+  .mobile-listen{display:none;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--coal);background:var(--orange);padding:9px 12px;border-radius:999px;transition:background .15s;}
+  .mobile-listen:hover{background:var(--amber);}
 
   /* PAGE */
   .page{max-width:1080px;margin:0 auto;padding:80px 26px 60px;}
@@ -117,8 +119,6 @@
   .show .status{font-family:'DM Mono',monospace;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--orange);text-align:right;}
   .show.past{opacity:.62;}
   .show.past:hover{opacity:.82;}
-  .source-note{margin-top:16px;max-width:720px;font-family:'DM Mono',monospace;font-size:10px;line-height:1.55;letter-spacing:.06em;text-transform:uppercase;color:var(--cream-dim);}
-
   /* BOOKING CTA */
   .book-cta{
     margin-top:80px;padding:36px;
@@ -142,12 +142,17 @@
   footer.foot .wrap{max-width:1080px;margin:0 auto;display:flex;justify-content:space-between;align-items:center;gap:20px;font-family:'DM Mono',monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--cream-dim);flex-wrap:wrap;}
   footer.foot .wrap a:hover{color:var(--orange);}
 
-  /* ROAD MARQUEE */
+  /* MARQUEE */
   @keyframes scroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-  .road-marquee{overflow:hidden;white-space:nowrap;border-block:1px solid var(--rule);padding:12px 0;background:var(--coal-2);margin:80px 0 0;}
-  .road-marquee .track{display:inline-flex;gap:36px;animation:scroll 22s linear infinite;}
-  .road-marquee span{font-family:var(--display);font-size:clamp(13px,3vw,22px);letter-spacing:-.01em;text-transform:uppercase;display:inline-flex;align-items:center;gap:36px;}
-  .road-marquee .star{color:var(--amber);}
+  .marquee{overflow:hidden;white-space:nowrap;border-block:1px solid var(--rule);padding:10px 0;background:var(--coal-2);}
+  .marquee.bold{background:var(--orange);color:var(--coal);border-color:var(--orange);}
+  .marquee.acid{background:var(--acid);color:var(--coal);border-color:var(--acid);}
+  .marquee .track{display:inline-flex;gap:42px;animation:scroll var(--marquee-dur) linear infinite;}
+  .marquee.fast .track{animation-duration:calc(var(--marquee-dur) * .58);}
+  .marquee.rev .track{animation-direction:reverse;}
+  .marquee .item{font-family:var(--display);font-size:clamp(14px,4vw,30px);letter-spacing:-.01em;display:inline-flex;align-items:center;gap:42px;text-transform:uppercase;}
+  .marquee .star{color:var(--amber);}
+  .marquee.bold .star,.marquee.acid .star{color:var(--coal);}
 
   @media (max-width:780px){
     body{font-size:15.5px;}
@@ -168,6 +173,7 @@
     .book-cta h3{font-size:32px;}
     .book-cta .btn{width:100%;justify-content:center;min-height:48px;text-align:center;}
     .topbar nav{display:none;}
+    .mobile-listen{display:inline-flex;}
   }
   @media (max-width:360px){
     .topbar,.hero,.shows-wrap,footer.foot{padding-left:14px;padding-right:14px;}
@@ -177,7 +183,7 @@
   }
 </style>
 </head>
-<body data-screen-label="On the Road">
+<body>
 
 <a href="#main-content" class="skip-link">Skip to content</a>
 
@@ -188,13 +194,13 @@
     <span>PHLOCALYST<span style="color:var(--orange);">★</span></span>
   </a>
   <nav aria-label="Main navigation">
-    <a href="index.html#deck">Listen</a>
     <a href="Music.html">Music</a>
     <a href="Shows.html" aria-current="page">Shows</a>
     <a href="About.html">About</a>
     <a href="Contact.html">Contact</a>
   </nav>
   <div class="right">
+    <a class="mobile-listen" href="https://open.spotify.com/artist/5xJ9q1lHwa8AShRof94oIt" target="_blank" rel="noopener">Spotify ↗</a>
     <a class="back" href="index.html">← BACK TO MAIN</a>
   </div>
 </header>
@@ -238,7 +244,6 @@
         <div class="status">Festival site ↗</div>
       </a></li>
     </ul>
-    <p class="source-note">Dates from artist tour-date announcement; links point to venue, event, or festival pages where dedicated ticket pages are unavailable.</p>
   </section>
 
   <section class="tour-section" aria-labelledby="past-shows">
@@ -256,10 +261,10 @@
     </ul>
   </section>
 
-  <div class="road-marquee" aria-hidden="true">
+  <div class="marquee" aria-hidden="true">
     <div class="track">
-      <span>LIVE TRUMPET <span class="star">●</span> DUSTY DRUMS <span class="star">●</span> KRAKÓW TO ZOTTEGEM <span class="star">●</span> BOOKING OPEN <span class="star">●</span></span>
-      <span>LIVE TRUMPET <span class="star">●</span> DUSTY DRUMS <span class="star">●</span> KRAKÓW TO ZOTTEGEM <span class="star">●</span> BOOKING OPEN <span class="star">●</span></span>
+      <span class="item">LIVE TRUMPET <span class="star">●</span> DUSTY DRUMS <span class="star">●</span> KRAKÓW TO ZOTTEGEM <span class="star">●</span> BOOKING OPEN <span class="star">●</span></span>
+      <span class="item">LIVE TRUMPET <span class="star">●</span> DUSTY DRUMS <span class="star">●</span> KRAKÓW TO ZOTTEGEM <span class="star">●</span> BOOKING OPEN <span class="star">●</span></span>
     </div>
   </div>
 
